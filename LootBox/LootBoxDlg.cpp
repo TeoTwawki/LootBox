@@ -349,15 +349,10 @@ void CLootBoxDlg::LoadGlobalMap(bool Update)
 	CharCount = (int)m_CharacterIDs.GetCount();
 	ProgressBarStep = CharCount * FileCount;
 
-#ifndef _DEBUG
 	// Init progress bar
 	m_ProgressDlg.Create(IDD_PROGRESS, this);
 	m_ProgressDlg.m_Progress.SetRange(0, ProgressBarStep);
 	m_ProgressDlg.m_Progress.SetStep(1);
-#else
-	//DumpGlobalMap();
-	//TRACE(_T("%d items\n"), GlobalMapCount());
-#endif // _DEBUG
 
 	for (int CharIndex = 0; CharIndex < CharCount; CharIndex++)
 	{
@@ -402,17 +397,12 @@ void CLootBoxDlg::LoadGlobalMap(bool Update)
 
 				pInvMap->SetAt(FileIndex, pItemMap);
 			}
-#ifndef _DEBUG
+
 			m_ProgressDlg.m_Progress.StepIt();
-#endif // _DEBUG
 		}
 	}
-#ifndef _DEBUG
+
 	m_ProgressDlg.DestroyWindow();
-#else
-	//DumpGlobalMap();
-	//TRACE(_T("%d items\n"), GlobalMapCount());
-#endif // _DEBUG
 }
 
 BOOL CLootBoxDlg::DefaultConfig()
@@ -464,7 +454,7 @@ BOOL CLootBoxDlg::DefaultConfig()
 			m_pIni->SetValue(INI_FILE_INVENTORY_SECTION, INI_FILE_MOG_SAFE_KEY, INI_FILE_MOG_SAFE_VALUE);
 
 		// check if the Storage key exits
-		pValue = m_pIni->GetValue(INI_FILE_INVENTORY_SECTION, INI_FILE_STORAGE_VALUE);
+		pValue = m_pIni->GetValue(INI_FILE_INVENTORY_SECTION, INI_FILE_STORAGE_KEY);
 		// create it if it doesn't
 		if (pValue == NULL)
 			m_pIni->SetValue(INI_FILE_INVENTORY_SECTION, INI_FILE_STORAGE_KEY, INI_FILE_STORAGE_VALUE);
@@ -476,13 +466,13 @@ BOOL CLootBoxDlg::DefaultConfig()
 			m_pIni->SetValue(INI_FILE_INVENTORY_SECTION, INI_FILE_MOG_LOCKER_KEY, INI_FILE_MOG_LOCKER_VALUE);
 
 		// check if the Mog Satchel key exits
-		pValue = m_pIni->GetValue(INI_FILE_INVENTORY_SECTION, INI_FILE_MOG_SATCHEL_VALUE);
+		pValue = m_pIni->GetValue(INI_FILE_INVENTORY_SECTION, INI_FILE_MOG_SATCHEL_KEY);
 		// create it if it doesn't
 		if (pValue == NULL)
 			m_pIni->SetValue(INI_FILE_INVENTORY_SECTION, INI_FILE_MOG_SATCHEL_KEY, INI_FILE_MOG_SATCHEL_VALUE);
 
 		// check if the Mog Sack key exits
-		pValue = m_pIni->GetValue(INI_FILE_INVENTORY_SECTION, INI_FILE_MOG_SACK_VALUE);
+		pValue = m_pIni->GetValue(INI_FILE_INVENTORY_SECTION, INI_FILE_MOG_SACK_KEY);
 		// create it if it doesn't
 		if (pValue == NULL)
 			m_pIni->SetValue(INI_FILE_INVENTORY_SECTION, INI_FILE_MOG_SACK_KEY, INI_FILE_MOG_SACK_VALUE);
