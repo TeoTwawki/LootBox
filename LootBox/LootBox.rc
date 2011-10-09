@@ -1,0 +1,283 @@
+// Microsoft Visual C++ generated resource script.
+//
+#include "resource.h"
+
+#define APSTUDIO_READONLY_SYMBOLS
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 2 resource.
+//
+#include "afxres.h"
+
+/////////////////////////////////////////////////////////////////////////////
+#undef APSTUDIO_READONLY_SYMBOLS
+
+/////////////////////////////////////////////////////////////////////////////
+// Neutral resources
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_NEU)
+#ifdef _WIN32
+LANGUAGE LANG_NEUTRAL, SUBLANG_NEUTRAL
+#pragma code_page(1252)
+#endif //_WIN32
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Dialog
+//
+
+IDD_SEARCH_DIALOG DIALOGEX 0, 0, 413, 207
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU
+CAPTION "Dialog"
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    CONTROL         "",IDC_LIST_JOBS,"SysListView32",LVS_LIST | LVS_SHOWSELALWAYS | LVS_NOLABELWRAP | LVS_ALIGNLEFT | LVS_NOCOLUMNHEADER | LVS_NOSORTHEADER | WS_BORDER | WS_TABSTOP,7,7,32,193
+    CONTROL         "",IDC_LIST_SLOTS,"SysListView32",LVS_LIST | LVS_SHOWSELALWAYS | LVS_NOLABELWRAP | LVS_ALIGNLEFT | LVS_NOCOLUMNHEADER | LVS_NOSORTHEADER | WS_BORDER | WS_TABSTOP,41,7,32,193
+    CONTROL         "",IDC_LIST_SKILLS,"SysListView32",LVS_LIST | LVS_SINGLESEL | LVS_SHOWSELALWAYS | LVS_NOLABELWRAP | LVS_ALIGNLEFT | LVS_NOCOLUMNHEADER | LVS_NOSORTHEADER | WS_BORDER | WS_TABSTOP,75,7,80,193
+    CONTROL         "",IDC_LIST_RACES,"SysListView32",LVS_LIST | LVS_SHOWSELALWAYS | LVS_NOLABELWRAP | LVS_ALIGNLEFT | LVS_NOCOLUMNHEADER | LVS_NOSORTHEADER | WS_BORDER | WS_TABSTOP,157,7,79,193
+    EDITTEXT        IDC_MIN_LEVEL,301,50,29,12,ES_AUTOHSCROLL
+    EDITTEXT        IDC_MAX_LEVEL,346,50,29,12,ES_AUTOHSCROLL
+    EDITTEXT        IDC_MIN_DMG,301,73,29,12,ES_AUTOHSCROLL
+    EDITTEXT        IDC_MAX_DMG,346,73,29,12,ES_AUTOHSCROLL
+    EDITTEXT        IDC_MIN_DEF,301,95,29,12,ES_AUTOHSCROLL
+    EDITTEXT        IDC_MAX_DEF,346,95,29,12,ES_AUTOHSCROLL
+    EDITTEXT        IDC_MIN_DELAY,301,116,29,12,ES_AUTOHSCROLL
+    EDITTEXT        IDC_MAX_DELAY,346,116,29,12,ES_AUTOHSCROLL
+    CONTROL         "Rare",IDC_CHECK_RARE,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,262,136,31,12
+    CONTROL         "Exclusive",IDC_CHECK_EX,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,262,156,41,12
+    DEFPUSHBUTTON   "OK",IDOK,267,178,50,14
+    PUSHBUTTON      "Cancel",IDCANCEL,324,178,50,14
+    LTEXT           "Search:",IDC_STATIC_SEARCH,254,15,24,9
+    LTEXT           "Level",IDC_STATIC_LEVEL,262,52,36,9
+    CTEXT           "-",IDC_STATIC_SEP,334,52,8,8
+    LTEXT           "Damage",IDC_STATIC_DMG,262,75,36,9
+    CTEXT           "-",IDC_STATIC_SEP2,334,75,8,8
+    LTEXT           "Defense",IDC_STATIC_DEF,262,96,36,9
+    CTEXT           "-",IDC_STATIC_SEP3,334,96,8,8
+    LTEXT           "Delay",IDC_STATIC_DELAY,262,118,36,9
+    CTEXT           "-",IDC_STATIC_SEP4,334,118,8,8
+    EDITTEXT        IDC_SEARCH_TERM,252,26,148,12,ES_AUTOHSCROLL
+END
+
+IDD_LOOTBOX_DIALOG DIALOGEX 0, 0, 600, 400
+STYLE DS_SETFONT | DS_FIXEDSYS | DS_CENTER | WS_MINIMIZEBOX | WS_MAXIMIZEBOX | WS_VISIBLE | WS_CAPTION | WS_SYSMENU | WS_THICKFRAME
+EXSTYLE WS_EX_APPWINDOW
+CAPTION "LootBox"
+FONT 8, "MS Shell Dlg", 400, 0, 0x0
+BEGIN
+    CONTROL         "",IDC_STATUS_BAR,"Static",WS_GROUP | 0x20,7,366,470,8
+    CONTROL         "Characters",IDC_CHARACTERS_LABEL,"Static",WS_GROUP | 0x20,7,2,98,8
+    CONTROL         "",IDC_INVENTORY_TABS,"SysTabControl32",0x0,108,2,459,363,WS_EX_TRANSPARENT
+    CONTROL         "",IDC_CHAR_LIST,"SysListView32",LVS_SMALLICON | LVS_SINGLESEL | LVS_SHOWSELALWAYS | LVS_SORTASCENDING | LVS_EDITLABELS | LVS_ALIGNLEFT | LVS_NOCOLUMNHEADER | WS_BORDER | WS_TABSTOP,7,12,98,353
+    CONTROL         "",IDC_INVENTORY_LIST,"SysListView32",LVS_REPORT | LVS_SINGLESEL | LVS_SHOWSELALWAYS | LVS_SHAREIMAGELISTS | LVS_ALIGNLEFT | WS_TABSTOP,109,15,456,348
+    RTEXT           "",IDC_ITEM_COUNT,478,366,89,8
+END
+
+IDD_REGION_SELECT DIALOGEX 0, 0, 186, 62
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Dialog"
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    DEFPUSHBUTTON   "OK",IDOK,33,41,50,14
+    PUSHBUTTON      "Cancel",IDCANCEL,102,41,50,14
+    LTEXT           "Final Fantasy XI region:",IDC_REGION_LABEL,7,7,172,8
+    COMBOBOX        IDC_REGION_COMBO,19,21,146,51,CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
+END
+
+IDD_PROGRESS DIALOGEX 0, 0, 332, 30
+STYLE DS_SETFONT | DS_MODALFRAME | DS_CENTER | WS_POPUP | WS_VISIBLE
+EXSTYLE WS_EX_WINDOWEDGE
+FONT 8, "MS Sans Serif", 0, 0, 0x0
+BEGIN
+    CONTROL         "",IDC_PROGRESS,"msctls_progress32",0x1,7,7,318,16
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// DESIGNINFO
+//
+
+#ifdef APSTUDIO_INVOKED
+GUIDELINES DESIGNINFO 
+BEGIN
+    IDD_SEARCH_DIALOG, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 406
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 200
+    END
+END
+#endif    // APSTUDIO_INVOKED
+
+
+#ifdef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// TEXTINCLUDE
+//
+
+1 TEXTINCLUDE 
+BEGIN
+    "resource.h\0"
+END
+
+2 TEXTINCLUDE 
+BEGIN
+    "#include ""afxres.h""\r\n"
+    "\0"
+END
+
+3 TEXTINCLUDE 
+BEGIN
+    "#define _AFX_NO_SPLITTER_RESOURCES\r\n"
+    "#define _AFX_NO_OLE_RESOURCES\r\n"
+    "#define _AFX_NO_TRACKER_RESOURCES\r\n"
+    "#define _AFX_NO_PROPERTY_RESOURCES\r\n"
+    "\r\n"
+    "#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_FRA)\r\n"
+    "LANGUAGE 12, 1\r\n"
+    "#pragma code_page(1252)\r\n"
+    "#include ""res\\LootBox.rc2""  // non-Microsoft Visual C++ edited resources\r\n"
+    "#include ""afxres.rc""     // Standard components\r\n"
+    "#endif\r\n"
+    "\0"
+END
+
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Version
+//
+
+VS_VERSION_INFO VERSIONINFO
+ FILEVERSION 1,0,0,0
+ PRODUCTVERSION 1,0,0,0
+ FILEFLAGSMASK 0x3fL
+#ifdef _DEBUG
+ FILEFLAGS 0x1L
+#else
+ FILEFLAGS 0x0L
+#endif
+ FILEOS 0x4L
+ FILETYPE 0x1L
+ FILESUBTYPE 0x0L
+BEGIN
+    BLOCK "StringFileInfo"
+    BEGIN
+        BLOCK "040904e4"
+        BEGIN
+            VALUE "FileDescription", "Loot Box"
+            VALUE "FileVersion", "1.0.0.0"
+            VALUE "InternalName", "LootBox.exe"
+            VALUE "OriginalFilename", "LootBox.exe"
+            VALUE "ProductName", "Loot Box"
+            VALUE "ProductVersion", "1.0.0.0"
+        END
+    END
+    BLOCK "VarFileInfo"
+    BEGIN
+        VALUE "Translation", 0x409, 1252
+    END
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Icon
+//
+
+// Icon with lowest ID value placed first to ensure application icon
+// remains consistent on all systems.
+IDR_MAINFRAME           ICON                    "res\\lootbox16alpha.ico"
+IDI_PLAYONLINE          ICON                    "res\\pol16alpha.ico"
+IDI_LOOTBOX             ICON                    "res\\safe16alpha.ico"
+IDI_SEARCH              ICON                    "res\\search32alpha.ico"
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Menu
+//
+
+IDR_MAIN_MENU MENU 
+BEGIN
+    POPUP "File"
+    BEGIN
+        MENUITEM "Search\tCtrl+F",              ID_FILE_SEARCH
+    END
+    POPUP "Config"
+    BEGIN
+        POPUP "Language"
+        BEGIN
+            MENUITEM "Japanese",                    ID_LANGUAGE_JAPANASE
+            MENUITEM "English",                     ID_LANGUAGE_ENGLISH
+            MENUITEM "French",                      ID_LANGUAGE_FRENCH
+            MENUITEM "German",                      ID_LANGUAGE_GERMAN
+        END
+    END
+    POPUP "View"
+    BEGIN
+        MENUITEM "Compact Listing",             ID_VIEW_COMPACTLISTING
+    END
+END
+
+IDR_POP_INVTAB MENU 
+BEGIN
+    POPUP "Pop"
+    BEGIN
+        MENUITEM "&Refresh",                    ID_POP_REFRESH
+        MENUITEM "&Close",                      ID_REFRESH_CLOSE
+    END
+END
+
+#endif    // Neutral resources
+/////////////////////////////////////////////////////////////////////////////
+
+
+/////////////////////////////////////////////////////////////////////////////
+// French (France) resources
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_FRA)
+#ifdef _WIN32
+LANGUAGE LANG_FRENCH, SUBLANG_FRENCH
+#pragma code_page(1252)
+#endif //_WIN32
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Accelerator
+//
+
+IDR_ACCELERATOR_SEARCH ACCELERATORS 
+BEGIN
+    "F",            ID_FILE_SEARCH,         VIRTKEY, CONTROL, NOINVERT
+END
+
+#endif    // French (France) resources
+/////////////////////////////////////////////////////////////////////////////
+
+
+
+#ifndef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 3 resource.
+//
+#define _AFX_NO_SPLITTER_RESOURCES
+#define _AFX_NO_OLE_RESOURCES
+#define _AFX_NO_TRACKER_RESOURCES
+#define _AFX_NO_PROPERTY_RESOURCES
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_FRA)
+LANGUAGE 12, 1
+#pragma code_page(1252)
+#include "res\LootBox.rc2"  // non-Microsoft Visual C++ edited resources
+#include "afxres.rc"     // Standard components
+#endif
+
+/////////////////////////////////////////////////////////////////////////////
+#endif    // not APSTUDIO_INVOKED
+
