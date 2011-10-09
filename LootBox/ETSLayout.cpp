@@ -142,10 +142,6 @@
 // 2000/08/03   Removed the need for DECLARE_LAYOUT
 //
 // Version: 1.2 [2000/08/05]
-
-#define OEMRESOURCE
-#include	<windows.h>
-
 #include "stdafx.h"
 #include "ETSLayout.h"
 
