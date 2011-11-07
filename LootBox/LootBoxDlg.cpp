@@ -160,7 +160,6 @@ BOOL CLootBoxDlg::InitDialog()
 				pPathBuffer = m_FFXiInstallPath.GetBuffer(MAX_PATH);
 				SHGetPathFromIDList(pSelectedPIDL, pPathBuffer);
 				m_FFXiInstallPath.ReleaseBuffer();
-				m_FFXiInstallPath += _T("\\");
 			}
 		}
 
@@ -174,6 +173,8 @@ BOOL CLootBoxDlg::InitDialog()
 			int ImageIndex = 0;
 			CFileFind Finder;
 			UINT ItemIndex;
+
+			m_FFXiInstallPath.TrimRight('\\');
 
 			m_pIconList = new CImageList();
 
@@ -195,7 +196,7 @@ BOOL CLootBoxDlg::InitDialog()
 			MoveWindow(X, Y, Width, Height);
 
 			// search string to enumerate the user IDs
-			UserDataPath.Format(_T("%s%s\\*.*"), m_FFXiInstallPath, FFXI_PATH_USER_DATA);
+			UserDataPath.Format(_T("%s\\%s\\*.*"), m_FFXiInstallPath, FFXI_PATH_USER_DATA);
 
 			// add the PlayOnline icon to the image list
 			if (m_pIconList->Create(16, 16, ILC_COLOR32 | ILC_MASK, 4, 1))
@@ -383,7 +384,7 @@ void CLootBoxDlg::LoadGlobalMap(bool Update)
 
 				pChar = m_CharacterIDs.GetAt(CharIndex);
 				pFile = m_InventoryFiles.GetAt(FileIndex);
-				InvFile.Format(_T("%sUSER\\%s\\%s"), m_FFXiInstallPath, pChar, pFile);
+				InvFile.Format(_T("%s\\USER\\%s\\%s"), m_FFXiInstallPath, pChar, pFile);
 
 				pChar = m_CharacterNames.GetAt(CharIndex);
 				pFile = m_InventoryNames.GetAt(FileIndex);
@@ -1182,9 +1183,9 @@ void CLootBoxDlg::UpdateStatus()
 
 		if (IsInventoryTab())
 		{
-			m_CurrentFile.Format(_T("%sUSER\\%s\\%s"), m_FFXiInstallPath,
-													   m_CharacterIDs.GetAt(m_SelectedChar),
-													   m_InventoryFiles.GetAt(m_SelectedTab));
+			m_CurrentFile.Format(_T("%s\\USER\\%s\\%s"), m_FFXiInstallPath,
+								 m_CharacterIDs.GetAt(m_SelectedChar),
+								 m_InventoryFiles.GetAt(m_SelectedTab));
 		}
 		else
 		{

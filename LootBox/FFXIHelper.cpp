@@ -556,28 +556,28 @@ void FFXiHelper::GetFileFromItemID(DWORD &ItemID, CString &DATFile, int Language
 					if (bRelative)
 						DATFile = _T("ROM\\0\\4.DAT");
 					else
-						DATFile.Format(_T("%sROM\\0\\4.DAT"), m_InstallFolder);
+						DATFile.Format(_T("%s\\ROM\\0\\4.DAT"), m_InstallFolder);
 				break;
 				case FFXI_LANG_US:
 					// file #00073 (ROM/118/106.DAT) => EN Objects
 					if (bRelative)
 						DATFile = _T("ROM\\118\\106.DAT");
 					else
-						DATFile.Format(_T("%sROM\\118\\106.DAT"), m_InstallFolder);
+						DATFile.Format(_T("%s\\ROM\\118\\106.DAT"), m_InstallFolder);
 				break;
 				case FFXI_LANG_FR:
 					// file #56235 (ROM/178/40.DAT ) => FR Objects
 					if (bRelative)
 						DATFile = _T("ROM\\178\\40.DAT");
 					else
-						DATFile.Format(_T("%sROM\\178\\40.DAT"), m_InstallFolder);
+						DATFile.Format(_T("%s\\ROM\\178\\40.DAT"), m_InstallFolder);
 				break;
 				// file #55815 (ROM/176/101.DAT) => DE Objects
 				case FFXI_LANG_DE:
 					if (bRelative)
 						DATFile = _T("ROM\\176\\101.DAT");
 					else
-						DATFile.Format(_T("%sROM\\176\\101.DAT"), m_InstallFolder);
+						DATFile.Format(_T("%s\\ROM\\176\\101.DAT"), m_InstallFolder);
 				break;
 			}
 		}
@@ -594,28 +594,28 @@ void FFXiHelper::GetFileFromItemID(DWORD &ItemID, CString &DATFile, int Language
 					if (bRelative)
 						DATFile = _T("ROM\\0\\5.DAT");
 					else
-						DATFile.Format(_T("%sROM\\0\\5.DAT"), m_InstallFolder);
+						DATFile.Format(_T("%s\\ROM\\0\\5.DAT"), m_InstallFolder);
 				break;
 				case FFXI_LANG_US:
 					// file #00074 (ROM/118/107.DAT) => EN Usable Items
 					if (bRelative)
 						DATFile = _T("ROM\\118\\107.DAT");
 					else
-						DATFile.Format(_T("%sROM\\118\\107.DAT"), m_InstallFolder);
+						DATFile.Format(_T("%s\\ROM\\118\\107.DAT"), m_InstallFolder);
 				break;
 				case FFXI_LANG_FR:
 					// file #56236 (ROM/178/41.DAT ) => FR Usable Items
 					if (bRelative)
 						DATFile = _T("ROM\\178\\41.DAT");
 					else
-						DATFile.Format(_T("%sROM\\178\\41.DAT"), m_InstallFolder);
+						DATFile.Format(_T("%s\\ROM\\178\\41.DAT"), m_InstallFolder);
 				break;
 				case FFXI_LANG_DE:
 					// file #55816 (ROM/176/102.DAT) => DE Usable Items
 					if (bRelative)
 						DATFile = _T("ROM\\176\\102.DAT");
 					else
-						DATFile.Format(_T("%sROM\\176\\102.DAT"), m_InstallFolder);
+						DATFile.Format(_T("%s\\ROM\\176\\102.DAT"), m_InstallFolder);
 				break;
 			}
 		}
@@ -632,28 +632,28 @@ void FFXiHelper::GetFileFromItemID(DWORD &ItemID, CString &DATFile, int Language
 					if (bRelative)
 						DATFile = _T("ROM\\0\\8.DAT");
 					else
-						DATFile.Format(_T("%sROM\\0\\8.DAT"), m_InstallFolder);
+						DATFile.Format(_T("%s\\ROM\\0\\8.DAT"), m_InstallFolder);
 				break;
 				case FFXI_LANG_US:
 					// file #00077 (ROM/118/110.DAT) => EN Puppet Items
 					if (bRelative)
 						DATFile = _T("ROM\\118\\110.DAT");
 					else
-						DATFile.Format(_T("%sROM\\118\\110.DAT"), m_InstallFolder);
+						DATFile.Format(_T("%s\\ROM\\118\\110.DAT"), m_InstallFolder);
 				break;
 				case FFXI_LANG_FR:
 					// file #56239 (ROM/178/44.DAT ) => FR Puppet Items 
 					if (bRelative)
 						DATFile = _T("ROM\\178\\44.DAT");
 					else
-						DATFile.Format(_T("%sROM\\178\\44.DAT"), m_InstallFolder);
+						DATFile.Format(_T("%s\\ROM\\178\\44.DAT"), m_InstallFolder);
 				break;
 				case FFXI_LANG_DE:
 					// file #55819 (ROM/176/115.DAT) => DE Puppet Items
 					if (bRelative)
 						DATFile = _T("ROM\\176\\115.DAT");
 					else
-						DATFile.Format(_T("%sROM\\176\\115.DAT"), m_InstallFolder);
+						DATFile.Format(_T("%s\\ROM\\176\\115.DAT"), m_InstallFolder);
 				break;
 			}
 		}
@@ -670,28 +670,28 @@ void FFXiHelper::GetFileFromItemID(DWORD &ItemID, CString &DATFile, int Language
 					if (bRelative)
 						DATFile = _T("ROM\\0\\7.DAT");
 					else
-						DATFile.Format(_T("%sROM\\0\\7.DAT"), m_InstallFolder);
+						DATFile.Format(_T("%s\\ROM\\0\\7.DAT"), m_InstallFolder);
 				break;
 				case FFXI_LANG_US:
 					// file #00076 (ROM/118/109.DAT) => EN Armor
 					if (bRelative)
 						DATFile = _T("ROM\\118\\109.DAT");
 					else
-						DATFile.Format(_T("%sROM\\118\\109.DAT"), m_InstallFolder);
+						DATFile.Format(_T("%s\\ROM\\118\\109.DAT"), m_InstallFolder);
 				break;
 				case FFXI_LANG_FR:
 					// file #56238 (ROM/178/43.DAT ) => FR Armor
 					if (bRelative)
 						DATFile = _T("ROM\\178\\43.DAT");
 					else
-						DATFile.Format(_T("%sROM\\178\\43.DAT"), m_InstallFolder);
+						DATFile.Format(_T("%s\\ROM\\178\\43.DAT"), m_InstallFolder);
 				break;
 				case FFXI_LANG_DE:
 					// file #55818 (ROM/176/104.DAT) => DE Armor
 					if (bRelative)
 						DATFile = _T("ROM\\176\\104.DAT");
 					else
-						DATFile.Format(_T("%sROM\\176\\104.DAT"), m_InstallFolder);
+						DATFile.Format(_T("%s\\ROM\\176\\104.DAT"), m_InstallFolder);
 				break;
 			}
 		}
@@ -708,28 +708,28 @@ void FFXiHelper::GetFileFromItemID(DWORD &ItemID, CString &DATFile, int Language
 					if (bRelative)
 						DATFile = _T("ROM\\0\\6.DAT");
 					else
-						DATFile.Format(_T("%sROM\\0\\6.DAT"), m_InstallFolder);
+						DATFile.Format(_T("%s\\ROM\\0\\6.DAT"), m_InstallFolder);
 				break;
 				case FFXI_LANG_US:
 					// file #00075 (ROM/118/108.DAT) => EN Weapons
 					if (bRelative)
 						DATFile = _T("ROM\\118\\108.DAT");
 					else
-						DATFile.Format(_T("%sROM\\118\\108.DAT"), m_InstallFolder);
+						DATFile.Format(_T("%s\\ROM\\118\\108.DAT"), m_InstallFolder);
 				break;
 				case FFXI_LANG_FR:
 					// file #56237 (ROM/178/42.DAT ) => FR Weapons
 					if (bRelative)
 						DATFile = _T("ROM\\178\\42.DAT");
 					else
-						DATFile.Format(_T("%sROM\\178\\42.DAT"), m_InstallFolder);
+						DATFile.Format(_T("%s\\ROM\\178\\42.DAT"), m_InstallFolder);
 				break;
 				case FFXI_LANG_DE:
 					// file #55817 (ROM/176/103.DAT) => DE Weapons
 					if (bRelative)
 						DATFile = _T("ROM\\176\\103.DAT");
 					else
-						DATFile.Format(_T("%sROM\\176\\103.DAT"), m_InstallFolder);
+						DATFile.Format(_T("%s\\ROM\\176\\103.DAT"), m_InstallFolder);
 				break;
 			}
 		}
