@@ -240,6 +240,13 @@ bool FFXiHelper::ReadItem(BYTE *pItemData, InventoryItem *pItem, int Language, b
 					pItem->LogName2, pItem->ItemDescription, NoConversion);
 		GetIconInfo(pIconPos, pItem->IconInfo);
 
+#ifdef _DEBUG
+		CString DebugName;
+		
+		DebugName.Format(_T("[%08ld] %s"), pItem->ItemHdr.ItemID, pItem->ItemName);
+		pItem->ItemName = DebugName;
+#endif // _DEBUG
+
 		if (pItem->Slot == _T("Scroll"))
 			GetScrollInfoFromDesc(pItem->ItemDescription, pItem->Jobs);
 		if (pItem->ItemHdr.Type == ITEM_OBJECT_TYPE_ARMOR)
@@ -279,9 +286,9 @@ bool FFXiHelper::ParseInventoryFile(const TCHAR* pFile, const ItemLocationInfo &
 
 			if (DataRead != NULL)
 			{
-				DWORD ItemID, InvItemID;
 				LONG DataOffset;
 				CString DATFile;
+				DWORD ItemID;
 
 				pItemData = (BYTE*)malloc(DATA_SIZE_ITEM + 1);
 				SecureZeroMemory(pItemData, DATA_SIZE_ITEM+1);
@@ -290,9 +297,9 @@ bool FFXiHelper::ParseInventoryFile(const TCHAR* pFile, const ItemLocationInfo &
 				{
 					InventoryItem *pItem = NULL;
 
-					InvItemID = ItemID = *pPos;
+					ItemID = *pPos;
 
-					if (ItemID > 0 && ItemID <= 0x6FFF)
+					if (ItemID != -1 && ItemID > 0 && ItemID <= 0x6FFF)
 					{
 						GetItemFromID(ItemID, pMap, &pItem);
 
@@ -543,10 +550,10 @@ void FFXiHelper::GetFileFromItemID(DWORD &ItemID, CString &DATFile, int Language
 {
 	DATFile = _T("");
 
-	if (ItemID > 0)
+	if (ItemID != -1 && ItemID > 0)
 	{
 		// 0000 - 0FFF  Objects 
-		if (ItemID < 0x0FFF)
+		if (ItemID <= 0x0FFF)
 		{
 			switch(Language)
 			{
@@ -582,7 +589,7 @@ void FFXiHelper::GetFileFromItemID(DWORD &ItemID, CString &DATFile, int Language
 			}
 		}
 		// 1000 - 1FFF  Usable Item 
-		else if (ItemID < 0x1FFF)
+		else if (ItemID <= 0x1FFF)
 		{
 			ItemID -= 0x1000;
 
@@ -620,7 +627,7 @@ void FFXiHelper::GetFileFromItemID(DWORD &ItemID, CString &DATFile, int Language
 			}
 		}
 		// 2000 - 27FF  Puppet Item 
-		else if (ItemID < 0x27FF)
+		else if (ItemID <= 0x27FF)
 		{
 			ItemID -= 0x2000;
 			
@@ -658,7 +665,7 @@ void FFXiHelper::GetFileFromItemID(DWORD &ItemID, CString &DATFile, int Language
 			}
 		}
 		// 2800 - 3FFF  Armor 
-		else if (ItemID < 0x3FFF)
+		else if (ItemID <= 0x3FFF)
 		{
 			ItemID -= 0x2800;
 			
@@ -696,7 +703,7 @@ void FFXiHelper::GetFileFromItemID(DWORD &ItemID, CString &DATFile, int Language
 			}
 		}
 		// 4000 - 6FFF  Weapons 
-		else if (ItemID < 0x6FFF)
+		else if (ItemID <= 0x6FFF)
 		{
 			ItemID -= 0x4000;
 			
