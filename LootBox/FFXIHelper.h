@@ -532,7 +532,7 @@ enum FFXI_LANG
 	|_ ...
 	|_ <file_n.dat>
 */
-typedef CArray<InventoryItem*> ItemArray;
+typedef CMap<int, int, InventoryItem*, InventoryItem*> ItemArray;
 typedef CMap<int, int, ItemArray*, ItemArray*> InventoryMap;
 typedef CMap<int, int, InventoryMap*, InventoryMap*> CharacterMap;
 

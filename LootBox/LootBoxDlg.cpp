@@ -19,13 +19,11 @@ using namespace ETSLayout;
 #include "SearchDialog.h"
 #include "LootBoxDlg.h"
 #include "RegionSelect.h"
+#include "ExportDlg.h"
+
+#include "CsvWriter.h"
 
 #include <shlobj.h>
-
-#ifdef _DEBUG
-	#define new DEBUG_NEW
-	//#include "vld.h"
-#endif
 
 #ifdef GDIPLUS_IMAGE_RESIZING
 	int GetEncoderClsid(const WCHAR* format, CLSID* pClsid);
@@ -37,12 +35,9 @@ BEGIN_MESSAGE_MAP(CLootBoxDlg, ETSLayoutDialog)
 	ON_WM_QUERYDRAGICON()
 	
 	ON_MESSAGE(MSG_SEARCH_CLOSE, OnSearchClose)
-	ON_UPDATE_COMMAND_UI(ID_LANGUAGE_JAPANASE, OnMenuChange)
-	ON_UPDATE_COMMAND_UI(ID_LANGUAGE_ENGLISH, OnMenuChange)
-	ON_UPDATE_COMMAND_UI(ID_LANGUAGE_FRENCH, OnMenuChange)
-	ON_UPDATE_COMMAND_UI(ID_LANGUAGE_GERMAN, OnMenuChange)
-	ON_UPDATE_COMMAND_UI(ID_VIEW_COMPACTLISTING, OnMenuChange)
-	ON_UPDATE_COMMAND_UI(ID_FILE_SEARCH, OnSearch)
+	ON_COMMAND_RANGE(ID_LANGUAGE_JAPANESE, ID_VIEW_COMPACTLISTING, OnOptionsChange)
+	ON_COMMAND(ID_FILE_EXPORT, OnExport)
+	ON_COMMAND(ID_FILE_SEARCH, OnSearch)
 	ON_NOTIFY(HDN_ITEMCLICK, IDC_CHAR_LIST, &CLootBoxDlg::OnListItemClick)
 	ON_NOTIFY(LVN_ENDLABELEDIT, IDC_CHAR_LIST, &CLootBoxDlg::OnEndItemEdit)
 	ON_NOTIFY(LVN_KEYDOWN, IDC_CHAR_LIST, &CLootBoxDlg::OnKeyDownListItem)
@@ -428,6 +423,61 @@ BOOL CLootBoxDlg::DefaultConfig()
 
 	if (m_pIni->LoadFile(INI_FILE_FILENAME) >= 0)
 	{
+		////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+		// check if the Export section exits
+		pSectionData = m_pIni->GetSection(INI_FILE_EXPORT_SECTION);
+		// create it if it doesn't
+		if (pSectionData == NULL)
+			m_pIni->SetValue(INI_FILE_EXPORT_SECTION, NULL, NULL);
+
+		// check if the Name key exits
+		pValue = m_pIni->GetValue(INI_FILE_EXPORT_SECTION, INI_FILE_COL_NAME_KEY);
+		// create it if it doesn't
+		if (pValue == NULL)
+			m_pIni->SetLongValue(INI_FILE_EXPORT_SECTION, INI_FILE_COL_NAME_KEY, 1L);
+
+		// check if the Attribute key exits
+		pValue = m_pIni->GetValue(INI_FILE_EXPORT_SECTION, INI_FILE_COL_ATTR_KEY);
+		// create it if it doesn't
+		if (pValue == NULL)
+			m_pIni->SetLongValue(INI_FILE_EXPORT_SECTION, INI_FILE_COL_ATTR_KEY, 1L);
+
+		// check if the Description key exits
+		pValue = m_pIni->GetValue(INI_FILE_EXPORT_SECTION, INI_FILE_COL_DESC_KEY);
+		// create it if it doesn't
+		if (pValue == NULL)
+			m_pIni->SetLongValue(INI_FILE_EXPORT_SECTION, INI_FILE_COL_DESC_KEY, 1L);
+
+		// check if the Type key exits
+		pValue = m_pIni->GetValue(INI_FILE_EXPORT_SECTION, INI_FILE_COL_TYPE_KEY);
+		// create it if it doesn't
+		if (pValue == NULL)
+			m_pIni->SetLongValue(INI_FILE_EXPORT_SECTION, INI_FILE_COL_TYPE_KEY, 1L);
+
+		// check if the Races key exits
+		pValue = m_pIni->GetValue(INI_FILE_EXPORT_SECTION, INI_FILE_COL_RACES_KEY);
+		// create it if it doesn't
+		if (pValue == NULL)
+			m_pIni->SetLongValue(INI_FILE_EXPORT_SECTION, INI_FILE_COL_RACES_KEY, 1L);
+
+		// check if the Level key exits
+		pValue = m_pIni->GetValue(INI_FILE_EXPORT_SECTION, INI_FILE_COL_LEVEL_KEY);
+		// create it if it doesn't
+		if (pValue == NULL)
+			m_pIni->SetLongValue(INI_FILE_EXPORT_SECTION, INI_FILE_COL_LEVEL_KEY, 1L);
+
+		// check if the Jobs key exits
+		pValue = m_pIni->GetValue(INI_FILE_EXPORT_SECTION, INI_FILE_COL_JOBS_KEY);
+		// create it if it doesn't
+		if (pValue == NULL)
+			m_pIni->SetLongValue(INI_FILE_EXPORT_SECTION, INI_FILE_COL_JOBS_KEY, 1L);
+
+		// check if the Remarks key exits
+		pValue = m_pIni->GetValue(INI_FILE_EXPORT_SECTION, INI_FILE_COL_REMARKS_KEY);
+		// create it if it doesn't
+		if (pValue == NULL)
+			m_pIni->SetLongValue(INI_FILE_EXPORT_SECTION, INI_FILE_COL_REMARKS_KEY, 1L);
+
 		////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 		// check if the Characters section exits
 		pSectionData = m_pIni->GetSection(INI_FILE_CHARACTERS_SECTION);
@@ -872,8 +922,8 @@ int CLootBoxDlg::GlobalMapCount()
 
 void CLootBoxDlg::DeleteGlobalMap()
 {
-	int CharID, FileID, ItemCount = 0;
-	POSITION GlobalPos, InvPos;
+	POSITION GlobalPos, InvPos, ItemPos;
+	int CharID, FileID, ItemID;
 	CString InvKey, CharKey;
 	InventoryMap *pInvMap;
 	InventoryItem *pItem;
@@ -897,11 +947,11 @@ void CLootBoxDlg::DeleteGlobalMap()
 
 				if (pItemArr != NULL)
 				{
-					ItemCount = (int)pItemArr->GetCount();
+					ItemPos = pItemArr->GetStartPosition();
 
-					for (int i = 0; i < ItemCount; i++)
+					while(ItemPos != NULL)
 					{
-						pItem = pItemArr->GetAt(i);
+						pItemArr->GetNextAssoc(ItemPos, ItemID, pItem);
 
 						if (pItem != NULL)
 						{
@@ -1272,10 +1322,11 @@ ItemArray* CLootBoxDlg::GetItemMap(int SelectedCharIndex, int SelectedTabIndex)
 BOOL CLootBoxDlg::RefreshList(const ItemArray *pItemList)
 {
 	FFXiItemList* pList = (FFXiItemList*)GetDlgItem(IDC_INVENTORY_LIST);
-	int ImageIndex = 0, ItemIndex = 0, ImageCount, ItemCount;
+	int ImageIndex = 0, ItemIndex = 0, ImageCount;
 	CString ItemCountStr;
 	CBitmap Bitmap;
 	CFile InvFile;
+	int ItemID;
 
 	if (pList)
 	{
@@ -1283,17 +1334,18 @@ BOOL CLootBoxDlg::RefreshList(const ItemArray *pItemList)
 		pList->BlockRedraw();
 
 		ImageCount = m_pItemIconList->GetImageCount();
+		m_ItemsCount = 0;
 
 		if (pItemList != NULL)
 		{
 			InventoryItem *pItem;
+			POSITION ItemPos;
+	
+			ItemPos = pItemList->GetStartPosition();
 
-			ItemCount = (int)pItemList->GetCount();
-			m_ItemsCount = 0;
-
-			for (int i = 0; i < ItemCount; i++)
+			while (ItemPos != NULL)
 			{
-				pItem = pItemList->GetAt(i);
+				pItemList->GetNextAssoc(ItemPos, ItemID, pItem);
 
 				if (pItem != NULL)
 				{
@@ -1334,6 +1386,8 @@ BOOL CLootBoxDlg::RefreshList(const ItemArray *pItemList)
 							pList->AddItem(pItem, ItemIndex);
 					}
 				}
+
+				++ItemIndex;
 			}
 		}
 
@@ -1387,19 +1441,144 @@ void CLootBoxDlg::SetCompactListMenu(LONG CompactList)
 	}
 }
 
-afx_msg void CLootBoxDlg::OnSearch(CCmdUI* pCmdUI)
+afx_msg void CLootBoxDlg::OnSearch()
 {
-	if (pCmdUI->m_nID == ID_FILE_SEARCH)
+	if (m_pSearchDlg == NULL)
+		m_pSearchDlg = new SearchDialog(m_pHelper, this);
+
+	if (m_pSearchDlg->m_hWnd == NULL)
+		m_pSearchDlg->Create(IDD_SEARCH_DIALOG, this);
+	else
+		m_pSearchDlg->ShowWindow(SW_SHOW);
+
+	m_pSearchDlg->CenterWindow();
+}
+
+afx_msg void CLootBoxDlg::OnExport()
+{
+	ExportDialog Dialog(m_pHelper, m_CharacterIDs, m_pIni, this);
+	
+	if (Dialog.DoModal() == IDOK)
 	{
-		if (m_pSearchDlg == NULL)
-			m_pSearchDlg = new SearchDialog(m_pHelper, this);
+		int ExportChars = Dialog.GetExportedCharsCount();
+		int ColumnCount = Dialog.GetColumnCount() + 2;
+		DWORD_PTR BitMask = Dialog.GetBitMask();
 
-		if (m_pSearchDlg->m_hWnd == NULL)
-			m_pSearchDlg->Create(IDD_SEARCH_DIALOG, this);
+		if (ColumnCount > 0 && ExportChars > 0 && BitMask != 0UL)
+		{
+			CFileDialog SaveDialog(FALSE, _T("*.csv"), _T("export.csv"),
+								   OFN_OVERWRITEPROMPT | OFN_HIDEREADONLY | OFN_NOCHANGEDIR 
+								   | OFN_PATHMUSTEXIST | OFN_ENABLESIZING,
+								   _T("(*.csv) Excel 2000/XP||"), this);
+
+			if (SaveDialog.DoModal() == IDOK)
+			{
+				const CArray<bool, bool> &ExportedChars = Dialog.GetExportedChars();
+				int FileCount = m_InventoryFiles.GetCount();
+				int CharCount = m_CharacterIDs.GetCount();		
+
+				CsvWriter<CFile> Exporter;
+				InventoryMap *pInvMap;
+				InventoryItem *pItem;
+				ItemArray *pItemMap;
+				CString Filename;
+				POSITION ItemPos;
+				int ItemID;
+
+				LoadGlobalMap();
+
+				Filename = SaveDialog.GetPathName();
+				Exporter.CreateFile(Filename, ColumnCount);
+
+				Exporter.AddColumn(_T("Character"))
+						.AddColumn(_T("Location"));
+
+				if ((BitMask & EXPORT_NAME) == EXPORT_NAME)
+					Exporter.AddColumn(INI_FILE_COL_NAME_KEY);
+
+				if ((BitMask & EXPORT_ATTR) == EXPORT_ATTR)
+					Exporter.AddColumn(INI_FILE_COL_ATTR_KEY);
+
+				if ((BitMask & EXPORT_DESC) == EXPORT_DESC)
+					Exporter.AddColumn(INI_FILE_COL_DESC_KEY);
+
+				if ((BitMask & EXPORT_TYPE) == EXPORT_TYPE)
+					Exporter.AddColumn(INI_FILE_COL_TYPE_KEY);
+
+				if ((BitMask & EXPORT_RACES) == EXPORT_RACES)
+					Exporter.AddColumn(INI_FILE_COL_RACES_KEY);
+
+				if ((BitMask & EXPORT_LEVEL) == EXPORT_LEVEL)
+					Exporter.AddColumn(INI_FILE_COL_LEVEL_KEY);
+
+				if ((BitMask & EXPORT_JOBS) == EXPORT_JOBS)
+					Exporter.AddColumn(INI_FILE_COL_JOBS_KEY);
+
+				if ((BitMask & EXPORT_RMKS) == EXPORT_RMKS)
+					Exporter.AddColumn(INI_FILE_COL_REMARKS_KEY);
+
+				for (int CharIndex = 0; CharIndex < CharCount; ++CharIndex)
+				{
+					if (ExportedChars[CharIndex] == false)
+						continue;
+
+					pInvMap = NULL;
+
+					if (m_GlobalMap.Lookup(CharIndex, pInvMap) && pInvMap != NULL)
+					{
+						// add the inventory files for the current character
+						for (int FileIndex = 0; FileIndex < FileCount; ++FileIndex)
+						{
+							pItemMap = NULL;
+
+							if (pInvMap->Lookup(FileIndex, pItemMap) && pItemMap != NULL)
+							{
+								ItemPos = pItemMap->GetStartPosition();
+
+								while (ItemPos != NULL)
+								{
+									pItemMap->GetNextAssoc(ItemPos, ItemID, pItem);
+
+									Exporter.AddColumn(m_CharacterIDs[CharIndex])
+											.AddColumn(m_InventoryNames[FileIndex]);
+
+									if ((BitMask & EXPORT_NAME) == EXPORT_NAME)
+										Exporter.AddColumn(pItem->ItemName);
+
+									if ((BitMask & EXPORT_ATTR) == EXPORT_ATTR)
+										Exporter.AddColumn(pItem->Attr);
+
+									if ((BitMask & EXPORT_DESC) == EXPORT_DESC)
+										Exporter.AddColumn(pItem->ItemDescription);
+
+									if ((BitMask & EXPORT_TYPE) == EXPORT_TYPE)
+										Exporter.AddColumn(pItem->Slot);
+
+									if ((BitMask & EXPORT_RACES) == EXPORT_RACES)
+										Exporter.AddColumn(pItem->Races);
+
+									if ((BitMask & EXPORT_LEVEL) == EXPORT_LEVEL)
+										Exporter.AddColumn(pItem->Level);
+
+									if ((BitMask & EXPORT_JOBS) == EXPORT_JOBS)
+										Exporter.AddColumn(pItem->Jobs);
+
+									if ((BitMask & EXPORT_RMKS) == EXPORT_RMKS)
+										Exporter.AddColumn(pItem->Remarks);
+								}
+							}
+						}
+					}
+				}
+
+				Exporter.CloseFile();
+				ShellExecute(m_hWnd, _T("open"), Filename, NULL, NULL, SW_SHOW);
+			}
+		}
 		else
-			m_pSearchDlg->ShowWindow(SW_SHOW);
-
-		m_pSearchDlg->CenterWindow();
+		{
+			AfxMessageBox(_T("Nothing to export"));
+		}
 	}
 }
 
@@ -1455,9 +1634,9 @@ void CLootBoxDlg::GetSearchResults(SearchData *pData)
 	{
 		if (pData->Done == false)
 		{
-			int CharID, FileID, ItemCount, ListIndex = 0;
-			SearchHandler Searcher(pData);
-			POSITION GlobalPos, InvPos;
+			int CharID, FileID, ItemID, ItemCount, ListIndex = 0;
+			POSITION GlobalPos, InvPos, ItemPos;			
+			SearchHandler Searcher(pData);			
 			InventoryMap *pInvMap;
 			InventoryItem *pItem;
 			ItemArray *pItemArr;
@@ -1486,16 +1665,14 @@ void CLootBoxDlg::GetSearchResults(SearchData *pData)
 	
 						if (pItemArr != NULL)
 						{
-							ItemCount = (int)pItemArr->GetCount();
-	
-							for (int i = 0; i < ItemCount; i++)
+							ItemPos = pItemArr->GetStartPosition();
+
+							while (ItemPos != NULL)
 							{
-								pItem = pItemArr->GetAt(i);
-	
+								pItemArr->GetNextAssoc(ItemPos, ItemID, pItem);
+
 								if (pItem != NULL)
-								{
 									Searcher.ProcessAll(pItem);
-								}
 	
 								m_ProgressDlg.m_Progress.StepIt();
 							}
@@ -1510,7 +1687,7 @@ void CLootBoxDlg::GetSearchResults(SearchData *pData)
 	}
 }
 
-afx_msg void CLootBoxDlg::OnMenuChange(CCmdUI* pCmdUI)
+afx_msg void CLootBoxDlg::OnOptionsChange(UINT CmdID)
 {
 	FFXiItemList *pInvList = (FFXiItemList*)GetDlgItem(IDC_INVENTORY_LIST);
 	bool CompactListChange = false;
@@ -1519,10 +1696,10 @@ afx_msg void CLootBoxDlg::OnMenuChange(CCmdUI* pCmdUI)
 
 	pItemMap = GetItemMap(m_SelectedChar, m_SelectedTab);
 
-	switch(pCmdUI->m_nID)
+	switch(CmdID)
 	{
 		default:
-		case ID_LANGUAGE_JAPANASE:
+		case ID_LANGUAGE_JAPANESE:
 			m_Language = FFXI_LANG_JP;
 		break;
 		case ID_LANGUAGE_ENGLISH:
@@ -1691,7 +1868,7 @@ HBITMAP CLootBoxDlg::GetItemIcon(FFXiIconInfo *pIconInfo, CDC *pDC, int Width, i
 #ifdef _DEBUG
 	void CLootBoxDlg::DumpGlobalMap()
 	{
-		int CharID, FileID, ItemCount = 0;
+		int CharID, FileID, ItemID, ItemCount = 0;
 		POSITION GlobalPos, InvPos;
 		InventoryItem *pItem;
 		InventoryMap *pInvMap;
@@ -1723,11 +1900,11 @@ HBITMAP CLootBoxDlg::GetItemIcon(FFXiIconInfo *pIconInfo, CDC *pDC, int Width, i
 
 					if (pItemMap != NULL)
 					{
-						ItemCount = (int)pItemMap->GetCount();
+						POSITION ItemPos = pItemMap->GetStartPosition();
 
-						for (int i = 0; i < ItemCount; i++)
+						while (ItemPos != NULL)
 						{
-							pItem = pItemMap->GetAt(i);
+							pItemMap->GetNextAssoc(ItemPos, ItemID, pItem);
 
 							if (pItem != NULL)
 								TRACE(_T("\t|\t|\t|_ %s (%d)\n"), pItem->ItemName, pItem->RefCount);

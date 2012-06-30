@@ -77,8 +77,9 @@ protected:
 	afx_msg void OnPaint();
 	afx_msg void OnDestroy();
 	afx_msg void OnMenuSelect(UINT nItemID, UINT nFlags, HMENU hSysMenu);
-	afx_msg void OnMenuChange(CCmdUI* pCmdUI);
-	afx_msg void OnSearch(CCmdUI* pCmdUI);
+	afx_msg void OnOptionsChange(UINT CmdID);
+	afx_msg void OnSearch();
+	afx_msg void OnExport();
 	afx_msg HCURSOR OnQueryDragIcon();
 	DECLARE_MESSAGE_MAP()
 public:
