@@ -8,6 +8,7 @@
 #define INI_FILE_CHARACTERS_SECTION		_T("Characters")
 #define INI_FILE_INVENTORY_SECTION		_T("Inventory")
 #define INI_FILE_COLUMNS_SECTION		_T("Columns")
+#define INI_FILE_EXPORT_SECTION			_T("Export")
 #define INI_FILE_CONFIG_SECTION			_T("Config")
 
 #define INI_FILE_COL_NAME_KEY			_T("Name")

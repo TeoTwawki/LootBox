@@ -64,3 +64,5 @@
 	#include <gdiplus.h>
 	#pragma comment(lib, "gdiplus.lib")
 #endif
+
+// #include <vld.h>

@@ -14,19 +14,30 @@
 #define IDI_SEARCH                      158
 #define IDR_POP_INVTAB                  159
 #define IDR_ACCELERATOR_SEARCH          161
+#define IDD_EXPORT                      162
+#define IDR_ACCELERATOR_EXPORT          163
 #define IDC_CHAR_LIST                   1000
 #define IDC_INVENTORY_TABS              1001
 #define IDC_CHARACTERS_LABEL            1002
 #define IDC_INVENTORY_LIST              1003
 #define IDC_STATUS_BAR                  1004
+#define IDC_EXPORT_NAME                 1004
 #define IDC_REGION_LABEL                1005
+#define IDC_EXPORT_ATTR                 1005
 #define IDC_REGION_COMBO                1006
+#define IDC_EXPORT_LIST                 1006
 #define IDC_ITEM_COUNT                  1007
+#define IDC_EXPORT_DESC                 1007
 #define IDC_PROGRESS                    1008
+#define IDC_EXPORT_TYPE                 1008
 #define IDC_LIST_JOBS                   1009
+#define IDC_EXPORT_RACES                1009
 #define IDC_LIST_SLOTS                  1010
+#define IDC_EXPORT_LEVEL                1010
 #define IDC_LIST_SKILLS                 1011
+#define IDC_EXPORT_JOBS                 1011
 #define IDC_SEARCH_TERM                 1012
+#define IDC_EXPORT_REMARKS              1012
 #define IDC_STATIC_SEARCH               1013
 #define IDC_CHECK_RARE                  1014
 #define IDC_CHECK_EX                    1015
@@ -51,7 +62,7 @@
 #define ID_FILE                         32771
 #define ID_CONFIG                       32772
 #define ID_CONFIG_LANGUAGE              32773
-#define ID_LANGUAGE_JAPANASE            32774
+#define ID_LANGUAGE_JAPANESE            32774
 #define ID_LANGUAGE_ENGLISH             32775
 #define ID_LANGUAGE_FRENCH              32776
 #define ID_LANGUAGE_GERMAN              32777
@@ -60,13 +71,15 @@
 #define ID_REFRESH_CLOSE                32782
 #define ID_POP_REFRESH                  32783
 #define ID_ACCELERATOR32784             32784
+#define ID_FILE_EXPORT                  32786
+#define ID_EXPORT                       32787
 
 // Next default values for new objects
 // 
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
-#define _APS_NEXT_RESOURCE_VALUE        162
-#define _APS_NEXT_COMMAND_VALUE         32786
+#define _APS_NEXT_RESOURCE_VALUE        164
+#define _APS_NEXT_COMMAND_VALUE         32789
 #define _APS_NEXT_CONTROL_VALUE         1035
 #define _APS_NEXT_SYMED_VALUE           103
 #endif

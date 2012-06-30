@@ -16,10 +16,8 @@
 // Neutral resources
 
 #if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_NEU)
-#ifdef _WIN32
 LANGUAGE LANG_NEUTRAL, SUBLANG_NEUTRAL
 #pragma code_page(1252)
-#endif //_WIN32
 
 /////////////////////////////////////////////////////////////////////////////
 //
@@ -89,7 +87,27 @@ STYLE DS_SETFONT | DS_MODALFRAME | DS_CENTER | WS_POPUP | WS_VISIBLE
 EXSTYLE WS_EX_WINDOWEDGE
 FONT 8, "MS Sans Serif", 0, 0, 0x0
 BEGIN
-    CONTROL         "",IDC_PROGRESS,"msctls_progress32",0x1,7,7,318,16
+    CONTROL         "",IDC_PROGRESS,"msctls_progress32",PBS_SMOOTH,7,7,318,16
+END
+
+IDD_EXPORT DIALOGEX 0, 0, 275, 188
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Export"
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    DEFPUSHBUTTON   "OK",IDOK,166,167,50,14
+    PUSHBUTTON      "Cancel",IDCANCEL,218,167,50,14
+    CONTROL         "",IDC_EXPORT_LIST,"SysListView32",LVS_REPORT | LVS_SORTASCENDING | LVS_ALIGNLEFT | LVS_NOCOLUMNHEADER | WS_BORDER | WS_TABSTOP,7,23,261,98
+    LTEXT           "Exported characters :",IDC_STATIC,7,10,71,8
+    CONTROL         "Name",IDC_EXPORT_NAME,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,45,138,50,10
+    LTEXT           "Exported data :",IDC_STATIC,7,126,52,8
+    CONTROL         "Attributes",IDC_EXPORT_ATTR,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,95,138,50,10
+    CONTROL         "Description",IDC_EXPORT_DESC,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,145,138,50,10
+    CONTROL         "Type",IDC_EXPORT_TYPE,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,195,138,50,10
+    CONTROL         "Races",IDC_EXPORT_RACES,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,45,151,50,10
+    CONTROL         "Level",IDC_EXPORT_LEVEL,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,95,151,50,10
+    CONTROL         "Jobs",IDC_EXPORT_JOBS,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,145,151,50,10
+    CONTROL         "Remarks",IDC_EXPORT_REMARKS,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,195,151,50,10
 END
 
 
@@ -99,7 +117,7 @@ END
 //
 
 #ifdef APSTUDIO_INVOKED
-GUIDELINES DESIGNINFO 
+GUIDELINES DESIGNINFO
 BEGIN
     IDD_SEARCH_DIALOG, DIALOG
     BEGIN
@@ -107,6 +125,24 @@ BEGIN
         RIGHTMARGIN, 406
         TOPMARGIN, 7
         BOTTOMMARGIN, 200
+    END
+
+    IDD_REGION_SELECT, DIALOG
+    BEGIN
+    END
+
+    IDD_EXPORT, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 268
+        VERTGUIDE, 45
+        VERTGUIDE, 95
+        VERTGUIDE, 145
+        VERTGUIDE, 195
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 181
+        HORZGUIDE, 138
+        HORZGUIDE, 151
     END
 END
 #endif    // APSTUDIO_INVOKED
@@ -202,17 +238,18 @@ IDI_SEARCH              ICON                    "res\\search32alpha.ico"
 // Menu
 //
 
-IDR_MAIN_MENU MENU 
+IDR_MAIN_MENU MENU
 BEGIN
     POPUP "File"
     BEGIN
         MENUITEM "Search\tCtrl+F",              ID_FILE_SEARCH
+        MENUITEM "Export\tCtrl+E",              ID_FILE_EXPORT
     END
     POPUP "Config"
     BEGIN
         POPUP "Language"
         BEGIN
-            MENUITEM "Japanese",                    ID_LANGUAGE_JAPANASE
+            MENUITEM "Japanese",                    ID_LANGUAGE_JAPANESE
             MENUITEM "English",                     ID_LANGUAGE_ENGLISH
             MENUITEM "French",                      ID_LANGUAGE_FRENCH
             MENUITEM "German",                      ID_LANGUAGE_GERMAN
@@ -224,7 +261,7 @@ BEGIN
     END
 END
 
-IDR_POP_INVTAB MENU 
+IDR_POP_INVTAB MENU
 BEGIN
     POPUP "Pop"
     BEGIN
@@ -241,19 +278,18 @@ END
 // French (France) resources
 
 #if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_FRA)
-#ifdef _WIN32
 LANGUAGE LANG_FRENCH, SUBLANG_FRENCH
 #pragma code_page(1252)
-#endif //_WIN32
 
 /////////////////////////////////////////////////////////////////////////////
 //
 // Accelerator
 //
 
-IDR_ACCELERATOR_SEARCH ACCELERATORS 
+IDR_ACCELERATOR_SEARCH ACCELERATORS
 BEGIN
     "F",            ID_FILE_SEARCH,         VIRTKEY, CONTROL, NOINVERT
+    "E",            ID_FILE_EXPORT,         VIRTKEY, CONTROL, NOINVERT
 END
 
 #endif    // French (France) resources

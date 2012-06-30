@@ -286,9 +286,10 @@ bool FFXiHelper::ParseInventoryFile(const TCHAR* pFile, const ItemLocationInfo &
 
 			if (DataRead != NULL)
 			{
+				DWORD ItemID, MapID;
 				LONG DataOffset;
 				CString DATFile;
-				DWORD ItemID;
+				bool Exists;
 
 				pItemData = (BYTE*)malloc(DATA_SIZE_ITEM + 1);
 				SecureZeroMemory(pItemData, DATA_SIZE_ITEM+1);
@@ -297,21 +298,24 @@ bool FFXiHelper::ParseInventoryFile(const TCHAR* pFile, const ItemLocationInfo &
 				{
 					InventoryItem *pItem = NULL;
 
-					ItemID = *pPos;
+					MapID = ItemID = *pPos;
+					Exists = false;
 
 					if (ItemID != -1 && ItemID > 0 && ItemID <= 0x6FFF)
 					{
-						GetItemFromID(ItemID, pMap, &pItem);
+						GetFileFromItemID(ItemID, DATFile, Language);
+						GetItemFromID(MapID, pMap, &pItem);
 
 						if (pItem == NULL || Update)
 						{
-							GetFileFromItemID(ItemID, DATFile, Language);
 							DataOffset = ItemID * DATA_SIZE_ITEM;
 
 							if (DATFile.IsEmpty() == false && InvFile.Open(DATFile, CFile::modeRead | CFile::shareDenyNone))
 							{
 								if (pItem == NULL)
 									pItem = new InventoryItem();
+								else
+									Exists = true;
 
 								ClearItemData(pItem);
 
@@ -325,8 +329,17 @@ bool FFXiHelper::ParseInventoryFile(const TCHAR* pFile, const ItemLocationInfo &
 								FFXiHelper::RotateBits(pItemData, pItemData, DATA_SIZE_ITEM, RSHIFT_DECRYPT_ITEM);
 
 								if (ReadItem(pItemData, pItem, Language))
-									if (Update == false)
-										pMap->Add(pItem);
+								{
+									if (Exists == false || Update == false)
+										pMap->SetAt(MapID, pItem);
+									else
+										ASSERT(Exists);
+								}
+								else
+								{
+									delete pItem;
+									pItem = NULL;
+								}
 							}
 						}
 						else
@@ -1245,26 +1258,8 @@ void FFXiHelper::GetWeaponChargesInfo(FFXiWeaponInfo WeaponInfo, CString &Remark
 
 UINT FFXiHelper::GetItemFromID(DWORD ItemID, ItemArray *pMap, InventoryItem **pItem)
 {
-	InventoryItem *pCurrent;
-	int ItemCount;
-
-	if (pMap != NULL)
-	{
-		ItemCount = (int)pMap->GetCount();
-		
-		for (int i = 0; i < ItemCount; i++)
-		{
-			pCurrent = pMap->GetAt(i);
-
-			if (pCurrent != NULL && pCurrent->ItemHdr.ItemID == ItemID)
-			{
-				*pItem = pCurrent;
-
-				return ItemID;
-			}
-		}
-		
-	}
+	if (pMap != NULL && pMap->Lookup(ItemID, *pItem))
+		return ItemID;
 
 	return -1;
 }

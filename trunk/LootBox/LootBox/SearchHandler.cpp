@@ -242,7 +242,7 @@ void SearchHandler::ProcessAll(InventoryItem *pItem)
 		}
 
 		if (Result)
-			m_pSearchData->Items.Add(pItem);
+			m_pSearchData->Items.SetAt(pItem->ItemHdr.ItemID, pItem);
 	}
 }
 

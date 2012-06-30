@@ -20,7 +20,6 @@ using namespace ETSLayout;
 
 #ifdef _DEBUG
 	#define new DEBUG_NEW
-	//#include "vld.h"
 #endif
 
 
