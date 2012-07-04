@@ -798,7 +798,7 @@ void CLootBoxDlg::OnDestroy()
 
 	if (SelectedTab < 0)
 		SelectedTab = 0;
-	if (SelectedTab >= FileCount)
+	if (SelectedTab >= FileCount && FileCount > 0)
 		SelectedTab = FileCount - 1;
 	
 
@@ -1303,7 +1303,7 @@ ItemArray* CLootBoxDlg::GetItemMap(int SelectedCharIndex, int SelectedTabIndex)
 	}
 	else
 	{
-		SearchData *pData;
+		SearchData *pData = NULL;
 
 		m_SearchTabs.Lookup(m_SelectedTab, pData);
 
@@ -1456,7 +1456,7 @@ afx_msg void CLootBoxDlg::OnSearch()
 
 afx_msg void CLootBoxDlg::OnExport()
 {
-	ExportDialog Dialog(m_pHelper, m_CharacterIDs, m_pIni, this);
+	ExportDialog Dialog(m_pHelper, m_CharacterNames, m_pIni, this);
 	
 	if (Dialog.DoModal() == IDOK)
 	{
@@ -1475,7 +1475,7 @@ afx_msg void CLootBoxDlg::OnExport()
 			{
 				const CArray<bool, bool> &ExportedChars = Dialog.GetExportedChars();
 				int FileCount = m_InventoryFiles.GetCount();
-				int CharCount = m_CharacterIDs.GetCount();		
+				int CharCount = m_CharacterNames.GetCount();		
 
 				CsvWriter<CFile> Exporter;
 				InventoryMap *pInvMap;
@@ -1539,7 +1539,7 @@ afx_msg void CLootBoxDlg::OnExport()
 								{
 									pItemMap->GetNextAssoc(ItemPos, ItemID, pItem);
 
-									Exporter.AddColumn(m_CharacterIDs[CharIndex])
+									Exporter.AddColumn(m_CharacterNames[CharIndex])
 											.AddColumn(m_InventoryNames[FileIndex]);
 
 									if ((BitMask & EXPORT_NAME) == EXPORT_NAME)
@@ -1615,9 +1615,13 @@ LRESULT CLootBoxDlg::OnSearchClose(WPARAM wParam, LPARAM lParam)
 
 		TabText.Format(_T("Search %d"), CountTabs - m_InventoryFiles.GetCount() + 1);
 		m_SelectedTab = pTabCtrl->InsertItem(CountTabs, TabText, 3);
-		pList->SetColumnWidth(INVENTORY_LIST_COL_LOCATION, 150);
-		pTabCtrl->SetCurSel(m_SelectedTab);
-		m_SearchTabs.SetAt(m_SelectedTab, pData);
+
+		if (m_SelectedTab != -1)
+		{
+			pList->SetColumnWidth(INVENTORY_LIST_COL_LOCATION, 150);
+			pTabCtrl->SetCurSel(m_SelectedTab);
+			m_SearchTabs.SetAt(m_SelectedTab, pData);
+		}
 
 		UpdateStatus();
 	}
