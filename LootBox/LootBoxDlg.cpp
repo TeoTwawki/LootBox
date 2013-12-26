@@ -424,173 +424,179 @@ BOOL CLootBoxDlg::DefaultConfig()
 	if (m_pIni->LoadFile(INI_FILE_FILENAME) >= 0)
 	{
 		////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-		// check if the Export section exits
+		// check if the Export section exists
 		pSectionData = m_pIni->GetSection(INI_FILE_EXPORT_SECTION);
 		// create it if it doesn't
 		if (pSectionData == NULL)
 			m_pIni->SetValue(INI_FILE_EXPORT_SECTION, NULL, NULL);
 
-		// check if the Name key exits
+		// check if the Name key exists
 		pValue = m_pIni->GetValue(INI_FILE_EXPORT_SECTION, INI_FILE_COL_NAME_KEY);
 		// create it if it doesn't
 		if (pValue == NULL)
 			m_pIni->SetLongValue(INI_FILE_EXPORT_SECTION, INI_FILE_COL_NAME_KEY, 1L);
 
-		// check if the Attribute key exits
+		// check if the Attribute key exists
 		pValue = m_pIni->GetValue(INI_FILE_EXPORT_SECTION, INI_FILE_COL_ATTR_KEY);
 		// create it if it doesn't
 		if (pValue == NULL)
 			m_pIni->SetLongValue(INI_FILE_EXPORT_SECTION, INI_FILE_COL_ATTR_KEY, 1L);
 
-		// check if the Description key exits
+		// check if the Description key exists
 		pValue = m_pIni->GetValue(INI_FILE_EXPORT_SECTION, INI_FILE_COL_DESC_KEY);
 		// create it if it doesn't
 		if (pValue == NULL)
 			m_pIni->SetLongValue(INI_FILE_EXPORT_SECTION, INI_FILE_COL_DESC_KEY, 1L);
 
-		// check if the Type key exits
+		// check if the Type key exists
 		pValue = m_pIni->GetValue(INI_FILE_EXPORT_SECTION, INI_FILE_COL_TYPE_KEY);
 		// create it if it doesn't
 		if (pValue == NULL)
 			m_pIni->SetLongValue(INI_FILE_EXPORT_SECTION, INI_FILE_COL_TYPE_KEY, 1L);
 
-		// check if the Races key exits
+		// check if the Races key exists
 		pValue = m_pIni->GetValue(INI_FILE_EXPORT_SECTION, INI_FILE_COL_RACES_KEY);
 		// create it if it doesn't
 		if (pValue == NULL)
 			m_pIni->SetLongValue(INI_FILE_EXPORT_SECTION, INI_FILE_COL_RACES_KEY, 1L);
 
-		// check if the Level key exits
+		// check if the Level key exists
 		pValue = m_pIni->GetValue(INI_FILE_EXPORT_SECTION, INI_FILE_COL_LEVEL_KEY);
 		// create it if it doesn't
 		if (pValue == NULL)
 			m_pIni->SetLongValue(INI_FILE_EXPORT_SECTION, INI_FILE_COL_LEVEL_KEY, 1L);
 
-		// check if the Jobs key exits
+		// check if the Jobs key exists
 		pValue = m_pIni->GetValue(INI_FILE_EXPORT_SECTION, INI_FILE_COL_JOBS_KEY);
 		// create it if it doesn't
 		if (pValue == NULL)
 			m_pIni->SetLongValue(INI_FILE_EXPORT_SECTION, INI_FILE_COL_JOBS_KEY, 1L);
 
-		// check if the Remarks key exits
+		// check if the Remarks key exists
 		pValue = m_pIni->GetValue(INI_FILE_EXPORT_SECTION, INI_FILE_COL_REMARKS_KEY);
 		// create it if it doesn't
 		if (pValue == NULL)
 			m_pIni->SetLongValue(INI_FILE_EXPORT_SECTION, INI_FILE_COL_REMARKS_KEY, 1L);
 
 		////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-		// check if the Characters section exits
+		// check if the Characters section exists
 		pSectionData = m_pIni->GetSection(INI_FILE_CHARACTERS_SECTION);
 		// create it if it doesn't
 		if (pSectionData == NULL)
 			m_pIni->SetValue(INI_FILE_CHARACTERS_SECTION, NULL, NULL);
 
 		////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-		// check if the Inventory section exits
+		// check if the Inventory section exists
 		pSectionData = m_pIni->GetSection(INI_FILE_INVENTORY_SECTION);
 		// create it if it doesn't
 		if (pSectionData == NULL)
 			m_pIni->SetValue(INI_FILE_INVENTORY_SECTION, NULL, NULL);
 
-		// check if the Inventory key exits
+		// check if the Inventory key exists
 		pValue = m_pIni->GetValue(INI_FILE_INVENTORY_SECTION, INI_FILE_INVENTORY_KEY);
 		// create it if it doesn't
 		if (pValue == NULL)
 			m_pIni->SetValue(INI_FILE_INVENTORY_SECTION, INI_FILE_INVENTORY_KEY, INI_FILE_INVENTORY_VALUE);
 
-		// check if the Mog Safe key exits
+		// check if the Mog Safe key exists
 		pValue = m_pIni->GetValue(INI_FILE_INVENTORY_SECTION, INI_FILE_MOG_SAFE_KEY);
 		// create it if it doesn't
 		if (pValue == NULL)
 			m_pIni->SetValue(INI_FILE_INVENTORY_SECTION, INI_FILE_MOG_SAFE_KEY, INI_FILE_MOG_SAFE_VALUE);
 
-		// check if the Storage key exits
+		// check if the Storage key exists
 		pValue = m_pIni->GetValue(INI_FILE_INVENTORY_SECTION, INI_FILE_STORAGE_KEY);
 		// create it if it doesn't
 		if (pValue == NULL)
 			m_pIni->SetValue(INI_FILE_INVENTORY_SECTION, INI_FILE_STORAGE_KEY, INI_FILE_STORAGE_VALUE);
 
-		// check if the Mog Locker key exits
+		// check if the Mog Locker key exists
 		pValue = m_pIni->GetValue(INI_FILE_INVENTORY_SECTION, INI_FILE_MOG_LOCKER_KEY);
 		// create it if it doesn't
 		if (pValue == NULL)
 			m_pIni->SetValue(INI_FILE_INVENTORY_SECTION, INI_FILE_MOG_LOCKER_KEY, INI_FILE_MOG_LOCKER_VALUE);
 
-		// check if the Mog Satchel key exits
+		// check if the Mog Satchel key exists
 		pValue = m_pIni->GetValue(INI_FILE_INVENTORY_SECTION, INI_FILE_MOG_SATCHEL_KEY);
 		// create it if it doesn't
 		if (pValue == NULL)
 			m_pIni->SetValue(INI_FILE_INVENTORY_SECTION, INI_FILE_MOG_SATCHEL_KEY, INI_FILE_MOG_SATCHEL_VALUE);
 
-		// check if the Mog Sack key exits
+		// check if the Mog Sack key exists
 		pValue = m_pIni->GetValue(INI_FILE_INVENTORY_SECTION, INI_FILE_MOG_SACK_KEY);
 		// create it if it doesn't
 		if (pValue == NULL)
 			m_pIni->SetValue(INI_FILE_INVENTORY_SECTION, INI_FILE_MOG_SACK_KEY, INI_FILE_MOG_SACK_VALUE);
 
+		// check if the Mog Case key exists
+		pValue = m_pIni->GetValue(INI_FILE_INVENTORY_SECTION, INI_FILE_MOG_CASE_KEY);
+		// create it if it doesn't
+		if (pValue == NULL)
+			m_pIni->SetValue(INI_FILE_INVENTORY_SECTION, INI_FILE_MOG_CASE_KEY, INI_FILE_MOG_CASE_VALUE);
+
 		////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-		// check if the Columns section exits
+		// check if the Columns section exists
 		pSectionData = m_pIni->GetSection(INI_FILE_COLUMNS_SECTION);
 		// create it if it doesn't
 		if (pSectionData == NULL)
 			m_pIni->SetValue(INI_FILE_COLUMNS_SECTION, NULL, NULL);
 
-		// check if the Name key exits
+		// check if the Name key exists
 		pValue = m_pIni->GetValue(INI_FILE_COLUMNS_SECTION, INI_FILE_COL_NAME_KEY);
 		// create it if it doesn't
 		if (pValue == NULL)
 			m_pIni->SetValue(INI_FILE_COLUMNS_SECTION, INI_FILE_COL_NAME_KEY, INI_FILE_COL_NAME_VALUE);
 
-		// check if the Attr key exits
+		// check if the Attr key exists
 		pValue = m_pIni->GetValue(INI_FILE_COLUMNS_SECTION, INI_FILE_COL_ATTR_KEY);
 		// create it if it doesn't
 		if (pValue == NULL)
 			m_pIni->SetValue(INI_FILE_COLUMNS_SECTION, INI_FILE_COL_ATTR_KEY, INI_FILE_COL_ATTR_VALUE);
 
-		// check if the Description key exits
+		// check if the Description key exists
 		pValue = m_pIni->GetValue(INI_FILE_COLUMNS_SECTION, INI_FILE_COL_DESC_KEY);
 		// create it if it doesn't
 		if (pValue == NULL)
 			m_pIni->SetValue(INI_FILE_COLUMNS_SECTION, INI_FILE_COL_DESC_KEY, INI_FILE_COL_DESC_VALUE);
 
-		// check if the Type key exits
+		// check if the Type key exists
 		pValue = m_pIni->GetValue(INI_FILE_COLUMNS_SECTION, INI_FILE_COL_TYPE_KEY);
 		// create it if it doesn't
 		if (pValue == NULL)
 			m_pIni->SetValue(INI_FILE_COLUMNS_SECTION, INI_FILE_COL_TYPE_KEY, INI_FILE_COL_TYPE_VALUE);
 
-		// check if the Races key exits
+		// check if the Races key exists
 		pValue = m_pIni->GetValue(INI_FILE_COLUMNS_SECTION, INI_FILE_COL_RACES_KEY);
 		// create it if it doesn't
 		if (pValue == NULL)
 			m_pIni->SetValue(INI_FILE_COLUMNS_SECTION, INI_FILE_COL_RACES_KEY, INI_FILE_COL_RACES_VALUE);
 
-		// check if the Level key exits
+		// check if the Level key exists
 		pValue = m_pIni->GetValue(INI_FILE_COLUMNS_SECTION, INI_FILE_COL_LEVEL_KEY);
 		// create it if it doesn't
 		if (pValue == NULL)
 			m_pIni->SetValue(INI_FILE_COLUMNS_SECTION, INI_FILE_COL_LEVEL_KEY, INI_FILE_COL_LEVEL_VALUE);
 
-		// check if the Jobs key exits
+		// check if the Jobs key exists
 		pValue = m_pIni->GetValue(INI_FILE_COLUMNS_SECTION, INI_FILE_COL_JOBS_KEY);
 		// create it if it doesn't
 		if (pValue == NULL)
 			m_pIni->SetValue(INI_FILE_COLUMNS_SECTION, INI_FILE_COL_JOBS_KEY, INI_FILE_COL_JOBS_VALUE);
 
-		// check if the Remarks key exits
+		// check if the Remarks key exists
 		pValue = m_pIni->GetValue(INI_FILE_COLUMNS_SECTION, INI_FILE_COL_REMARKS_KEY);
 		// create it if it doesn't
 		if (pValue == NULL)
 			m_pIni->SetValue(INI_FILE_COLUMNS_SECTION, INI_FILE_COL_REMARKS_KEY, INI_FILE_COL_REMARKS_VALUE);
 
 		////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-		// check if the Config section exits
+		// check if the Config section exists
 		pSectionData = m_pIni->GetSection(INI_FILE_CONFIG_SECTION);
 		// create it if it doesn't
 		if (pSectionData == NULL)
 			m_pIni->SetValue(INI_FILE_CONFIG_SECTION, NULL, NULL);
 
-		// check if the Language key exits
+		// check if the Language key exists
 		m_Region = m_pIni->GetLongValue(INI_FILE_CONFIG_SECTION, INI_FILE_GAME_REGION_KEY, -1);
 		// create it if it doesn't
 		if (m_Region == -1)
@@ -611,7 +617,7 @@ BOOL CLootBoxDlg::DefaultConfig()
 			m_pIni->SetLongValue(INI_FILE_CONFIG_SECTION, INI_FILE_GAME_REGION_KEY, m_Region, INI_FILE_GAME_REGION_COMMENT);
 		}
 
-		// check if the Region key exits
+		// check if the Region key exists
 		m_Language = m_pIni->GetLongValue(INI_FILE_CONFIG_SECTION, INI_FILE_LANGUAGE_KEY, -1);
 		// create it if it doesn't
 		if (m_Language == -1)
@@ -620,30 +626,30 @@ BOOL CLootBoxDlg::DefaultConfig()
 			m_Language = INI_FILE_LANGUAGE_VALUE;
 		}
 
-		// check if the Width key exits
+		// check if the Width key exists
 		pValue = m_pIni->GetValue(INI_FILE_CONFIG_SECTION, INI_FILE_WINDOW_WIDTH_KEY);
 		// create it if it doesn't
 		if (pValue == NULL)
 			m_pIni->SetLongValue(INI_FILE_CONFIG_SECTION, INI_FILE_WINDOW_WIDTH_KEY, INI_FILE_WINDOW_WIDTH_VALUE);
 
-		// check if the Height key exits
+		// check if the Height key exists
 		pValue = m_pIni->GetValue(INI_FILE_CONFIG_SECTION, INI_FILE_WINDOW_HEIGHT_KEY);
 		// create it if it doesn't
 		if (pValue == NULL)
 			m_pIni->SetLongValue(INI_FILE_CONFIG_SECTION, INI_FILE_WINDOW_HEIGHT_KEY, INI_FILE_WINDOW_HEIGHT_VALUE);
 
-		// check if the SelectedChar key exits
+		// check if the SelectedChar key exists
 		pValue = m_pIni->GetValue(INI_FILE_CONFIG_SECTION, INI_FILE_LAST_CHARACTER_KEY);
 		// create it if it doesn't
 		if (pValue == NULL)
 			m_pIni->SetLongValue(INI_FILE_CONFIG_SECTION, INI_FILE_LAST_CHARACTER_KEY, INI_FILE_LAST_CHARACTER_VALUE);
 
-		// check if the SelectedTab key exits
+		// check if the SelectedTab key exists
 		pValue = m_pIni->GetValue(INI_FILE_CONFIG_SECTION, INI_FILE_LAST_TAB_KEY);
 		// create it if it doesn't
 		if (pValue == NULL)
 			m_pIni->SetLongValue(INI_FILE_CONFIG_SECTION, INI_FILE_LAST_TAB_KEY, INI_FILE_LAST_TAB_VALUE);
-		// check if the SelectedTab key exits
+		// check if the SelectedTab key exists
 		pValue = m_pIni->GetValue(INI_FILE_CONFIG_SECTION, INI_FILE_COMPACT_LIST_KEY);
 		// create it if it doesn't
 		if (pValue == NULL)
