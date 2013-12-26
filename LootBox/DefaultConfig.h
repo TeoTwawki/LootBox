@@ -35,6 +35,7 @@
 #define INI_FILE_MOG_LOCKER_VALUE		_T("Mog Locker")
 #define INI_FILE_MOG_SATCHEL_VALUE		_T("Mog Satchel")
 #define INI_FILE_MOG_SACK_VALUE			_T("Mog Sack")
+#define INI_FILE_MOG_CASE_VALUE			_T("Mog Case")
 
 #define INI_FILE_INVENTORY_KEY			_T("is.dat")
 #define INI_FILE_MOG_SAFE_KEY			_T("bs.dat")
@@ -42,6 +43,7 @@
 #define INI_FILE_MOG_LOCKER_KEY			_T("mb.dat")
 #define INI_FILE_MOG_SATCHEL_KEY		_T("sb.dat")
 #define INI_FILE_MOG_SACK_KEY			_T("sk.dat")
+#define INI_FILE_MOG_CASE_KEY			_T("ca.dat")
 
 #define INI_FILE_WINDOW_WIDTH_KEY		_T("Width")
 #define INI_FILE_WINDOW_HEIGHT_KEY		_T("Height")

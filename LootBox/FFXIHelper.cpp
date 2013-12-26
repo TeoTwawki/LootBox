@@ -2,7 +2,7 @@
 
 #include "FFXIHelper.h"
 
-// WAR|MNK|WHM|BLM|RDM|THF|PLD|DRK|BST|BRD|RNG|SAM|NIN|DRG|SMN|BLU|COR|PUP|DNC|SCH|All Jobs
+// WAR|MNK|WHM|BLM|RDM|THF|PLD|DRK|BST|BRD|RNG|SAM|NIN|DRG|SMN|BLU|COR|PUP|DNC|SCH|RUN|GEO|All Jobs
 const FFXiStringAssoc FFXiHelper::JobsStringTable[] = {   
 	FFXiStringAssoc(FFXI_JOB_FLAG_WAR, _T("WAR")),
 	FFXiStringAssoc(FFXI_JOB_FLAG_MNK, _T("MNK")),
@@ -24,6 +24,8 @@ const FFXiStringAssoc FFXiHelper::JobsStringTable[] = {
 	FFXiStringAssoc(FFXI_JOB_FLAG_PUP, _T("PUP")),
 	FFXiStringAssoc(FFXI_JOB_FLAG_DNC, _T("DNC")),
 	FFXiStringAssoc(FFXI_JOB_FLAG_SCH, _T("SCH")),
+	FFXiStringAssoc(FFXI_JOB_FLAG_RUN, _T("RUN")),
+	FFXiStringAssoc(FFXI_JOB_FLAG_GEO, _T("GEO")),
 	FFXiStringAssoc(-1				 , NULL),
 };
 
