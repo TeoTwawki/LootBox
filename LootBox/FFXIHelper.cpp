@@ -237,6 +237,9 @@ bool FFXiHelper::ReadItem(BYTE *pItemData, InventoryItem *pItem, int Language, b
 			break;
 		};
 
+		if (*pItemPos == NULL || *pItemPos > 8)
+			return false;
+
 		GetAttr(pItem->ItemHdr.Flags, pItem->Attr);
 		GetItemInfo(pItemPos, Language, pItem->ItemName, pItem->LogName,
 					pItem->LogName2, pItem->ItemDescription, NoConversion);
