@@ -3,7 +3,7 @@
 #include "FFXIHelper.h"
 
 // WAR|MNK|WHM|BLM|RDM|THF|PLD|DRK|BST|BRD|RNG|SAM|NIN|DRG|SMN|BLU|COR|PUP|DNC|SCH|RUN|GEO|All Jobs
-const FFXiStringAssoc FFXiHelper::JobsStringTable[] = {   
+const FFXiStringAssoc FFXiHelper::JobsStringTable[] = {
 	FFXiStringAssoc(FFXI_JOB_FLAG_WAR, _T("WAR")),
 	FFXiStringAssoc(FFXI_JOB_FLAG_MNK, _T("MNK")),
 	FFXiStringAssoc(FFXI_JOB_FLAG_WHM, _T("WHM")),
@@ -26,83 +26,83 @@ const FFXiStringAssoc FFXiHelper::JobsStringTable[] = {
 	FFXiStringAssoc(FFXI_JOB_FLAG_SCH, _T("SCH")),
 	FFXiStringAssoc(FFXI_JOB_FLAG_RUN, _T("RUN")),
 	FFXiStringAssoc(FFXI_JOB_FLAG_GEO, _T("GEO")),
-	FFXiStringAssoc(-1				 , NULL),
+	FFXiStringAssoc(-1               , NULL),
 };
 
 // Slots
-const FFXiStringAssoc FFXiHelper::SlotStringTable[] = {   
-	FFXiStringAssoc(FFXI_SLOT_FLAG_MAIN		, _T("Weapon")),
-	FFXiStringAssoc(FFXI_SLOT_FLAG_SUB		, _T("Shield")),
-	FFXiStringAssoc(FFXI_SLOT_FLAG_RANGE	, _T("Ranged")),
-	FFXiStringAssoc(FFXI_SLOT_FLAG_AMMO		, _T("Ammo")),
-	FFXiStringAssoc(FFXI_SLOT_FLAG_HEAD		, _T("Head")),
-	FFXiStringAssoc(FFXI_SLOT_FLAG_BODY		, _T("Body")),
-	FFXiStringAssoc(FFXI_SLOT_FLAG_HANDS	, _T("Hands")),
-	FFXiStringAssoc(FFXI_SLOT_FLAG_LEGS		, _T("Legs")),
-	FFXiStringAssoc(FFXI_SLOT_FLAG_FEET		, _T("Feet")),
-	FFXiStringAssoc(FFXI_SLOT_FLAG_NECK		, _T("Neck")),
-	FFXiStringAssoc(FFXI_SLOT_FLAG_WAIST	, _T("Waist")),
-	FFXiStringAssoc(FFXI_SLOT_FLAG_L_EAR	, _T("Earring")),
-	FFXiStringAssoc(FFXI_SLOT_FLAG_R_EAR	, _T("Earring")),
-	FFXiStringAssoc(FFXI_SLOT_FLAG_L_RING	, _T("Ring")),
-	FFXiStringAssoc(FFXI_SLOT_FLAG_R_RING	, _T("Ring")),
-	FFXiStringAssoc(FFXI_SLOT_FLAG_BACK		, _T("Back")),
-	FFXiStringAssoc(-1						, NULL),
+const FFXiStringAssoc FFXiHelper::SlotStringTable[] = {
+	FFXiStringAssoc(FFXI_SLOT_FLAG_MAIN   , _T("Weapon")),
+	FFXiStringAssoc(FFXI_SLOT_FLAG_SUB    , _T("Shield")),
+	FFXiStringAssoc(FFXI_SLOT_FLAG_RANGE  , _T("Ranged")),
+	FFXiStringAssoc(FFXI_SLOT_FLAG_AMMO   , _T("Ammo")),
+	FFXiStringAssoc(FFXI_SLOT_FLAG_HEAD   , _T("Head")),
+	FFXiStringAssoc(FFXI_SLOT_FLAG_BODY   , _T("Body")),
+	FFXiStringAssoc(FFXI_SLOT_FLAG_HANDS  , _T("Hands")),
+	FFXiStringAssoc(FFXI_SLOT_FLAG_LEGS   , _T("Legs")),
+	FFXiStringAssoc(FFXI_SLOT_FLAG_FEET   , _T("Feet")),
+	FFXiStringAssoc(FFXI_SLOT_FLAG_NECK   , _T("Neck")),
+	FFXiStringAssoc(FFXI_SLOT_FLAG_WAIST  , _T("Waist")),
+	FFXiStringAssoc(FFXI_SLOT_FLAG_L_EAR  , _T("Earring")),
+	FFXiStringAssoc(FFXI_SLOT_FLAG_R_EAR  , _T("Earring")),
+	FFXiStringAssoc(FFXI_SLOT_FLAG_L_RING , _T("Ring")),
+	FFXiStringAssoc(FFXI_SLOT_FLAG_R_RING , _T("Ring")),
+	FFXiStringAssoc(FFXI_SLOT_FLAG_BACK   , _T("Back")),
+	FFXiStringAssoc(-1                    , NULL),
 };
 
 // Skills
-const FFXiStringAssoc FFXiHelper::SkillStringTable[] = {   
-	FFXiStringAssoc(FFXI_SKILL_TYPE_BST_JUG				, _T("Ammo")),
-	FFXiStringAssoc(FFXI_SKILL_TYPE_H2H					, _T("Hand-to-Hand")),
-	FFXiStringAssoc(FFXI_SKILL_TYPE_DAGGER				, _T("Dagger")),
-	FFXiStringAssoc(FFXI_SKILL_TYPE_SWORD				, _T("Sword")),
-	FFXiStringAssoc(FFXI_SKILL_TYPE_GREAT_SWORD			, _T("Great Sword")),
-	FFXiStringAssoc(FFXI_SKILL_TYPE_AXE					, _T("Axe")),
-	FFXiStringAssoc(FFXI_SKILL_TYPE_GREAT_AXE			, _T("Great Axe")),
-	FFXiStringAssoc(FFXI_SKILL_TYPE_SCYTHE				, _T("Scythe")),
-	FFXiStringAssoc(FFXI_SKILL_TYPE_POLEARM				, _T("Polearm")),
-	FFXiStringAssoc(FFXI_SKILL_TYPE_KATANA				, _T("Katana")),
-	FFXiStringAssoc(FFXI_SKILL_TYPE_GREAT_KATANA		, _T("Great Katana")),
-	FFXiStringAssoc(FFXI_SKILL_TYPE_CLUB				, _T("Club")),
-	FFXiStringAssoc(FFXI_SKILL_TYPE_STAFF				, _T("Staff")),
-	FFXiStringAssoc(FFXI_SKILL_TYPE_RANGED				, _T("Archery")),
-	FFXiStringAssoc(FFXI_SKILL_TYPE_MARKSMANSHIP		, _T("Marskmanship")),
-	FFXiStringAssoc(FFXI_SKILL_TYPE_THROWING			, _T("Throwing")),
-	FFXiStringAssoc(FFXI_SKILL_TYPE_DIVINE_MAGIC		, _T("Divine Magic")),
-	FFXiStringAssoc(FFXI_SKILL_TYPE_HEALING_MAGIC		, _T("Healing Magic")),
-	FFXiStringAssoc(FFXI_SKILL_TYPE_ENHANCING_MAGIC		, _T("Enhancing Magic")),
-	FFXiStringAssoc(FFXI_SKILL_TYPE_ENFEEBLING_MAGIC	, _T("Enfeebling Magic")),
-	FFXiStringAssoc(FFXI_SKILL_TYPE_ELEMENTAL_MAGIC		, _T("Elemental Magic")),
-	FFXiStringAssoc(FFXI_SKILL_TYPE_DARK_MAGIC			, _T("Dark Magic")),
-	FFXiStringAssoc(FFXI_SKILL_TYPE_SUMMONING_MAGIC		, _T("Summoning Magic")),
-	FFXiStringAssoc(FFXI_SKILL_TYPE_NINJUTSU			, _T("Ninjutsu")),
-	FFXiStringAssoc(FFXI_SKILL_TYPE_SINGING				, _T("Singing")),
-	FFXiStringAssoc(FFXI_SKILL_TYPE_STRING_INSTRUMENT	, _T("String Instrument")),
-	FFXiStringAssoc(FFXI_SKILL_TYPE_WIND_INSTRUMENT		, _T("Wind Instrument")),
-	FFXiStringAssoc(FFXI_SKILL_TYPE_FISHING				, _T("Fishing")),
-	FFXiStringAssoc(FFXI_SKILL_TYPE_PET_FOOD			, _T("Pet Food")),
+const FFXiStringAssoc FFXiHelper::SkillStringTable[] = {
+	FFXiStringAssoc(FFXI_SKILL_TYPE_BST_JUG           , _T("Ammo")),
+	FFXiStringAssoc(FFXI_SKILL_TYPE_H2H               , _T("Hand-to-Hand")),
+	FFXiStringAssoc(FFXI_SKILL_TYPE_DAGGER            , _T("Dagger")),
+	FFXiStringAssoc(FFXI_SKILL_TYPE_SWORD             , _T("Sword")),
+	FFXiStringAssoc(FFXI_SKILL_TYPE_GREAT_SWORD       , _T("Great Sword")),
+	FFXiStringAssoc(FFXI_SKILL_TYPE_AXE               , _T("Axe")),
+	FFXiStringAssoc(FFXI_SKILL_TYPE_GREAT_AXE         , _T("Great Axe")),
+	FFXiStringAssoc(FFXI_SKILL_TYPE_SCYTHE            , _T("Scythe")),
+	FFXiStringAssoc(FFXI_SKILL_TYPE_POLEARM           , _T("Polearm")),
+	FFXiStringAssoc(FFXI_SKILL_TYPE_KATANA            , _T("Katana")),
+	FFXiStringAssoc(FFXI_SKILL_TYPE_GREAT_KATANA      , _T("Great Katana")),
+	FFXiStringAssoc(FFXI_SKILL_TYPE_CLUB              , _T("Club")),
+	FFXiStringAssoc(FFXI_SKILL_TYPE_STAFF             , _T("Staff")),
+	FFXiStringAssoc(FFXI_SKILL_TYPE_RANGED            , _T("Archery")),
+	FFXiStringAssoc(FFXI_SKILL_TYPE_MARKSMANSHIP      , _T("Marskmanship")),
+	FFXiStringAssoc(FFXI_SKILL_TYPE_THROWING          , _T("Throwing")),
+	FFXiStringAssoc(FFXI_SKILL_TYPE_DIVINE_MAGIC      , _T("Divine Magic")),
+	FFXiStringAssoc(FFXI_SKILL_TYPE_HEALING_MAGIC     , _T("Healing Magic")),
+	FFXiStringAssoc(FFXI_SKILL_TYPE_ENHANCING_MAGIC   , _T("Enhancing Magic")),
+	FFXiStringAssoc(FFXI_SKILL_TYPE_ENFEEBLING_MAGIC  , _T("Enfeebling Magic")),
+	FFXiStringAssoc(FFXI_SKILL_TYPE_ELEMENTAL_MAGIC   , _T("Elemental Magic")),
+	FFXiStringAssoc(FFXI_SKILL_TYPE_DARK_MAGIC        , _T("Dark Magic")),
+	FFXiStringAssoc(FFXI_SKILL_TYPE_SUMMONING_MAGIC   , _T("Summoning Magic")),
+	FFXiStringAssoc(FFXI_SKILL_TYPE_NINJUTSU          , _T("Ninjutsu")),
+	FFXiStringAssoc(FFXI_SKILL_TYPE_SINGING           , _T("Singing")),
+	FFXiStringAssoc(FFXI_SKILL_TYPE_STRING_INSTRUMENT , _T("String Instrument")),
+	FFXiStringAssoc(FFXI_SKILL_TYPE_WIND_INSTRUMENT   , _T("Wind Instrument")),
+	FFXiStringAssoc(FFXI_SKILL_TYPE_FISHING           , _T("Fishing")),
+	FFXiStringAssoc(FFXI_SKILL_TYPE_PET_FOOD          , _T("Pet Food")),
 	FFXiStringAssoc(-1, NULL),
 };
 
 // Usable Items
-const FFXiStringAssoc FFXiHelper::UsableItemStringTable[] = {  
-	FFXiStringAssoc(ITEM_FLAG_SCROLL	, _T("Scroll")),
-	FFXiStringAssoc(ITEM_FLAG_LINKSHELL	, _T("Linkshell")),
-	FFXiStringAssoc(-1					, NULL),
+const FFXiStringAssoc FFXiHelper::UsableItemStringTable[] = {
+	FFXiStringAssoc(ITEM_FLAG_SCROLL    , _T("Scroll")),
+	FFXiStringAssoc(ITEM_FLAG_LINKSHELL , _T("Linkshell")),
+	FFXiStringAssoc(-1                  , NULL),
 };
 
 // Races \u2640 : ♀ (female) \u2642 : ♂ (male)
 // All Races|All M|All F|H|HM|HF|E|EM|EF|T|TM|TF|M|G
-const FFXiStringAssoc FFXiHelper::RacesStringTable[] = {  
-	FFXiStringAssoc(FFXI_RACE_FLAG_HUME_MALE		, _T("Hume \u2642")),
-	FFXiStringAssoc(FFXI_RACE_FLAG_HUME_FEMALE		, _T("Hume \u2640")),
-	FFXiStringAssoc(FFXI_RACE_FLAG_ELVAAN_MALE		, _T("Elvaan \u2642")),
-	FFXiStringAssoc(FFXI_RACE_FLAG_ELVAAN_FEMALE	, _T("Elvaan \u2640")),
-	FFXiStringAssoc(FFXI_RACE_FLAG_TARUTARU_MALE	, _T("Tarutaru \u2642")),
-	FFXiStringAssoc(FFXI_RACE_FLAG_TARUTARU_FEMALE	, _T("Tarutaru \u2640")),
-	FFXiStringAssoc(FFXI_RACE_FLAG_MITHRA			, _T("Mithra")),
-	FFXiStringAssoc(FFXI_RACE_FLAG_GALKA			, _T("Galka")),
-	FFXiStringAssoc(-1								, NULL),
+const FFXiStringAssoc FFXiHelper::RacesStringTable[] = {
+	FFXiStringAssoc(FFXI_RACE_FLAG_HUME_MALE       , _T("Hume \u2642")),
+	FFXiStringAssoc(FFXI_RACE_FLAG_HUME_FEMALE     , _T("Hume \u2640")),
+	FFXiStringAssoc(FFXI_RACE_FLAG_ELVAAN_MALE     , _T("Elvaan \u2642")),
+	FFXiStringAssoc(FFXI_RACE_FLAG_ELVAAN_FEMALE   , _T("Elvaan \u2640")),
+	FFXiStringAssoc(FFXI_RACE_FLAG_TARUTARU_MALE   , _T("Tarutaru \u2642")),
+	FFXiStringAssoc(FFXI_RACE_FLAG_TARUTARU_FEMALE , _T("Tarutaru \u2640")),
+	FFXiStringAssoc(FFXI_RACE_FLAG_MITHRA          , _T("Mithra")),
+	FFXiStringAssoc(FFXI_RACE_FLAG_GALKA           , _T("Galka")),
+	FFXiStringAssoc(-1                             , NULL),
 };
 
 inline BYTE FFXiHelper::RotateRight(BYTE Value_in, int BitShift_in)
@@ -163,7 +163,7 @@ TCHAR* FFXiHelper::GetInstallPath(int Region)
 		{
 			ULONG DataRead;
 			LRESULT Result;
-			LPTSTR pStr;		
+			LPTSTR pStr;
 
 			FFXiKey.QueryStringValue(REGISTRY_KEY_FFXI_KEYNAME, NULL, &DataRead);
 			pStr = m_InstallFolder.GetBuffer(DataRead);
@@ -232,7 +232,7 @@ bool FFXiHelper::ReadItem(BYTE *pItemData, InventoryItem *pItem, int Language, b
 			case ITEM_OBJECT_TYPE_NOTHING:
 				if (pItem->ItemHdr.ItemID < 0x2000 || pItem->ItemHdr.ItemID > 0x2BFF)
 					break;
-			case ITEM_OBJECT_TYPE_PUPPET_ITEM:			
+			case ITEM_OBJECT_TYPE_PUPPET_ITEM:
 				pItemPos += GetPuppetInfo(pItemPos, pItem->PuppetInfo);
 			break;
 		};
@@ -247,7 +247,7 @@ bool FFXiHelper::ReadItem(BYTE *pItemData, InventoryItem *pItem, int Language, b
 
 #ifdef _DEBUG
 		CString DebugName;
-		
+
 		DebugName.Format(_T("[%08ld] %s"), pItem->ItemHdr.ItemID, pItem->ItemName);
 		pItem->ItemName = DebugName;
 #endif // _DEBUG
@@ -389,9 +389,9 @@ int FFXiHelper::GetBYTE(const BYTE *pData, BYTE &Result)
 {
 	if (pData == NULL)
 		return 0;
-	
+
 	Result = *pData;
-	
+
 	return sizeof(BYTE);
 }
 
@@ -410,9 +410,9 @@ int FFXiHelper::GetWORD(const BYTE *pData, WORD &Result)
 {
 	if (pData == NULL)
 		return 0;
-	
+
 	Result = *((WORD*)pData);
-	
+
 	return sizeof(WORD);
 }
 
@@ -431,7 +431,7 @@ int FFXiHelper::GetDWORD(const BYTE *pData, DWORD &Result)
 {
 	if (pData == NULL)
 		return 0;
-	
+
 	Result = *((DWORD*)pData);
 
 	return sizeof(DWORD);
@@ -485,7 +485,7 @@ void FFXiHelper::ConvertChars(const BYTE *pData, CString &Text, bool ucWord)
 			if (ucWord && (i == 0 || Prev == ' ' || Prev == 0x0A))
 				Current = toupper(Current);
 
-		
+
 			if (Current == 0xEF)
 			{
 				Current = *(pData + (++i));
@@ -531,11 +531,11 @@ void FFXiHelper::ConvertChars(const BYTE *pData, CString &Text, bool ucWord)
 }
 
 /*
-ITEM_TYPE_OBJECTS		= 0,
-ITEM_TYPE_USABLE_ITEM,
-ITEM_TYPE_PUPPET_ITEM,
-ITEM_TYPE_ARMOR,
-ITEM_TYPE_WEAPON,
+	ITEM_TYPE_OBJECTS = 0,
+	ITEM_TYPE_USABLE_ITEM,
+	ITEM_TYPE_PUPPET_ITEM,
+	ITEM_TYPE_ARMOR,
+	ITEM_TYPE_WEAPON,
 */
 void FFXiHelper::GetFileFromType(int Type, CString &DATFile, int Language, bool bRelative)
 {
@@ -570,7 +570,7 @@ void FFXiHelper::GetFileFromItemID(DWORD &ItemID, CString &DATFile, int Language
 
 	if (ItemID != -1 && ItemID > 0)
 	{
-		// 0000 - 0FFF  Objects 
+		// 0000 - 0FFF  Objects
 		if (ItemID <= 0x0FFF)
 		{
 			switch(Language)
@@ -606,7 +606,7 @@ void FFXiHelper::GetFileFromItemID(DWORD &ItemID, CString &DATFile, int Language
 				break;
 			}
 		}
-		// 1000 - 1FFF  Usable Item 
+		// 1000 - 1FFF  Usable Item
 		else if (ItemID <= 0x1FFF)
 		{
 			ItemID -= 0x1000;
@@ -644,11 +644,11 @@ void FFXiHelper::GetFileFromItemID(DWORD &ItemID, CString &DATFile, int Language
 				break;
 			}
 		}
-		// 2000 - 27FF  Puppet Item 
+		// 2000 - 27FF  Puppet Item
 		else if (ItemID <= 0x27FF)
 		{
 			ItemID -= 0x2000;
-			
+
 			switch(Language)
 			{
 				default:
@@ -667,7 +667,7 @@ void FFXiHelper::GetFileFromItemID(DWORD &ItemID, CString &DATFile, int Language
 						DATFile.Format(_T("%s\\ROM\\118\\110.DAT"), m_InstallFolder);
 				break;
 				case FFXI_LANG_FR:
-					// file #56239 (ROM/178/44.DAT ) => FR Puppet Items 
+					// file #56239 (ROM/178/44.DAT ) => FR Puppet Items
 					if (bRelative)
 						DATFile = _T("ROM\\178\\44.DAT");
 					else
@@ -682,11 +682,11 @@ void FFXiHelper::GetFileFromItemID(DWORD &ItemID, CString &DATFile, int Language
 				break;
 			}
 		}
-		// 2800 - 3FFF  Armor 
+		// 2800 - 3FFF  Armor
 		else if (ItemID <= 0x3FFF)
 		{
 			ItemID -= 0x2800;
-			
+
 			switch(Language)
 			{
 				default:
@@ -720,11 +720,11 @@ void FFXiHelper::GetFileFromItemID(DWORD &ItemID, CString &DATFile, int Language
 				break;
 			}
 		}
-		// 4000 - 6FFF  Weapons 
+		// 4000 - 6FFF  Weapons
 		else if (ItemID <= 0x6FFF)
 		{
 			ItemID -= 0x4000;
-			
+
 			switch(Language)
 			{
 				default:
@@ -936,7 +936,7 @@ void FFXiHelper::GetItemInfo(const BYTE *pTablePos, int Language, CString &ItemN
 			ConvertChars(pItemName, ItemName);
 			ConvertChars(pItemDescription, ItemDescription);
 			ConvertChars(pLogName, LogName, true);
-			ConvertChars(pLogName2, LogName2, true);	
+			ConvertChars(pLogName2, LogName2, true);
 		}
 	}
 }
@@ -1014,7 +1014,7 @@ int FFXiHelper::GetWeaponInfo(const BYTE *pItemData, FFXiWeaponInfo &WeaponInfo)
 		Offset += GetWORD(pItemData + Offset, WeaponInfo.UseDelay);
 		// 028    UINT32 Re-Use Delay
 		Offset += GetDWORD(pItemData + Offset, WeaponInfo.ReuseDelay);
-		// 02C    UINT32 Unknown (added March 10th 2008) 
+		// 02C    UINT32 Unknown (added March 10th 2008)
 		Offset += GetDWORD(pItemData + Offset, WeaponInfo.Unknown2);
 	}
 
@@ -1047,7 +1047,7 @@ int FFXiHelper::GetArmorInfo(const BYTE *pItemData, FFXiArmorInfo &ArmorInfo)
 		Offset += GetWORD(pItemData + Offset, ArmorInfo.Defense);
 		// 020    UINT32 Re-Use Delay
 		Offset += GetDWORD(pItemData + Offset, ArmorInfo.ReuseDelay);
-		// 024    UINT32 Unknown (added March 10th 2008) 
+		// 024    UINT32 Unknown (added March 10th 2008)
 		Offset += GetDWORD(pItemData + Offset, ArmorInfo.Unknown2);
 	}
 
@@ -1064,7 +1064,7 @@ int FFXiHelper::GetPuppetInfo(const BYTE *pItemData, FFXiPuppetInfo &PuppetInfo)
 		Offset += GetWORD(pItemData + Offset, PuppetInfo.Slot);
 		// 010    UINT32 Element Charge
 		Offset += GetDWORD(pItemData + Offset, PuppetInfo.Element);
-		// 014    UINT32 Unknown 
+		// 014    UINT32 Unknown
 		Offset += GetDWORD(pItemData + Offset, PuppetInfo.Unknown);
 	}
 
@@ -1079,7 +1079,7 @@ int FFXiHelper::GetObjectInfo(const BYTE *pItemData, FFXiObjectInfo &ObjectInfo)
 	{
 		// 00E    UINT16 Element
 		Offset += GetWORD(pItemData + Offset, ObjectInfo.Element);
-		// 010    UINT32 Storage Slots 
+		// 010    UINT32 Storage Slots
 		Offset += GetDWORD(pItemData + Offset, ObjectInfo.Storage);
 	}
 
@@ -1096,6 +1096,9 @@ int FFXiHelper::GetUsableItemInfo(const BYTE *pItemData, FFXiUsableItemInfo &Usa
 		Offset += GetWORD(pItemData + Offset, UsableItemInfo.ActivationTime);
 		// 010    UINT32 Unknown (added March 10th 2008)
 		Offset += GetDWORD(pItemData + Offset, UsableItemInfo.Unknown);
+
+		Offset += GetDWORD(pItemData + Offset, UsableItemInfo.Unknown2);
+		Offset += GetDWORD(pItemData + Offset, UsableItemInfo.Unknown3);
 	}
 
 	return Offset;
@@ -1117,10 +1120,10 @@ void FFXiHelper::GetRaces(DWORD RacesBitMask, CString &Races)
 	}
 	else
 	{
-		const FFXiStringAssoc *pStringTable = RacesStringTable;   
+		const FFXiStringAssoc *pStringTable = RacesStringTable;
 
 		while(pStringTable->Key != -1)
-		{   
+		{
 			if ((RacesBitMask & pStringTable->Key) == pStringTable->Key)
 			{
 				Races = pStringTable->pString;
@@ -1128,8 +1131,8 @@ void FFXiHelper::GetRaces(DWORD RacesBitMask, CString &Races)
 				break;
 			}
 
-			pStringTable++;   
-		}   
+			pStringTable++;
+		}
 	}
 }
 
@@ -1143,10 +1146,10 @@ void FFXiHelper::GetJobs(DWORD JobsBitMask, CString &Jobs)
 	}
 	else
 	{
-		const FFXiStringAssoc *pStringTable = JobsStringTable;   
- 
+		const FFXiStringAssoc *pStringTable = JobsStringTable;
+
 		while(pStringTable->Key != -1)
-		{   
+		{
 			if ((JobsBitMask & pStringTable->Key) == pStringTable->Key)
 			{
 				if (Empty == false)
@@ -1157,34 +1160,34 @@ void FFXiHelper::GetJobs(DWORD JobsBitMask, CString &Jobs)
 				Jobs += pStringTable->pString;
 			}
 
-			pStringTable++;   
-		}   
+			pStringTable++;
+		}
 	}
 }
 
 void FFXiHelper::GetSlot(DWORD SlotBitMask, CString &Slot)
 {
-	const FFXiStringAssoc *pStringTable = SlotStringTable;  
+	const FFXiStringAssoc *pStringTable = SlotStringTable;
 
 	while(pStringTable->Key != -1)
-	{   
+	{
 		if ((SlotBitMask & pStringTable->Key) == pStringTable->Key)
 		{
 			Slot =  pStringTable->pString;
-			
+
 			break;
 		}
 
-		pStringTable++;   
+		pStringTable++;
 	}
 }
 
 void FFXiHelper::GetSkill(DWORD SkillBitMask, CString &Skill)
 {
-	const FFXiStringAssoc *pStringTable = SkillStringTable; 
+	const FFXiStringAssoc *pStringTable = SkillStringTable;
 
 	while(pStringTable->Key != -1)
-	{   
+	{
 		if (SkillBitMask == pStringTable->Key)
 		{
 			Skill =  pStringTable->pString;
@@ -1192,16 +1195,16 @@ void FFXiHelper::GetSkill(DWORD SkillBitMask, CString &Skill)
 			break;
 		}
 
-		pStringTable++;   
+		pStringTable++;
 	}
 }
 
 void FFXiHelper::GetUsableItemType(DWORD ItemType, CString &Type)
 {
-	const FFXiStringAssoc *pStringTable = UsableItemStringTable; 
+	const FFXiStringAssoc *pStringTable = UsableItemStringTable;
 
 	while(pStringTable->Key != -1)
-	{   
+	{
 		if ((ItemType & pStringTable->Key) == pStringTable->Key)
 		{
 			Type =  pStringTable->pString;
@@ -1209,7 +1212,7 @@ void FFXiHelper::GetUsableItemType(DWORD ItemType, CString &Type)
 			break;
 		}
 
-		pStringTable++;   
+		pStringTable++;
 	}
 }
 
@@ -1273,7 +1276,7 @@ void FFXiHelper::GetIconInfo(BYTE *pIconData, FFXiIconInfo &IconInfo, DWORD Back
 {
 	size_t BufferSize = sizeof(FFXiIconInfo);
 	RGBQUAD Background;
-	int Index = 0;	
+	int Index = 0;
 
 	if (pIconData != NULL)
 	{
@@ -1302,7 +1305,7 @@ void FFXiHelper::ClearItemData(InventoryItem *pItem)
 		pItem->LocationInfo.Character = 0;
 		pItem->LocationInfo.Location.Empty();
 
-		pItem->Attr.Empty();		
+		pItem->Attr.Empty();
 		pItem->Level.Empty();
 		pItem->ItemName.Empty();
 		pItem->ItemToolTip.Empty();
