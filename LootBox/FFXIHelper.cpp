@@ -994,28 +994,36 @@ int FFXiHelper::GetWeaponInfo(const BYTE *pItemData, FFXiWeaponInfo &WeaponInfo)
 		Offset += GetWORD(pItemData + Offset, WeaponInfo.Races);
 		// 014    UINT32 Jobs
 		Offset += GetDWORD(pItemData + Offset, WeaponInfo.Jobs);
-		// 018    UINT16 Damage
+		// 018    UINT16 SuperiorLevel
+		Offset += GetWORD(pItemData + Offset, WeaponInfo.SuperiorLevel);
+		// 01A    UINT16 Unknown4
+		Offset += GetWORD(pItemData + Offset, WeaponInfo.Unknown4);
+		// 01C    UINT16 Damage
 		Offset += GetWORD(pItemData + Offset, WeaponInfo.Damage);
-		// 01A    UINT16 Delay
+		// 01E    UINT16 Delay
 		Offset += GetWORD(pItemData + Offset, WeaponInfo.Delay);
-		// 01C    UINT16 DPS
+		// 020    UINT16 DPS
 		Offset += GetWORD(pItemData + Offset, WeaponInfo.DPS);
-		// 01E    UINT8  Skill
+		// 022    UINT8  Skill
 		Offset += GetBYTE(pItemData + Offset, WeaponInfo.Skill);
-		// 01F    UINT8  Jug Size
+		// 023    UINT8  Jug Size
 		Offset += GetBYTE(pItemData + Offset, WeaponInfo.JugSize);
-		// 020    UINT32 Unknown
+		// 024    UINT32 Unknown1
 		Offset += GetDWORD(pItemData + Offset, WeaponInfo.Unknown1);
-		// 024    UINT8  Max Charges
+		// 028    UINT8  Max Charges
 		Offset += GetBYTE(pItemData + Offset, WeaponInfo.MaxCharges);
-		// 025    UINT8  Casting Time
+		// 029    UINT8  Casting Time
 		Offset += GetBYTE(pItemData + Offset, WeaponInfo.CastingTime);
-		// 026    UINT16 Use Delay
+		// 02A    UINT16 Use Delay
 		Offset += GetWORD(pItemData + Offset, WeaponInfo.UseDelay);
-		// 028    UINT32 Re-Use Delay
+		// 02C    UINT32 Re-Use Delay
 		Offset += GetDWORD(pItemData + Offset, WeaponInfo.ReuseDelay);
-		// 02C    UINT32 Unknown (added March 10th 2008)
-		Offset += GetDWORD(pItemData + Offset, WeaponInfo.Unknown2);
+		// 030    UINT16 Unknown (added March 10th 2008)
+		Offset += GetWORD(pItemData + Offset, WeaponInfo.Unknown2);
+		// 032    UINT16 iLevel
+		Offset += GetWORD(pItemData + Offset, WeaponInfo.iLevel);
+		// 034    UINT32 Unknown
+		Offset += GetDWORD(pItemData + Offset, WeaponInfo.Unknown3);
 	}
 
 	return Offset;
@@ -1035,20 +1043,26 @@ int FFXiHelper::GetArmorInfo(const BYTE *pItemData, FFXiArmorInfo &ArmorInfo)
 		Offset += GetWORD(pItemData + Offset, ArmorInfo.Races);
 		// 014    UINT32 Jobs
 		Offset += GetDWORD(pItemData + Offset, ArmorInfo.Jobs);
-		// 018    UINT16 Shield Size
+		// 018    UINT16 SuperiorLevel
+		Offset += GetWORD(pItemData + Offset, ArmorInfo.SuperiorLevel);
+		// 01A    UINT16 Shield Size
 		Offset += GetWORD(pItemData + Offset, ArmorInfo.ShieldSize);
-		// 01A    UINT8  Max Charges
+		// 01B    UINT8  Max Charges
 		Offset += GetBYTE(pItemData + Offset, ArmorInfo.MaxCharges);
-		// 01B    UINT8  Casting Time
+		// 01C    UINT8  Casting Time
 		Offset += GetBYTE(pItemData + Offset, ArmorInfo.CastingTime);
-		// 01C    UINT16 Use Delay
+		// 01D    UINT16 Use Delay
 		Offset += GetWORD(pItemData + Offset, ArmorInfo.UseDelay);
-		// 01E    UINT16 Unknown
+		// 01F    UINT16 Unknown
 		Offset += GetWORD(pItemData + Offset, ArmorInfo.Defense);
-		// 020    UINT32 Re-Use Delay
+		// 021    UINT32 Re-Use Delay
 		Offset += GetDWORD(pItemData + Offset, ArmorInfo.ReuseDelay);
-		// 024    UINT32 Unknown (added March 10th 2008)
-		Offset += GetDWORD(pItemData + Offset, ArmorInfo.Unknown2);
+		// 025    UINT16 Unknown (added March 10th 2008)
+		Offset += GetWORD(pItemData + Offset, ArmorInfo.Unknown2);
+		// 027    UINT16 iLevel
+		Offset += GetWORD(pItemData + Offset, ArmorInfo.iLevel);
+		// 029    UINT32 Unknown
+		Offset += GetWORD(pItemData + Offset, ArmorInfo.Unknown3);
 	}
 
 	return Offset;

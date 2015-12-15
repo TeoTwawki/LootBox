@@ -66,13 +66,16 @@ typedef struct _FFXiItemHeader
 	010    UINT16 Slots
 	012    UINT16 Races
 	014    UINT32 Jobs
-	018    UINT16 Shield Size
-	01A    UINT8  Max Charges
-	01B    UINT8  Casting Time
-	01C    UINT16 Use Delay
-	01E    UINT16 Unknown
-	020    UINT32 Re-Use Delay
-	024    UINT32 Unknown (added March 10th 2008)
+	018    UINT16 SuperiorLevel
+	01A    UINT16 Shield Size
+	01C    UINT8  Max Charges
+	01D    UINT8  Casting Time
+	01E    UINT16 Use Delay
+	020    UINT16 Unknown
+	022    UINT32 Re-Use Delay
+	026    UINT16 Unknown
+	028    UINT16 iLevel
+	02A    UINT16 Unknown
 */
 typedef struct _FFXiArmorInfo
 {
@@ -80,13 +83,16 @@ typedef struct _FFXiArmorInfo
 	WORD    Slot;
 	WORD    Races;
 	DWORD   Jobs;
+	WORD    SuperiorLevel;
 	WORD    ShieldSize;
 	BYTE    MaxCharges;
 	BYTE    CastingTime;
 	WORD    UseDelay;
 	WORD    Defense;
 	DWORD   ReuseDelay;
-	DWORD   Unknown2;
+	WORD    Unknown2;
+	WORD    iLevel;
+	WORD    Unknown3;
 } FFXiArmorInfo;
 
 /*
@@ -136,17 +142,21 @@ typedef struct _FFXiUsableItemInfo
 	010    UINT16 Slots
 	012    UINT16 Races
 	014    UINT32 Jobs
-	018    UINT16 Damage
-	01A    UINT16 Delay
-	01C    UINT16 DPS
-	01E    UINT8  Skill
-	01F    UINT8  Jug Size
-	020    UINT32 Unknown
-	024    UINT8  Max Charges
-	025    UINT8  Casting Time
-	026    UINT16 Use Delay
-	028    UINT32 Re-Use Delay
-	02C    UINT32 Unknown (added March 10th 2008)
+	018    UINT16 SuperiorLevel
+	01A    UINT16 Unknown
+	01C    UINT16 Damage
+	01E    UINT16 Delay
+	020    UINT16 DPS
+	022    UINT8  Skill
+	023    UINT8  Jug Size
+	024    UINT32 Unknown
+	028    UINT8  Max Charges
+	029    UINT8  Casting Time
+	02A    UINT16 Use Delay
+	02C    UINT32 Re-Use Delay
+	030    UINT16 Unknown
+	032    UINT16 iLevel
+	034    UINT32 Unknown
 */
 typedef struct _FFXiWeaponInfo
 {
@@ -154,6 +164,8 @@ typedef struct _FFXiWeaponInfo
 	WORD    Slot;
 	WORD    Races;
 	DWORD   Jobs;
+	WORD    SuperiorLevel;
+	WORD    Unknown4;
 	WORD    Damage;
 	WORD    Delay;
 	WORD    DPS;
@@ -164,7 +176,9 @@ typedef struct _FFXiWeaponInfo
 	BYTE    CastingTime;
 	WORD    UseDelay;
 	DWORD   ReuseDelay;
-	DWORD   Unknown2;
+	WORD    Unknown2;
+	WORD    iLevel;
+	DWORD   Unknown3;
 } FFXiWeaponInfo;
 
 #pragma pack(pop)
