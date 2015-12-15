@@ -26,10 +26,14 @@
     <ProjectGuid>{F12F747C-8E43-42C6-AF46-DAA6ECA078DE}</ProjectGuid>
     <RootNamespace>LootBox</RootNamespace>
     <Keyword>MFCProj</Keyword>
-    <SccProjectName>Svn</SccProjectName>
-    <SccAuxPath>Svn</SccAuxPath>
-    <SccLocalPath>Svn</SccLocalPath>
-    <SccProvider>SubversionScc</SccProvider>
+    <SccProjectName>
+    </SccProjectName>
+    <SccAuxPath>
+    </SccAuxPath>
+    <SccLocalPath>
+    </SccLocalPath>
+    <SccProvider>
+    </SccProvider>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release GDI|Win32'" Label="Configuration">

@@ -1,0 +1,10 @@
+.vs
+loot.ini
+*.exe
+*.sdf
+obj
+/obj
+_Debug
+/_Debug
+_Release
+/_Release

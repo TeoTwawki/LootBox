@@ -1,0 +1,6 @@
+# Enforce widnows style line ends for text files.
+*.sln text eol=crlf
+*.md text eol=crlf
+*.txt text eol=crlf
+*.cpp text eol=crlf
+*.h text eol=crlf
