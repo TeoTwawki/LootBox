@@ -492,47 +492,59 @@ BOOL CLootBoxDlg::DefaultConfig()
 		if (pSectionData == NULL)
 			m_pIni->SetValue(INI_FILE_INVENTORY_SECTION, NULL, NULL);
 
-		// check if the Inventory key exists
+		// check if the "Inventory" key exists
 		pValue = m_pIni->GetValue(INI_FILE_INVENTORY_SECTION, INI_FILE_INVENTORY_KEY);
 		// create it if it doesn't
 		if (pValue == NULL)
 			m_pIni->SetValue(INI_FILE_INVENTORY_SECTION, INI_FILE_INVENTORY_KEY, INI_FILE_INVENTORY_VALUE);
 
-		// check if the Mog Safe key exists
+		// check if the "Mog Safe" key exists
 		pValue = m_pIni->GetValue(INI_FILE_INVENTORY_SECTION, INI_FILE_MOG_SAFE_KEY);
 		// create it if it doesn't
 		if (pValue == NULL)
 			m_pIni->SetValue(INI_FILE_INVENTORY_SECTION, INI_FILE_MOG_SAFE_KEY, INI_FILE_MOG_SAFE_VALUE);
 
-		// check if the Storage key exists
+		// check if the "Mog Safe 2" key exists
+		pValue = m_pIni->GetValue(INI_FILE_INVENTORY_SECTION, INI_FILE_MOG_SAFE_2_KEY);
+		// create it if it doesn't
+		if (pValue == NULL)
+			m_pIni->SetValue(INI_FILE_INVENTORY_SECTION, INI_FILE_MOG_SAFE_2_KEY, INI_FILE_MOG_SAFE_2_VALUE);
+
+		// check if the "Storage" key exists
 		pValue = m_pIni->GetValue(INI_FILE_INVENTORY_SECTION, INI_FILE_STORAGE_KEY);
 		// create it if it doesn't
 		if (pValue == NULL)
 			m_pIni->SetValue(INI_FILE_INVENTORY_SECTION, INI_FILE_STORAGE_KEY, INI_FILE_STORAGE_VALUE);
 
-		// check if the Mog Locker key exists
+		// check if the "Mog Locker" key exists
 		pValue = m_pIni->GetValue(INI_FILE_INVENTORY_SECTION, INI_FILE_MOG_LOCKER_KEY);
 		// create it if it doesn't
 		if (pValue == NULL)
 			m_pIni->SetValue(INI_FILE_INVENTORY_SECTION, INI_FILE_MOG_LOCKER_KEY, INI_FILE_MOG_LOCKER_VALUE);
 
-		// check if the Mog Satchel key exists
+		// check if the "Mog Satchel" key exists
 		pValue = m_pIni->GetValue(INI_FILE_INVENTORY_SECTION, INI_FILE_MOG_SATCHEL_KEY);
 		// create it if it doesn't
 		if (pValue == NULL)
 			m_pIni->SetValue(INI_FILE_INVENTORY_SECTION, INI_FILE_MOG_SATCHEL_KEY, INI_FILE_MOG_SATCHEL_VALUE);
 
-		// check if the Mog Sack key exists
+		// check if the "Mog Sack" key exists
 		pValue = m_pIni->GetValue(INI_FILE_INVENTORY_SECTION, INI_FILE_MOG_SACK_KEY);
 		// create it if it doesn't
 		if (pValue == NULL)
 			m_pIni->SetValue(INI_FILE_INVENTORY_SECTION, INI_FILE_MOG_SACK_KEY, INI_FILE_MOG_SACK_VALUE);
 
-		// check if the Mog Case key exists
+		// check if the "Mog Case" key exists
 		pValue = m_pIni->GetValue(INI_FILE_INVENTORY_SECTION, INI_FILE_MOG_CASE_KEY);
 		// create it if it doesn't
 		if (pValue == NULL)
 			m_pIni->SetValue(INI_FILE_INVENTORY_SECTION, INI_FILE_MOG_CASE_KEY, INI_FILE_MOG_CASE_VALUE);
+
+		// check if the "Mog Wardrobe" key exists
+		pValue = m_pIni->GetValue(INI_FILE_INVENTORY_SECTION, INI_FILE_MOG_WARDROBE_KEY);
+		// create it if it doesn't
+		if (pValue == NULL)
+			m_pIni->SetValue(INI_FILE_INVENTORY_SECTION, INI_FILE_MOG_WARDROBE_KEY, INI_FILE_MOG_WARDROBE_VALUE);
 
 		////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 		// check if the Columns section exists
