@@ -30,6 +30,8 @@
 #define INI_FILE_COL_REMARKS_VALUE      _T("100")
 
 #define INI_FILE_INVENTORY_VALUE        _T("Inventory")
+#define INI_FILE_MOG_WARDROBE_VALUE     _T("Mog Wardrobe")
+#define INI_FILE_MOG_WARDROBE_2_VALUE   _T("Mog Wardrobe 2")
 #define INI_FILE_MOG_SAFE_VALUE         _T("Mog Safe")
 #define INI_FILE_MOG_SAFE_2_VALUE       _T("Mog Safe 2")
 #define INI_FILE_STORAGE_VALUE          _T("Storage")
@@ -37,9 +39,10 @@
 #define INI_FILE_MOG_SATCHEL_VALUE      _T("Mog Satchel")
 #define INI_FILE_MOG_SACK_VALUE         _T("Mog Sack")
 #define INI_FILE_MOG_CASE_VALUE         _T("Mog Case")
-#define INI_FILE_MOG_WARDROBE_VALUE     _T("Mog Wardrobe")
 
 #define INI_FILE_INVENTORY_KEY          _T("is.dat")
+#define INI_FILE_MOG_WARDROBE_KEY       _T("wr.dat")
+#define INI_FILE_MOG_WARDROBE_2_KEY     _T("wr_2.dat")
 #define INI_FILE_MOG_SAFE_KEY           _T("bs.dat")
 #define INI_FILE_MOG_SAFE_2_KEY         _T("b2.dat")
 #define INI_FILE_STORAGE_KEY            _T("cl.dat")
@@ -47,7 +50,6 @@
 #define INI_FILE_MOG_SATCHEL_KEY        _T("sb.dat")
 #define INI_FILE_MOG_SACK_KEY           _T("sk.dat")
 #define INI_FILE_MOG_CASE_KEY           _T("ca.dat")
-#define INI_FILE_MOG_WARDROBE_KEY       _T("wr.dat")
 
 #define INI_FILE_WINDOW_WIDTH_KEY       _T("Width")
 #define INI_FILE_WINDOW_HEIGHT_KEY      _T("Height")
