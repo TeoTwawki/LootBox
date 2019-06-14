@@ -531,8 +531,6 @@ bool CACListWnd::EnsureVisible(int item, bool m_bWait)
 		long m_len = item;
 		for(int i = m_lTopIndex; i < m_len; i++)
 			{
-			if(i >= m_lCount-m_VisibleItems)
-				break;
 			if(i >= m_lCount-m_VisibleItems || i + m_VisibleItems > item)
 				{
 				break;
