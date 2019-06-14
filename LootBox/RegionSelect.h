@@ -14,7 +14,10 @@ public:
 	int GetSelectedRegion();
 
 // Dialog Data
-	enum { IDD = IDD_REGION_SELECT };
+	enum
+	{
+		IDD = IDD_REGION_SELECT
+	};
 
 protected:
 	virtual void DoDataExchange(CDataExchange* pDX);    // DDX/DDV support

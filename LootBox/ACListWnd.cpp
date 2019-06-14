@@ -24,7 +24,7 @@ static UINT auIDStatusBar[] =
 void DoPaintMessageLoop()
 {
 	MSG message1;
-	while(::PeekMessage(&message1,NULL,WM_PAINT,WM_PAINT, PM_REMOVE))
+	while (::PeekMessage(&message1, NULL, WM_PAINT, WM_PAINT, PM_REMOVE))
 	{
 		::TranslateMessage(&message1);
 		::DispatchMessage(&message1);
@@ -100,7 +100,7 @@ END_MESSAGE_MAP()
 /////////////////////////////////////////////////////////////////////////////
 // Behandlungsroutinen für Nachrichten CACListWnd
 
-void CACListWnd::DrawItem(CDC* pDC,long m_lItem,long width)
+void CACListWnd::DrawItem(CDC* pDC, long m_lItem, long width)
 {
 	long y = m_lItem - m_lTopIndex;
 
@@ -118,15 +118,15 @@ void CACListWnd::DrawItem(CDC* pDC,long m_lItem,long width)
 	// draw as selected item
 	if (m_lItem == m_lSelItem)
 	{
-		CRect rcLabel(2,y*m_ItemHeight,width,(y+1)*m_ItemHeight);
+		CRect rcLabel(2, y*m_ItemHeight, width, (y + 1)*m_ItemHeight);
 
 		rcLabel.left = 0;
-		pDC->FillSolidRect(rcLabel,::GetSysColor(COLOR_HIGHLIGHT));
+		pDC->FillSolidRect(rcLabel, ::GetSysColor(COLOR_HIGHLIGHT));
 		pDC->SetTextColor(::GetSysColor(COLOR_HIGHLIGHTTEXT));
 		rcLabel.left = 2;
 
 		pDC->DrawText(m_DisplayStr, -1, rcLabel, DT_LEFT | DT_SINGLELINE |
-					  DT_NOPREFIX | DT_VCENTER | DT_END_ELLIPSIS);
+			DT_NOPREFIX | DT_VCENTER | DT_END_ELLIPSIS);
 	}
 	else if (m_bSelecting == false)
 	{
@@ -136,8 +136,8 @@ void CACListWnd::DrawItem(CDC* pDC,long m_lItem,long width)
 		CRect DrawRect;
 		CFont *pFont;
 
-		DrawRect.top = y*m_ItemHeight;
-		DrawRect.bottom = (y+1)*m_ItemHeight;
+		DrawRect.top = y * m_ItemHeight;
+		DrawRect.bottom = (y + 1)*m_ItemHeight;
 
 		SearchStr = m_DisplayStr;
 		SearchStr.MakeLower();
@@ -180,7 +180,7 @@ void CACListWnd::DrawItem(CDC* pDC,long m_lItem,long width)
 	else
 	{
 		long y = m_lItem - m_lTopIndex;
-		CRect rcLabel(2,y*m_ItemHeight,width,(y+1)*m_ItemHeight);
+		CRect rcLabel(2, y*m_ItemHeight, width, (y + 1)*m_ItemHeight);
 
 		pDC->DrawText(m_DisplayStr, -1, rcLabel, DT_LEFT | DT_SINGLELINE | DT_NOPREFIX | DT_VCENTER | DT_END_ELLIPSIS);
 	}
@@ -191,15 +191,15 @@ void CACListWnd::DrawItem(CDC* pDC,long m_lItem,long width)
 void CACListWnd::OnPaint()
 {
 	CPaintDC dc(this);
-	CRect rcWnd,m_rect, rc;
-	CDC MemDC,*pDC=NULL;
+	CRect rcWnd, m_rect, rc;
+	CDC MemDC, *pDC = NULL;
 	CBitmap  m_bitmap, *m_pOldBitmap;
 
 	GetClientRect(rc);
 	rcWnd = m_rect = rc;
 
-	rc.left = rc.right-GetSystemMetrics(SM_CXHSCROLL);
-	rc.top = rc.bottom-GetSystemMetrics(SM_CYVSCROLL);
+	rc.left = rc.right - GetSystemMetrics(SM_CXHSCROLL);
+	rc.top = rc.bottom - GetSystemMetrics(SM_CYVSCROLL);
 
 	m_rect.right -= ScrollBarWidth();
 
@@ -212,13 +212,13 @@ void CACListWnd::OnPaint()
 
 	long width = rcWnd.Width() - ScrollBarWidth();
 
-	MemDC.FillSolidRect(rcWnd,::GetSysColor(COLOR_WINDOW));
+	MemDC.FillSolidRect(rcWnd, ::GetSysColor(COLOR_WINDOW));
 	MemDC.SelectObject(GetStockObject(DEFAULT_GUI_FONT));
 	MemDC.SetBkMode(TRANSPARENT);
 
-	for(int i = m_lTopIndex; i < m_lCount;i++)
+	for (int i = m_lTopIndex; i < m_lCount; i++)
 	{
-		DrawItem(&MemDC,i,width);
+		DrawItem(&MemDC, i, width);
 	}
 
 	CPen m_Pen1(PS_SOLID, 1, ::GetSysColor(COLOR_WINDOW));
@@ -237,13 +237,13 @@ void CACListWnd::OnPaint()
 	}
 
 	CPen *pOldPen = (CPen*)pDC->SelectObject(&m_Pen1);
-	int a = 1,bottom;
+	int a = 1, bottom;
 
 	width = GetSystemMetrics(SM_CXHSCROLL);
-	bottom = (rcWnd.bottom-GetSystemMetrics(SM_CXHSCROLL))-1;
+	bottom = (rcWnd.bottom - GetSystemMetrics(SM_CXHSCROLL)) - 1;
 
 	//gripper
-	for(int i = 0; i < 20 ;i++,a++)
+	for (int i = 0; i < 20; i++, a++)
 	{
 		if (a == 1)
 			pDC->SelectObject(&m_Pen1);
@@ -264,7 +264,7 @@ void CACListWnd::OnPaint()
 	dc.BitBlt(m_rect.left, m_rect.top, m_rect.Width(), m_rect.Height(),
 		&MemDC, m_rect.left, m_rect.top, SRCCOPY);
 
-	pDC->SelectObject( pOldPen );
+	pDC->SelectObject(pOldPen);
 	MemDC.SelectObject(m_pOldBitmap);
 
 	if (m_bSelecting)
@@ -275,14 +275,14 @@ void CACListWnd::OnPaint()
 
 void CACListWnd::Init(CWnd *pWnd)
 {
-	VERIFY(m_VertBar.Create(WS_VISIBLE|SBS_VERT|SBS_LEFTALIGN,
-		CRect(0,0,GetSystemMetrics(SM_CYVSCROLL),100),this,0));
+	VERIFY(m_VertBar.Create(WS_VISIBLE | SBS_VERT | SBS_LEFTALIGN,
+		CRect(0, 0, GetSystemMetrics(SM_CYVSCROLL), 100), this, 0));
 
 	SetScroller();
 	m_pEditParent = (CEdit*)pWnd;
 
 	m_lCount = (long)m_DisplayList.GetSize();
-	m_VertBar.SetScrollPos(0,false);
+	m_VertBar.SetScrollPos(0, false);
 	SetProp();
 
 	CDC *m_pDC;
@@ -300,20 +300,20 @@ void CACListWnd::Init(CWnd *pWnd)
 
 void CACListWnd::SetScroller()
 {
-	CRect rcWnd,rcBar;
+	CRect rcWnd, rcBar;
 	GetClientRect(rcWnd);
 
 	if (m_VertBar.GetSafeHwnd())
 	{
 		rcBar = rcWnd;
-		rcBar.top=-1;
-		rcBar.left = (rcWnd.Width()-GetSystemMetrics(SM_CYVSCROLL));
-		rcBar.bottom-= GetSystemMetrics(SM_CYHSCROLL);
+		rcBar.top = -1;
+		rcBar.left = (rcWnd.Width() - GetSystemMetrics(SM_CYVSCROLL));
+		rcBar.bottom -= GetSystemMetrics(SM_CYHSCROLL);
 		m_VertBar.MoveWindow(rcBar);
-		rcBar.top = rcWnd.bottom-20;
+		rcBar.top = rcWnd.bottom - 20;
 		rcBar.bottom = rcWnd.bottom;
 
-		m_VertBar.SetScrollPos(m_lTopIndex,true);
+		m_VertBar.SetScrollPos(m_lTopIndex, true);
 	}
 
 }
@@ -344,7 +344,7 @@ long CACListWnd::ScrollBarWidth()
 
 void CACListWnd::SetProp()
 {
-	CRect rcWnd,rcBar;
+	CRect rcWnd, rcBar;
 
 	if (!m_lCount)
 		return;
@@ -354,27 +354,27 @@ void CACListWnd::SetProp()
 
 	SCROLLINFO si;
 	si.cbSize = sizeof(SCROLLINFO);
-	si.fMask =  SIF_PAGE|SIF_RANGE;
+	si.fMask = SIF_PAGE | SIF_RANGE;
 	si.nMin = 0;
-	si.nMax =  m_lCount-1;
-	m_VisibleItems = si.nPage = rcWnd.Height()/m_ItemHeight;
+	si.nMax = m_lCount - 1;
+	m_VisibleItems = si.nPage = rcWnd.Height() / m_ItemHeight;
 	si.nTrackPos = 2;
-	m_VertBar.SetScrollRange(0,m_lCount-1);
+	m_VertBar.SetScrollRange(0, m_lCount - 1);
 	m_VertBar.SetScrollInfo(&si);
 
-	if (m_VisibleItems > m_lCount-1)
+	if (m_VisibleItems > m_lCount - 1)
 		m_VertBar.ShowWindow(false);
 	else
 		m_VertBar.ShowWindow(true);
 
-	if (m_lTopIndex+m_VisibleItems > m_lCount)
+	if (m_lTopIndex + m_VisibleItems > m_lCount)
 	{
-		m_lTopIndex = m_lCount-m_VisibleItems;
+		m_lTopIndex = m_lCount - m_VisibleItems;
 
 		if (m_lTopIndex < 0)
 			m_lTopIndex = 0;
 
-		m_VertBar.SetScrollPos(m_lTopIndex,true);
+		m_VertBar.SetScrollPos(m_lTopIndex, true);
 	}
 }
 
@@ -390,7 +390,7 @@ BOOL CACListWnd::OnEraseBkgnd(CDC* /*pDC*/)
 void CACListWnd::OnNcPaint()
 {
 	CWindowDC dc(this);
-	CRect rectClient, rectWindow,rcWnd;
+	CRect rectClient, rectWindow, rcWnd;
 
 	GetClientRect(rectClient);
 	GetWindowRect(rectWindow);
@@ -401,7 +401,7 @@ void CACListWnd::OnNcPaint()
 
 	rectWindow.OffsetRect(-rectWindow.left, -rectWindow.top);
 
-	dc.FillSolidRect(rectWindow,::GetSysColor(COLOR_WINDOWTEXT));
+	dc.FillSolidRect(rectWindow, ::GetSysColor(COLOR_WINDOWTEXT));
 }
 
 /*********************************************************************/
@@ -432,13 +432,13 @@ int CACListWnd::HitTest(CPoint point)
 	GetClientRect(rcWnd);
 	long width = rcWnd.Width() - ScrollBarWidth();
 
-	for(int i = m_lTopIndex; i < m_lCount; i++)
+	for (int i = m_lTopIndex; i < m_lCount; i++)
 	{
 		long y = i - m_lTopIndex;
-		rcItem.SetRect(2,y*m_ItemHeight,width,(y+1)*m_ItemHeight);
+		rcItem.SetRect(2, y*m_ItemHeight, width, (y + 1)*m_ItemHeight);
 
 		if (PtInRect(&rcItem, point))
-			return (m_lSelItem = (y+m_lTopIndex));
+			return (m_lSelItem = (y + m_lTopIndex));
 	}
 
 	return -1;
@@ -471,7 +471,7 @@ void CACListWnd::OnLButtonDown(UINT nFlags, CPoint point)
 	{
 
 		m_bSelecting = true;
-		if (!EnsureVisible(sel,true))
+		if (!EnsureVisible(sel, true))
 			Invalidate();
 		m_lSelItem = sel;
 		m_pEditParent->SendMessage(ENAC_UPDATE, WM_KEYDOWN, GetDlgCtrlID());
@@ -526,7 +526,7 @@ BOOL CACListWnd::OnSetCursor(CWnd* pWnd, UINT nHitTest, UINT message)
 
 void CACListWnd::InvalidateAndScroll()
 {
-	m_VertBar.SetScrollPos(m_lTopIndex,true);
+	m_VertBar.SetScrollPos(m_lTopIndex, true);
 	Invalidate();
 	DoPaintMessageLoop();
 }
@@ -541,9 +541,9 @@ bool CACListWnd::EnsureVisible(int item, bool m_bWait)
 	if (item > m_lTopIndex) // scroll down
 	{
 		long m_len = item;
-		for(int i = m_lTopIndex; i < m_len; i++)
+		for (int i = m_lTopIndex; i < m_len; i++)
 		{
-			if (i >= m_lCount-m_VisibleItems || i + m_VisibleItems > item)
+			if (i >= m_lCount - m_VisibleItems || i + m_VisibleItems > item)
 			{
 				break;
 			}
@@ -563,7 +563,7 @@ bool CACListWnd::EnsureVisible(int item, bool m_bWait)
 
 	if (item < m_lTopIndex) // scroll up
 	{
-		while(item < m_lTopIndex)
+		while (item < m_lTopIndex)
 		{
 			if (m_lTopIndex > 0)
 			{
@@ -598,14 +598,14 @@ bool CACListWnd::SelectItem(int item)
 
 	if (item == -1)
 	{
-		EnsureVisible(m_lSelItem,false);
+		EnsureVisible(m_lSelItem, false);
 		Invalidate();
 		return false;
 	}
 
 	m_lSelItem = item;
 
-	if (!EnsureVisible(item,true))
+	if (!EnsureVisible(item, true))
 		Invalidate();
 
 	return true;
@@ -613,15 +613,15 @@ bool CACListWnd::SelectItem(int item)
 
 /*********************************************************************/
 
-int CACListWnd::FindStringExact( int nStartAfter, LPCTSTR lpszString )
+int CACListWnd::FindStringExact(int nStartAfter, LPCTSTR lpszString)
 {
 	if (nStartAfter > m_SearchList.GetSize())
 		return -1;
 
-	for(int i = nStartAfter+1; i < m_SearchList.GetSize(); i++)
+	for (int i = nStartAfter + 1; i < m_SearchList.GetSize(); i++)
 		if (m_SearchList.GetAt(i).Compare(lpszString) == 0)
 			return i;
-		return -1;
+	return -1;
 }
 
 /*********************************************************************/
@@ -635,7 +635,7 @@ int CACListWnd::FindString(int nStartAfter, LPCTSTR lpszString, bool m_bDisplayO
 
 	if (!m_bDisplayOnly)
 	{
-		CString m_Str1,m_Str2 = lpszString;
+		CString m_Str1, m_Str2 = lpszString;
 		if (!m_pEditParent)
 		{
 			ShowWindow(false);
@@ -658,7 +658,7 @@ int CACListWnd::FindString(int nStartAfter, LPCTSTR lpszString, bool m_bDisplayO
 
 		m_Str2.MakeUpper();
 
-		for(int i = nStartAfter+1; i < m_SearchList.GetSize(); i++)
+		for (int i = nStartAfter + 1; i < m_SearchList.GetSize(); i++)
 		{
 			if (m_PrefixChar)
 				m_Str1 = m_PrefixChar;
@@ -683,14 +683,14 @@ int CACListWnd::FindString(int nStartAfter, LPCTSTR lpszString, bool m_bDisplayO
 					m_DisplayList.Add(m_SearchList.GetAt(i));
 				}
 			}
-			}
+		}
 	}
 	m_lCount = (long)m_DisplayList.GetSize();
 
 	if (m_lCount)
 	{
 		CRect rcWnd;
-		int iHeight,iWight;
+		int iHeight, iWight;
 
 		m_pEditParent->GetWindowRect(rcWnd);
 
@@ -700,18 +700,18 @@ int CACListWnd::FindString(int nStartAfter, LPCTSTR lpszString, bool m_bDisplayO
 		ShowWindow(true);
 		Invalidate();
 
-		iHeight = m_lCount*m_ItemHeight+(GetSystemMetrics(SM_CYBORDER)*2);
+		iHeight = m_lCount * m_ItemHeight + (GetSystemMetrics(SM_CYBORDER) * 2);
 
 		if (m_lCount > _MAX_ENTRYS_)
-			iHeight = _MAX_ENTRYS_*m_ItemHeight+(GetSystemMetrics(SM_CYBORDER)*2);
+			iHeight = _MAX_ENTRYS_ * m_ItemHeight + (GetSystemMetrics(SM_CYBORDER) * 2);
 
 		if (!m_LastSize.IsRectEmpty())
 		{
 			iWight = m_LastSize.Width();
 			iHeight = m_LastSize.Height();
 			rcWnd.top += rcWnd.Height();
-			rcWnd.right = rcWnd.left+iWight;
-			rcWnd.bottom = rcWnd.top+iHeight;
+			rcWnd.right = rcWnd.left + iWight;
+			rcWnd.bottom = rcWnd.top + iHeight;
 
 			SetWindowPos(&CWnd::wndTopMost, rcWnd.left,
 				rcWnd.top,
@@ -741,7 +741,7 @@ int CACListWnd::FindString(int nStartAfter, LPCTSTR lpszString, bool m_bDisplayO
 
 /*********************************************************************/
 
-int CACListWnd::SelectString(LPCTSTR lpszString )
+int CACListWnd::SelectString(LPCTSTR lpszString)
 {
 	int item = FindString(-1, lpszString);
 	SelectItem(item);
@@ -764,7 +764,7 @@ void CACListWnd::OnShowWindow(BOOL bShow, UINT nStatus)
 {
 	if (bShow)
 	{
-		m_nIDTimer = (int)SetTimer( IDTimerInstall, 200, NULL);
+		m_nIDTimer = (int)SetTimer(IDTimerInstall, 200, NULL);
 		m_pEditParent->GetParent()->GetWindowRect(m_ParentRect);
 	}
 	else
@@ -798,7 +798,7 @@ CString CACListWnd::GetString()
 
 	if (!i)
 		return _T("");
-	
+
 	if (i <= m_lSelItem || m_lSelItem == -1)
 		i = 0;
 	else
@@ -814,7 +814,7 @@ void CACListWnd::OnVScroll(UINT nSBCode, UINT nPos, CScrollBar* pScrollBar)
 	CWnd::OnVScroll(nSBCode, nPos, pScrollBar);
 	long m_oldlTopIndex = m_lTopIndex;
 
-	switch(nSBCode)
+	switch (nSBCode)
 	{
 		case SB_ENDSCROLL:
 			break;
@@ -827,8 +827,8 @@ void CACListWnd::OnVScroll(UINT nSBCode, UINT nPos, CScrollBar* pScrollBar)
 
 		case SB_PAGEDOWN:
 			m_lTopIndex += m_VisibleItems;
-			if (m_lTopIndex >= m_lCount-m_VisibleItems)
-				m_lTopIndex = m_lCount-m_VisibleItems;
+			if (m_lTopIndex >= m_lCount - m_VisibleItems)
+				m_lTopIndex = m_lCount - m_VisibleItems;
 			break;
 
 		case SB_LINEUP:
@@ -839,8 +839,8 @@ void CACListWnd::OnVScroll(UINT nSBCode, UINT nPos, CScrollBar* pScrollBar)
 
 		case SB_LINEDOWN:
 			m_lTopIndex++;
-			if (m_lTopIndex >= m_lCount-m_VisibleItems)
-				m_lTopIndex = m_lCount-m_VisibleItems;
+			if (m_lTopIndex >= m_lCount - m_VisibleItems)
+				m_lTopIndex = m_lCount - m_VisibleItems;
 			break;
 
 		case SB_THUMBTRACK:
@@ -848,7 +848,7 @@ void CACListWnd::OnVScroll(UINT nSBCode, UINT nPos, CScrollBar* pScrollBar)
 			break;
 	}
 
-	m_VertBar.SetScrollPos(m_lTopIndex,true);
+	m_VertBar.SetScrollPos(m_lTopIndex, true);
 
 	if (m_oldlTopIndex != m_lTopIndex)
 		Invalidate();
@@ -858,7 +858,7 @@ void CACListWnd::OnVScroll(UINT nSBCode, UINT nPos, CScrollBar* pScrollBar)
 
 CString CACListWnd::GetNextString(int nChar)
 {
-	switch(nChar)
+	switch (nChar)
 	{
 		case VK_DOWN:
 			m_lSelItem++;
@@ -876,8 +876,8 @@ CString CACListWnd::GetNextString(int nChar)
 
 		case VK_NEXT:
 			m_lSelItem += m_VisibleItems;
-			if (m_lSelItem >= m_lCount-1)
-				m_lSelItem = m_lCount-1;
+			if (m_lSelItem >= m_lCount - 1)
+				m_lSelItem = m_lCount - 1;
 			break;
 
 		case VK_HOME:
@@ -885,17 +885,17 @@ CString CACListWnd::GetNextString(int nChar)
 			break;
 
 		case VK_END:
-			m_lSelItem = m_lCount-1;
+			m_lSelItem = m_lCount - 1;
 			break;
 	}
 
 	if (m_lSelItem < 0)
-		m_lSelItem = m_lCount-1;
+		m_lSelItem = m_lCount - 1;
 
 	if (m_lSelItem >= m_lCount)
 		m_lSelItem = 0;
 
-	if (EnsureVisible(m_lSelItem,(m_lCount > 50) ? false : true))
+	if (EnsureVisible(m_lSelItem, (m_lCount > 50) ? false : true))
 		InvalidateAndScroll();
 
 	return GetString();
@@ -932,23 +932,23 @@ void CACListWnd::OnGetMinMaxInfo(MINMAXINFO FAR* lpMMI)
 	if (GetSafeHwnd())
 	{
 		// Vers. 1.2
-		long m_lMinY1 = GetSystemMetrics(SM_CYHSCROLL)*2 + GetSystemMetrics(SM_CYSIZEFRAME) + GetSystemMetrics(SM_CXHTHUMB),
-			m_lMinY2 = m_lCount * m_ItemHeight + (GetSystemMetrics(SM_CYBORDER)*2);
+		long m_lMinY1 = GetSystemMetrics(SM_CYHSCROLL) * 2 + GetSystemMetrics(SM_CYSIZEFRAME) + GetSystemMetrics(SM_CXHTHUMB),
+			m_lMinY2 = m_lCount * m_ItemHeight + (GetSystemMetrics(SM_CYBORDER) * 2);
 
-		if (m_VisibleItems > m_lCount-1 &&  m_lMinY2 < m_lMinY1)
+		if (m_VisibleItems > m_lCount - 1 && m_lMinY2 < m_lMinY1)
 			lpMMI->ptMinTrackSize.y = m_lMinY2;
 		else
 			lpMMI->ptMinTrackSize.y = m_lMinY1;
 		//---------
 
-		lpMMI->ptMinTrackSize.x = GetSystemMetrics(SM_CXHSCROLL)*4;
+		lpMMI->ptMinTrackSize.x = GetSystemMetrics(SM_CXHSCROLL) * 4;
 
 
 		// Vers. 1.2
 		if (m_pEditParent != NULL)
 		{
 			RECT rc;
-			m_pEditParent->GetWindowRect (&rc);
+			m_pEditParent->GetWindowRect(&rc);
 			lpMMI->ptMinTrackSize.x = rc.right - rc.left;
 		}
 	}
@@ -962,7 +962,7 @@ void CACListWnd::OnGetMinMaxInfo(MINMAXINFO FAR* lpMMI)
 
 int CACListWnd::CompareString(const void* p1, const void* p2)
 {
-	return _stricmp( * ( char** ) p1, * ( char** ) p2 );
+	return _stricmp(*(char**)p1, *(char**)p2);
 }
 
 /*********************************************************************/
@@ -976,10 +976,10 @@ void CACListWnd::SortList(CStringArray& m_List)
 		CStringArray m_Liste1;
 		m_Liste1.Copy(m_List);
 
-		LPCTSTR* ppSortArray = new LPCTSTR[m_Count+1];
+		LPCTSTR* ppSortArray = new LPCTSTR[m_Count + 1];
 
 
-		for(int i=0; i < m_Count; i++)
+		for (int i = 0; i < m_Count; i++)
 		{
 			ppSortArray[i] = (LPCTSTR)m_Liste1.GetAt(i);
 		}
@@ -988,12 +988,12 @@ void CACListWnd::SortList(CStringArray& m_List)
 
 		qsort(ppSortArray, m_Count, sizeof(LPCTSTR), CompareString);
 
-		for(int i=0; i < m_Count; i++)
+		for (int i = 0; i < m_Count; i++)
 		{
-			m_List.Add((LPCTSTR) ppSortArray[i]);
+			m_List.Add((LPCTSTR)ppSortArray[i]);
 		}
 		m_Liste1.RemoveAll();
-		delete [] ppSortArray;
+		delete[] ppSortArray;
 	}
 }
 
@@ -1007,7 +1007,7 @@ void CACListWnd::CopyList()
 	m_DisplayList.Copy(m_SearchList);
 	m_lCount = (long)m_DisplayList.GetSize();
 	if (m_lCount)
-		FindString(0,_T(""),true);
+		FindString(0, _T(""), true);
 }
 
 int CACListWnd::OnCreate(LPCREATESTRUCT lpCreateStruct)

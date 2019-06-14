@@ -37,8 +37,14 @@ typedef struct _SearchData
 class SearchHandler
 {
 public:
-	SearchHandler(SearchData *pData) { m_pSearchData = pData; }
-	virtual ~SearchHandler() { m_pSearchData = NULL; }
+	SearchHandler(SearchData *pData)
+	{
+		m_pSearchData = pData;
+	}
+	virtual ~SearchHandler()
+	{
+		m_pSearchData = NULL;
+	}
 
 	int ProcessSearchTerm(InventoryItem *pItem);
 	int ProcessLevelRange(InventoryItem *pItem);

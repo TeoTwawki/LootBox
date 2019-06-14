@@ -42,22 +42,22 @@ class CACEdit : public CWnd //CEdit
 // Konstruktion
 public:
 	CACEdit();
-	void SetMode(int iMode=_MODE_STANDARD_);
-	void SetSeparator(LPCTSTR lpszString,TCHAR lpszPrefixChar = 0)
-		{
+	void SetMode(int iMode = _MODE_STANDARD_);
+	void SetSeparator(LPCTSTR lpszString, TCHAR lpszPrefixChar = 0)
+	{
 		m_SeparationStr = lpszString;
 		m_Liste.m_PrefixChar = m_PrefixChar = lpszPrefixChar;
 		SetMode(_MODE_SEPARATION_);
-		}
+	}
 
-	// CComboBox
-	int AddString( LPCTSTR lpszString);
-	int GetLBText( int nIndex, LPTSTR lpszText );
-	void GetLBText( int nIndex, CString& rString );
+// CComboBox
+	int AddString(LPCTSTR lpszString);
+	int GetLBText(int nIndex, LPTSTR lpszText);
+	void GetLBText(int nIndex, CString& rString);
 	int SetDroppedWidth(UINT nWidth);
-	int FindString( int nStartAfter, LPCTSTR lpszString );
-	int SelectString( int nStartAfter, LPCTSTR lpszString );
-	void ShowDropDown(BOOL bShowIt = TRUE );
+	int FindString(int nStartAfter, LPCTSTR lpszString);
+	int SelectString(int nStartAfter, LPCTSTR lpszString);
+	void ShowDropDown(BOOL bShowIt = TRUE);
 	void ResetContent();
 	int GetCurSel();
 	// Attribute
@@ -73,7 +73,7 @@ public:
 // Überschreibungen
 	// Vom Klassen-Assistenten generierte virtuelle Funktionsüberschreibungen
 	//{{AFX_VIRTUAL(CACEdit)
-	public:
+public:
 	virtual BOOL PreTranslateMessage(MSG* pMsg);
 	//}}AFX_VIRTUAL
 
@@ -83,7 +83,7 @@ public:
 	CACListWnd m_Liste;
 	// Generierte Nachrichtenzuordnungsfunktionen
 protected:
-	CString m_EditText, m_SeparationStr,m_LastDirectory;
+	CString m_EditText, m_SeparationStr, m_LastDirectory;
 	TCHAR m_PrefixChar;
 	int m_iMode;
 	//{{AFX_MSG(CACEdit)
@@ -94,7 +94,7 @@ protected:
 	//}}AFX_MSG
 	afx_msg LONG OnUpdateFromList(UINT lParam, LONG wParam);
 	DECLARE_MESSAGE_MAP()
-	
+
 
 	void ReadDirectory(CString m_Dir);
 	int FindSepLeftPos(int pos, bool FindSepLeftPos = false);
@@ -106,7 +106,7 @@ protected:
 	int m_iType;
 	CEdit *m_pEdit;
 
-	TCHAR m_szDrive[_MAX_DRIVE], m_szDir[_MAX_DIR],m_szFname[_MAX_FNAME], m_szExt[_MAX_EXT];
+	TCHAR m_szDrive[_MAX_DRIVE], m_szDir[_MAX_DIR], m_szFname[_MAX_FNAME], m_szExt[_MAX_EXT];
 };
 
 /////////////////////////////////////////////////////////////////////////////

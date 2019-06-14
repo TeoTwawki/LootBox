@@ -27,19 +27,28 @@ class CACListWnd : public CWnd
 public:
 	CACListWnd();
 	void Init(CWnd *pWnd);
-	bool EnsureVisible(int item,bool m_bWait);
+	bool EnsureVisible(int item, bool m_bWait);
 	bool SelectItem(int item);
 	int FindString(int nStartAfter, LPCTSTR lpszString, bool m_bDisplayOnly = false);
-	int FindStringExact( int nIndexStart, LPCTSTR lpszFind );
-	int SelectString(LPCTSTR lpszString );
+	int FindStringExact(int nIndexStart, LPCTSTR lpszFind);
+	int SelectString(LPCTSTR lpszString);
 	bool GetText(int item, CString& m_Text);
-	void AddSearchString(LPCTSTR lpszString){m_SearchList.Add(lpszString);}
-	void RemoveAll(){m_SearchList.RemoveAll(); m_DisplayList.RemoveAll();}
+	void AddSearchString(LPCTSTR lpszString)
+	{
+		m_SearchList.Add(lpszString);
+	}
+	void RemoveAll()
+	{
+		m_SearchList.RemoveAll(); m_DisplayList.RemoveAll();
+	}
 	CString GetString();
 	CString GetNextString(int m_iChar);
 
 	void CopyList();
-	void SortSearchList(){SortList(m_SearchList);}
+	void SortSearchList()
+	{
+		SortList(m_SearchList);
+	}
 // Attribute
 public:
 	CListCtrl m_List;
@@ -57,7 +66,7 @@ public:
 // Implementierung
 public:
 	virtual ~CACListWnd();
-	void DrawItem(CDC* pDC,long m_lItem,long width);
+	void DrawItem(CDC* pDC, long m_lItem, long width);
 
 	// Generierte Nachrichtenzuordnungsfunktionen
 protected:
@@ -94,7 +103,7 @@ protected:
 	bool m_bSelecting;
 
 	int m_nIDTimer;
-	long m_lTopIndex,m_lCount,m_ItemHeight,m_VisibleItems,m_lSelItem;
+	long m_lTopIndex, m_lCount, m_ItemHeight, m_VisibleItems, m_lSelItem;
 
 	int HitTest(CPoint point);
 	void SetScroller();

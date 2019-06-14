@@ -18,7 +18,7 @@ BEGIN_MESSAGE_MAP(SearchDialog, CDialog)
 	ON_WM_DESTROY()
 END_MESSAGE_MAP()
 
-SearchDialog::SearchDialog(FFXiHelper *pHelper, CWnd* pParent): CDialog(SearchDialog::IDD, pParent)
+SearchDialog::SearchDialog(FFXiHelper *pHelper, CWnd* pParent) : CDialog(SearchDialog::IDD, pParent)
 {
 	m_pParams = NULL;
 	m_pHelper = pHelper;
@@ -31,22 +31,22 @@ BOOL SearchDialog::OnInitDialog()
 	CListCtrl *pList = (CListCtrl*)GetDlgItem(IDC_LIST_JOBS);
 	int ItemIndex = 0;
 
-	while(pStringTable->Key != -1)
-	{   
+	while (pStringTable->Key != -1)
+	{
 		ItemIndex = pList->InsertItem(ItemIndex, pStringTable->pString);
 		pList->SetItemData(ItemIndex, (LPARAM)pStringTable->Key);
 		ItemIndex++;
 
-		pStringTable++;   
+		pStringTable++;
 	}
 
 	// fill the slot list
-	pList = (CListCtrl*)GetDlgItem(IDC_LIST_SLOTS); 
+	pList = (CListCtrl*)GetDlgItem(IDC_LIST_SLOTS);
 	pStringTable = FFXiHelper::SlotStringTable;
 	ItemIndex = 0;
 
-	while(pStringTable->Key != -1)
-	{   
+	while (pStringTable->Key != -1)
+	{
 		if (pStringTable->Key != FFXI_SLOT_FLAG_R_EAR && pStringTable->Key != FFXI_SLOT_FLAG_R_RING)
 		{
 			ItemIndex = pList->InsertItem(ItemIndex, pStringTable->pString);
@@ -54,30 +54,30 @@ BOOL SearchDialog::OnInitDialog()
 			ItemIndex++;
 		}
 
-		pStringTable++;   
+		pStringTable++;
 	}
 
 	// fill the skill list
-	pList = (CListCtrl*)GetDlgItem(IDC_LIST_SKILLS); 
+	pList = (CListCtrl*)GetDlgItem(IDC_LIST_SKILLS);
 	pStringTable = FFXiHelper::SkillStringTable;
 	ItemIndex = 0;
 
-	while(pStringTable->Key != -1)
-	{   
+	while (pStringTable->Key != -1)
+	{
 		if (pStringTable->Key != FFXI_SKILL_TYPE_BST_JUG &&
 			(pStringTable->Key < FFXI_SKILL_TYPE_DIVINE_MAGIC ||
-			 pStringTable->Key > FFXI_SKILL_TYPE_SINGING))
+			pStringTable->Key > FFXI_SKILL_TYPE_SINGING))
 		{
 			ItemIndex = pList->InsertItem(ItemIndex, pStringTable->pString);
 			pList->SetItemData(ItemIndex, (LPARAM)pStringTable->Key);
 			ItemIndex++;
 		}
 
-		pStringTable++;   
+		pStringTable++;
 	}
 
 	// fill the races list
-	pList = (CListCtrl*)GetDlgItem(IDC_LIST_RACES); 
+	pList = (CListCtrl*)GetDlgItem(IDC_LIST_RACES);
 	pStringTable = FFXiHelper::RacesStringTable;
 	ItemIndex = 0;
 
@@ -87,13 +87,13 @@ BOOL SearchDialog::OnInitDialog()
 	ItemIndex = pList->InsertItem(ItemIndex, _T("All \u2640"));
 	pList->SetItemData(ItemIndex++, (LPARAM)FFXI_RACE_FLAG_FEMALE);
 
-	while(pStringTable->Key != -1)
-	{   
+	while (pStringTable->Key != -1)
+	{
 		ItemIndex = pList->InsertItem(ItemIndex, pStringTable->pString);
 		pList->SetItemData(ItemIndex, (LPARAM)pStringTable->Key);
 		ItemIndex++;
 
-		pStringTable++;   
+		pStringTable++;
 	}
 
 	UpdateData(FALSE);
@@ -121,7 +121,7 @@ void SearchDialog::OnOK()
 	CButton *pButton = (CButton*)GetDlgItem(IDC_CHECK_RARE);
 	CEdit *pEdit = (CEdit*)GetDlgItem(IDC_MIN_LEVEL);
 	CString EditValue;
-	
+
 	m_pParams = new SearchParams;
 	SecureZeroMemory(m_pParams, sizeof(SearchParams));
 
@@ -207,8 +207,7 @@ void SearchDialog::GetBitMask(const CListCtrl *pList, DWORD &Field)
 				Field |= Flag;
 			}
 
-		}
-		while (ListIndex != -1);
+		} while (ListIndex != -1);
 	}
 }
 

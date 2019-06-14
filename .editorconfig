@@ -1,0 +1,11 @@
+# top-most EditorConfig file
+root = true
+
+# Visual Studio add on:  https://visualstudiogallery.msdn.microsoft.com/c8bccfe2-650c-4b42-bc5c-845e21f96328
+# Notepad++ plugin:  https://sourceforge.net/projects/editorconfig/files/EditorConfig-Notepad%2B%2B-Plugin/
+# For other code editors:  http://editorconfig.org/#download
+
+[*.{cpp,h}]
+indent_style = tab
+trim_trailing_whitespace = true
+indent_brace_style = allman # This is unfortunately ignored in the Visual Studio add on

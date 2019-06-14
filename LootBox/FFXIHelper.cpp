@@ -123,13 +123,13 @@ inline BYTE FFXiHelper::RotateLeft(BYTE Value_in, int BitShift_in)
 	return (Value_in << BitShift_in) | (Value_in >> (8 - BitShift_in));
 }
 
-void FFXiHelper::RotateBits(const BYTE *pData_in ,BYTE * pData_out, int DataSize_in, int BitShift_in)
+void FFXiHelper::RotateBits(const BYTE *pData_in, BYTE * pData_out, int DataSize_in, int BitShift_in)
 {
 	const BYTE *pPos = pData_in;
 
 	if (pData_in != NULL && pData_out != NULL)
 	{
-		for(int i = 0; i < DataSize_in; i++, pPos++, pData_out++)
+		for (int i = 0; i < DataSize_in; i++, pPos++, pData_out++)
 			if (*pPos != NULL && *pPos != 0xFF)
 				*pData_out = RotateRight(*pPos, BitShift_in);
 
@@ -145,18 +145,18 @@ TCHAR* FFXiHelper::GetInstallPath(int Region)
 	{
 		LPCTSTR GameRegKey;
 
-		switch(Region)
+		switch (Region)
 		{
 			default:
 			case FFXI_REGION_JP:
 				GameRegKey = FFXI_REGISTRY_KEY_INSTALL_JP;
-			break;
+				break;
 			case FFXI_REGION_US:
 				GameRegKey = FFXI_REGISTRY_KEY_INSTALL_US;
-			break;
+				break;
 			case FFXI_REGION_EU:
 				GameRegKey = FFXI_REGISTRY_KEY_INSTALL_EU;
-			break;
+				break;
 		}
 
 		if (FFXiKey.Open(HKEY_LOCAL_MACHINE, GameRegKey, KEY_READ) == ERROR_SUCCESS)
@@ -186,7 +186,7 @@ bool FFXiHelper::ReadItem(BYTE *pItemData, InventoryItem *pItem, int Language, b
 
 		pItemPos += GetItemHdr(pItemData, pItem->ItemHdr);
 
-		switch(pItem->ItemHdr.Type)
+		switch (pItem->ItemHdr.Type)
 		{
 			case ITEM_OBJECT_TYPE_ARMOR:
 				pItemPos += GetArmorInfo(pItemPos, pItem->ArmorInfo);
@@ -195,7 +195,7 @@ bool FFXiHelper::ReadItem(BYTE *pItemData, InventoryItem *pItem, int Language, b
 				GetSlot(pItem->ArmorInfo.Slot, pItem->Slot);
 				GetRaces(pItem->ArmorInfo.Races, pItem->Races);
 				GetArmorChargesInfo(pItem->ArmorInfo, pItem->Remarks);
-			break;
+				break;
 
 			case ITEM_OBJECT_TYPE_WEAPON:
 				pItemPos += GetWeaponInfo(pItemPos, pItem->WeaponInfo);
@@ -210,7 +210,7 @@ bool FFXiHelper::ReadItem(BYTE *pItemData, InventoryItem *pItem, int Language, b
 				{
 					pItem->Slot = _T("Jug Pet");
 				}
-			break;
+				break;
 
 			case ITEM_OBJECT_TYPE_CRYSTAL:
 			case ITEM_OBJECT_TYPE_LINKSHELL:
@@ -218,7 +218,7 @@ bool FFXiHelper::ReadItem(BYTE *pItemData, InventoryItem *pItem, int Language, b
 			case ITEM_OBJECT_TYPE_ITEM:
 				pItemPos += GetUsableItemInfo(pItemPos, pItem->UsableItemInfo);
 				GetUsableItemType(pItem->ItemHdr.Flags, pItem->Slot);
-			break;
+				break;
 
 			default:
 				if (pItem->ItemHdr.ItemID <= 0 || pItem->ItemHdr.ItemID > 0x6FFF)
@@ -227,14 +227,14 @@ bool FFXiHelper::ReadItem(BYTE *pItemData, InventoryItem *pItem, int Language, b
 			case ITEM_OBJECT_TYPE_MANNEQUIN:
 			case ITEM_OBJECT_TYPE_FLOWERPOT:
 				pItemPos += GetObjectInfo(pItemPos, pItem->ObjectInfo);
-			break;
+				break;
 
 			case ITEM_OBJECT_TYPE_NOTHING:
 				if (pItem->ItemHdr.ItemID < 0x2000 || pItem->ItemHdr.ItemID > 0x2BFF)
 					break;
 			case ITEM_OBJECT_TYPE_PUPPET_ITEM:
 				pItemPos += GetPuppetInfo(pItemPos, pItem->PuppetInfo);
-			break;
+				break;
 		};
 
 		if (*pItemPos == NULL || *pItemPos > 8)
@@ -242,7 +242,7 @@ bool FFXiHelper::ReadItem(BYTE *pItemData, InventoryItem *pItem, int Language, b
 
 		GetAttr(pItem->ItemHdr.Flags, pItem->Attr);
 		GetItemInfo(pItemPos, Language, pItem->ItemName, pItem->LogName,
-					pItem->LogName2, pItem->ItemDescription, NoConversion);
+			pItem->LogName2, pItem->ItemDescription, NoConversion);
 		GetIconInfo(pIconPos, pItem->IconInfo);
 
 #ifdef _DEBUG
@@ -266,7 +266,7 @@ bool FFXiHelper::ReadItem(BYTE *pItemData, InventoryItem *pItem, int Language, b
 }
 
 bool FFXiHelper::ParseInventoryFile(const TCHAR* pFile, const ItemLocationInfo &LocationInfo,
-									ItemArray *pMap, int Language, bool Update)
+	ItemArray *pMap, int Language, bool Update)
 {
 	if (pFile != NULL && pMap != NULL)
 	{
@@ -280,7 +280,7 @@ bool FFXiHelper::ParseInventoryFile(const TCHAR* pFile, const ItemLocationInfo &
 			CString ItemCount;
 			UINT DataRead;
 
-			pFileData = (BYTE*)malloc(DATA_SIZE_INVENTORY+1);
+			pFileData = (BYTE*)malloc(DATA_SIZE_INVENTORY + 1);
 			SecureZeroMemory(pFileData, DATA_SIZE_INVENTORY);
 
 			DataRead = (UINT)InvFile.Seek(OFFSET_FILEHEADER, CFile::begin);
@@ -297,7 +297,7 @@ bool FFXiHelper::ParseInventoryFile(const TCHAR* pFile, const ItemLocationInfo &
 				bool Exists;
 
 				pItemData = (BYTE*)malloc(DATA_SIZE_ITEM + 1);
-				SecureZeroMemory(pItemData, DATA_SIZE_ITEM+1);
+				SecureZeroMemory(pItemData, DATA_SIZE_ITEM + 1);
 
 				for (pPos = (WORD*)pFileData + 4; pPos < pLimit; pPos += 4)
 				{
@@ -449,12 +449,12 @@ void FFXiHelper::UpperCaseWord(CString &String)
 		*pChar = _totupper(*pChar);
 		StrPos = String.Find(' ', StrPos);
 
-		while(StrPos != -1)
+		while (StrPos != -1)
 		{
 			if (StrPos + 1 < StrLength)
 				*(pChar + StrPos + 1) = _totupper(*(pChar + StrPos + 1));
 
-			StrPos = String.Find(' ', StrPos+1);
+			StrPos = String.Find(' ', StrPos + 1);
 		}
 
 		String.ReleaseBuffer();
@@ -477,7 +477,8 @@ void FFXiHelper::ConvertChars(const BYTE *pData, CString &Text, bool ucWord)
 
 			if (Current == 0x85)
 				Current = *(pData + (++i)) + 33;
-			else if (Current == 0x81) {
+			else if (Current == 0x81)
+			{
 				Current = '~';
 				i++;
 			}
@@ -491,32 +492,32 @@ void FFXiHelper::ConvertChars(const BYTE *pData, CString &Text, bool ucWord)
 				Current = *(pData + (++i));
 
 				// 0x1F-0x26 elements (Fire - Ice - Wind - Earth - Lightning - Water - Light - Dark)
-				switch(Current)
+				switch (Current)
 				{
 					case 0x1F:
 						Text += _T("(Fire)");
-					break;
+						break;
 					case 0x20:
 						Text += _T("(Ice)");
-					break;
+						break;
 					case 0x21:
 						Text += _T("(Wind)");
-					break;
+						break;
 					case 0x22:
 						Text += _T("(Earth)");
-					break;
+						break;
 					case 0x23:
 						Text += _T("(Lightning)");
-					break;
+						break;
 					case 0x24:
 						Text += _T("(Water)");
-					break;
+						break;
 					case 0x25:
 						Text += _T("(Light)");
-					break;
+						break;
 					case 0x26:
 						Text += _T("(Dark)");
-					break;
+						break;
 				}
 			}
 			else if (Current == 0x0A)
@@ -541,24 +542,24 @@ void FFXiHelper::GetFileFromType(int Type, CString &DATFile, int Language, bool 
 {
 	DWORD ItemID;
 
-	switch(Type)
+	switch (Type)
 	{
 		default:
 		case ITEM_TYPE_OBJECTS:
 			ItemID = 1;
-		break;
+			break;
 		case ITEM_TYPE_USABLE_ITEM:
 			ItemID = 0x0FFF;
-		break;
+			break;
 		case ITEM_TYPE_PUPPET_ITEM:
 			ItemID = 0x1FFF;
-		break;
+			break;
 		case ITEM_TYPE_ARMOR:
 			ItemID = 0x2BFF;
-		break;
+			break;
 		case ITEM_TYPE_WEAPON:
 			ItemID = 0x3FFF;
-		break;
+			break;
 	}
 
 	GetFileFromItemID(ItemID, DATFile, Language, bRelative);
@@ -573,7 +574,7 @@ void FFXiHelper::GetFileFromItemID(DWORD &ItemID, CString &DATFile, int Language
 		// 0000 - 0FFF  Objects
 		if (ItemID <= 0x0FFF)
 		{
-			switch(Language)
+			switch (Language)
 			{
 				default:
 				case FFXI_LANG_JP:
@@ -582,28 +583,28 @@ void FFXiHelper::GetFileFromItemID(DWORD &ItemID, CString &DATFile, int Language
 						DATFile = _T("ROM\\0\\4.DAT");
 					else
 						DATFile.Format(_T("%s\\ROM\\0\\4.DAT"), m_InstallFolder);
-				break;
+					break;
 				case FFXI_LANG_US:
 					// file #00073 (ROM/118/106.DAT) => EN Objects
 					if (bRelative)
 						DATFile = _T("ROM\\118\\106.DAT");
 					else
 						DATFile.Format(_T("%s\\ROM\\118\\106.DAT"), m_InstallFolder);
-				break;
+					break;
 				case FFXI_LANG_FR:
 					// file #56235 (ROM/178/40.DAT ) => FR Objects
 					if (bRelative)
 						DATFile = _T("ROM\\178\\40.DAT");
 					else
 						DATFile.Format(_T("%s\\ROM\\178\\40.DAT"), m_InstallFolder);
-				break;
-				// file #55815 (ROM/176/101.DAT) => DE Objects
+					break;
+					// file #55815 (ROM/176/101.DAT) => DE Objects
 				case FFXI_LANG_DE:
 					if (bRelative)
 						DATFile = _T("ROM\\176\\101.DAT");
 					else
 						DATFile.Format(_T("%s\\ROM\\176\\101.DAT"), m_InstallFolder);
-				break;
+					break;
 			}
 		}
 		// 1000 - 1FFF  Usable Item
@@ -611,7 +612,7 @@ void FFXiHelper::GetFileFromItemID(DWORD &ItemID, CString &DATFile, int Language
 		{
 			ItemID -= 0x1000;
 
-			switch(Language)
+			switch (Language)
 			{
 				default:
 				case FFXI_LANG_JP:
@@ -620,28 +621,28 @@ void FFXiHelper::GetFileFromItemID(DWORD &ItemID, CString &DATFile, int Language
 						DATFile = _T("ROM\\0\\5.DAT");
 					else
 						DATFile.Format(_T("%s\\ROM\\0\\5.DAT"), m_InstallFolder);
-				break;
+					break;
 				case FFXI_LANG_US:
 					// file #00074 (ROM/118/107.DAT) => EN Usable Items
 					if (bRelative)
 						DATFile = _T("ROM\\118\\107.DAT");
 					else
 						DATFile.Format(_T("%s\\ROM\\118\\107.DAT"), m_InstallFolder);
-				break;
+					break;
 				case FFXI_LANG_FR:
 					// file #56236 (ROM/178/41.DAT ) => FR Usable Items
 					if (bRelative)
 						DATFile = _T("ROM\\178\\41.DAT");
 					else
 						DATFile.Format(_T("%s\\ROM\\178\\41.DAT"), m_InstallFolder);
-				break;
+					break;
 				case FFXI_LANG_DE:
 					// file #55816 (ROM/176/102.DAT) => DE Usable Items
 					if (bRelative)
 						DATFile = _T("ROM\\176\\102.DAT");
 					else
 						DATFile.Format(_T("%s\\ROM\\176\\102.DAT"), m_InstallFolder);
-				break;
+					break;
 			}
 		}
 		// 2000 - 27FF  Puppet Item
@@ -649,7 +650,7 @@ void FFXiHelper::GetFileFromItemID(DWORD &ItemID, CString &DATFile, int Language
 		{
 			ItemID -= 0x2000;
 
-			switch(Language)
+			switch (Language)
 			{
 				default:
 				case FFXI_LANG_JP:
@@ -658,28 +659,28 @@ void FFXiHelper::GetFileFromItemID(DWORD &ItemID, CString &DATFile, int Language
 						DATFile = _T("ROM\\0\\8.DAT");
 					else
 						DATFile.Format(_T("%s\\ROM\\0\\8.DAT"), m_InstallFolder);
-				break;
+					break;
 				case FFXI_LANG_US:
 					// file #00077 (ROM/118/110.DAT) => EN Puppet Items
 					if (bRelative)
 						DATFile = _T("ROM\\118\\110.DAT");
 					else
 						DATFile.Format(_T("%s\\ROM\\118\\110.DAT"), m_InstallFolder);
-				break;
+					break;
 				case FFXI_LANG_FR:
 					// file #56239 (ROM/178/44.DAT ) => FR Puppet Items
 					if (bRelative)
 						DATFile = _T("ROM\\178\\44.DAT");
 					else
 						DATFile.Format(_T("%s\\ROM\\178\\44.DAT"), m_InstallFolder);
-				break;
+					break;
 				case FFXI_LANG_DE:
 					// file #55819 (ROM/176/115.DAT) => DE Puppet Items
 					if (bRelative)
 						DATFile = _T("ROM\\176\\115.DAT");
 					else
 						DATFile.Format(_T("%s\\ROM\\176\\115.DAT"), m_InstallFolder);
-				break;
+					break;
 			}
 		}
 		// 2800 - 3FFF  Armor
@@ -687,7 +688,7 @@ void FFXiHelper::GetFileFromItemID(DWORD &ItemID, CString &DATFile, int Language
 		{
 			ItemID -= 0x2800;
 
-			switch(Language)
+			switch (Language)
 			{
 				default:
 				case FFXI_LANG_JP:
@@ -696,28 +697,28 @@ void FFXiHelper::GetFileFromItemID(DWORD &ItemID, CString &DATFile, int Language
 						DATFile = _T("ROM\\0\\7.DAT");
 					else
 						DATFile.Format(_T("%s\\ROM\\0\\7.DAT"), m_InstallFolder);
-				break;
+					break;
 				case FFXI_LANG_US:
 					// file #00076 (ROM/118/109.DAT) => EN Armor
 					if (bRelative)
 						DATFile = _T("ROM\\118\\109.DAT");
 					else
 						DATFile.Format(_T("%s\\ROM\\118\\109.DAT"), m_InstallFolder);
-				break;
+					break;
 				case FFXI_LANG_FR:
 					// file #56238 (ROM/178/43.DAT ) => FR Armor
 					if (bRelative)
 						DATFile = _T("ROM\\178\\43.DAT");
 					else
 						DATFile.Format(_T("%s\\ROM\\178\\43.DAT"), m_InstallFolder);
-				break;
+					break;
 				case FFXI_LANG_DE:
 					// file #55818 (ROM/176/104.DAT) => DE Armor
 					if (bRelative)
 						DATFile = _T("ROM\\176\\104.DAT");
 					else
 						DATFile.Format(_T("%s\\ROM\\176\\104.DAT"), m_InstallFolder);
-				break;
+					break;
 			}
 		}
 		// 4000 - 6FFF  Weapons
@@ -725,7 +726,7 @@ void FFXiHelper::GetFileFromItemID(DWORD &ItemID, CString &DATFile, int Language
 		{
 			ItemID -= 0x4000;
 
-			switch(Language)
+			switch (Language)
 			{
 				default:
 				case FFXI_LANG_JP:
@@ -734,28 +735,28 @@ void FFXiHelper::GetFileFromItemID(DWORD &ItemID, CString &DATFile, int Language
 						DATFile = _T("ROM\\0\\6.DAT");
 					else
 						DATFile.Format(_T("%s\\ROM\\0\\6.DAT"), m_InstallFolder);
-				break;
+					break;
 				case FFXI_LANG_US:
 					// file #00075 (ROM/118/108.DAT) => EN Weapons
 					if (bRelative)
 						DATFile = _T("ROM\\118\\108.DAT");
 					else
 						DATFile.Format(_T("%s\\ROM\\118\\108.DAT"), m_InstallFolder);
-				break;
+					break;
 				case FFXI_LANG_FR:
 					// file #56237 (ROM/178/42.DAT ) => FR Weapons
 					if (bRelative)
 						DATFile = _T("ROM\\178\\42.DAT");
 					else
 						DATFile.Format(_T("%s\\ROM\\178\\42.DAT"), m_InstallFolder);
-				break;
+					break;
 				case FFXI_LANG_DE:
 					// file #55817 (ROM/176/103.DAT) => DE Weapons
 					if (bRelative)
 						DATFile = _T("ROM\\176\\103.DAT");
 					else
 						DATFile.Format(_T("%s\\ROM\\176\\103.DAT"), m_InstallFolder);
-				break;
+					break;
 			}
 		}
 	}
@@ -870,7 +871,7 @@ void FFXiHelper::GetDefenseFromDesc(int Language, const CString &Description, WO
 }
 
 void FFXiHelper::GetItemInfo(const BYTE *pTablePos, int Language, CString &ItemName, CString &LogName,
-							 CString &LogName2, CString &ItemDescription, bool NoConversion)
+	CString &LogName2, CString &ItemDescription, bool NoConversion)
 {
 	const BYTE *pItemName, *pLogName, *pLogName2, *pItemDescription;
 
@@ -900,23 +901,23 @@ void FFXiHelper::GetItemInfo(const BYTE *pTablePos, int Language, CString &ItemN
 	{
 		int TooltipOffset, Tooltip2Offset, DescriptionOffset;
 
-		switch(Language)
+		switch (Language)
 		{
 			case FFXI_LANG_US:
 				TooltipOffset = 2;
 				Tooltip2Offset = 3;
 				DescriptionOffset = 4;
-			break;
+				break;
 			case FFXI_LANG_FR:
 				TooltipOffset = 3;
 				Tooltip2Offset = 4;
 				DescriptionOffset = 5;
-			break;
+				break;
 			case FFXI_LANG_DE:
 				TooltipOffset = 4;
 				Tooltip2Offset = 7;
 				DescriptionOffset = 8;
-			break;
+				break;
 		}
 
 		pItemName = GetStringOffset(pTablePos, 0);
@@ -1136,7 +1137,7 @@ void FFXiHelper::GetRaces(DWORD RacesBitMask, CString &Races)
 	{
 		const FFXiStringAssoc *pStringTable = RacesStringTable;
 
-		while(pStringTable->Key != -1)
+		while (pStringTable->Key != -1)
 		{
 			if ((RacesBitMask & pStringTable->Key) == pStringTable->Key)
 			{
@@ -1162,7 +1163,7 @@ void FFXiHelper::GetJobs(DWORD JobsBitMask, CString &Jobs)
 	{
 		const FFXiStringAssoc *pStringTable = JobsStringTable;
 
-		while(pStringTable->Key != -1)
+		while (pStringTable->Key != -1)
 		{
 			if ((JobsBitMask & pStringTable->Key) == pStringTable->Key)
 			{
@@ -1183,11 +1184,11 @@ void FFXiHelper::GetSlot(DWORD SlotBitMask, CString &Slot)
 {
 	const FFXiStringAssoc *pStringTable = SlotStringTable;
 
-	while(pStringTable->Key != -1)
+	while (pStringTable->Key != -1)
 	{
 		if ((SlotBitMask & pStringTable->Key) == pStringTable->Key)
 		{
-			Slot =  pStringTable->pString;
+			Slot = pStringTable->pString;
 
 			break;
 		}
@@ -1200,11 +1201,11 @@ void FFXiHelper::GetSkill(DWORD SkillBitMask, CString &Skill)
 {
 	const FFXiStringAssoc *pStringTable = SkillStringTable;
 
-	while(pStringTable->Key != -1)
+	while (pStringTable->Key != -1)
 	{
 		if (SkillBitMask == pStringTable->Key)
 		{
-			Skill =  pStringTable->pString;
+			Skill = pStringTable->pString;
 
 			break;
 		}
@@ -1217,11 +1218,11 @@ void FFXiHelper::GetUsableItemType(DWORD ItemType, CString &Type)
 {
 	const FFXiStringAssoc *pStringTable = UsableItemStringTable;
 
-	while(pStringTable->Key != -1)
+	while (pStringTable->Key != -1)
 	{
 		if ((ItemType & pStringTable->Key) == pStringTable->Key)
 		{
-			Type =  pStringTable->pString;
+			Type = pStringTable->pString;
 
 			break;
 		}
@@ -1258,7 +1259,7 @@ void FFXiHelper::GetArmorChargesInfo(FFXiArmorInfo ArmorInfo, CString &Remarks)
 			Minutes = ArmorInfo.ReuseDelay / 60;
 
 		Remarks.Format(_T("<%d/%d 0:%d/[%02d:%02d:00, 0:%d]>"), ArmorInfo.MaxCharges, ArmorInfo.MaxCharges,
-																ArmorInfo.UseDelay, Hours, Minutes, ArmorInfo.UseDelay);
+			ArmorInfo.UseDelay, Hours, Minutes, ArmorInfo.UseDelay);
 	}
 }
 
@@ -1274,7 +1275,7 @@ void FFXiHelper::GetWeaponChargesInfo(FFXiWeaponInfo WeaponInfo, CString &Remark
 			Minutes = WeaponInfo.ReuseDelay / 60;
 
 		Remarks.Format(_T("<%d/%d 0:%d/[%02d:%02d:00, 0:%d]>"), WeaponInfo.MaxCharges, WeaponInfo.MaxCharges,
-																WeaponInfo.UseDelay, Hours, Minutes, WeaponInfo.UseDelay);
+			WeaponInfo.UseDelay, Hours, Minutes, WeaponInfo.UseDelay);
 	}
 }
 
@@ -1297,9 +1298,9 @@ void FFXiHelper::GetIconInfo(BYTE *pIconData, FFXiIconInfo &IconInfo, DWORD Back
 		Background = *((RGBQUAD*)&BackgroundColor);
 		memcpy_s(&IconInfo, BufferSize, pIconData, BufferSize);
 
-		while(IconInfo.ImageInfo.bmiColors[Index].rgbRed == 0 &&
-			  IconInfo.ImageInfo.bmiColors[Index].rgbBlue == 0 &&
-			  IconInfo.ImageInfo.bmiColors[Index].rgbGreen == 0 && Index < 64)
+		while (IconInfo.ImageInfo.bmiColors[Index].rgbRed == 0 &&
+			IconInfo.ImageInfo.bmiColors[Index].rgbBlue == 0 &&
+			IconInfo.ImageInfo.bmiColors[Index].rgbGreen == 0 && Index < 64)
 		{
 			IconInfo.ImageInfo.bmiColors[Index] = Background;
 			Index++;

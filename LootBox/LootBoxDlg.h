@@ -21,7 +21,10 @@ public:
 	static HBITMAP GetItemIcon(FFXiIconInfo *pIconInfo, CDC *pDC, int Width, int Height, int ItemID = -1);
 
 // Dialog Data
-	enum { IDD = IDD_LOOTBOX_DIALOG };
+	enum
+	{
+		IDD = IDD_LOOTBOX_DIALOG
+	};
 
 protected:
 	virtual void DoDataExchange(CDataExchange* pDX);	// DDX/DDV support
@@ -36,7 +39,7 @@ protected:
 	HACCEL m_hAcceleratorTable;
 	CMenu *m_pMainMenu;
 	CMenu *m_pPopMenu;
-	CSimpleIni *m_pIni;	
+	CSimpleIni *m_pIni;
 	FFXiHelper *m_pHelper;
 	CString m_CurrentFile;
 	CImageList *m_pIconList;
@@ -65,13 +68,27 @@ protected:
 	void DumpGlobalMap();
 #endif
 
-	bool IsValidChar() { return (m_SelectedChar >= 0 && m_SelectedChar < m_CharacterIDs.GetCount()); }
-	bool IsValidChar(int SelectedChar) { return (SelectedChar >= 0 && SelectedChar < m_CharacterIDs.GetCount()); }
-	bool IsInventoryTab() { return (m_SelectedTab >= 0 && m_SelectedTab < m_InventoryFiles.GetCount()); }
-	bool IsInventoryTab(int SelectedTag) { return (SelectedTag >= 0 && SelectedTag < m_InventoryFiles.GetCount()); }
+	bool IsValidChar()
+	{
+		return (m_SelectedChar >= 0 && m_SelectedChar < m_CharacterIDs.GetCount());
+	}
+	bool IsValidChar(int SelectedChar)
+	{
+		return (SelectedChar >= 0 && SelectedChar < m_CharacterIDs.GetCount());
+	}
+	bool IsInventoryTab()
+	{
+		return (m_SelectedTab >= 0 && m_SelectedTab < m_InventoryFiles.GetCount());
+	}
+	bool IsInventoryTab(int SelectedTag)
+	{
+		return (SelectedTag >= 0 && SelectedTag < m_InventoryFiles.GetCount());
+	}
 	LRESULT OnSearchClose(WPARAM wParam, LPARAM lParam);
 	// Generated message map functions
-	virtual void OnOK(){}
+	virtual void OnOK()
+	{
+	}
 	virtual BOOL OnInitDialog();
 	virtual BOOL PreTranslateMessage(MSG *pMsg);
 	afx_msg void OnPaint();

@@ -6,7 +6,7 @@
 int SearchHandler::ProcessSearchTerm(InventoryItem *pItem)
 {
 	if (m_pSearchData != NULL && pItem != NULL &&
-		m_pSearchData->pParams->pSearchTerm && 
+		m_pSearchData->pParams->pSearchTerm &&
 		_tcslen(m_pSearchData->pParams->pSearchTerm) > 0)
 	{
 		CString lcString;
@@ -159,7 +159,7 @@ int SearchHandler::ProcessSlot(InventoryItem *pItem)
 	return -1;
 }
 
-int SearchHandler::ProcessSkill( InventoryItem *pItem )
+int SearchHandler::ProcessSkill(InventoryItem *pItem)
 {
 	if (m_pSearchData != NULL && pItem != NULL &&
 		m_pSearchData->pParams->Skill != 0)
@@ -232,7 +232,7 @@ void SearchHandler::ProcessAll(InventoryItem *pItem)
 		Res[7] = ProcessSkill(pItem);
 		Res[8] = ProcessRaces(pItem);
 		Res[9] = ProcessRareEx(pItem);
-		
+
 		for (int i = 0; i < Size; i++)
 		{
 			if (Res[i] == 1)

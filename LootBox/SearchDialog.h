@@ -1,7 +1,7 @@
 #pragma once
 
 #ifndef MSG_SEARCH_CLOSE
-	#define MSG_SEARCH_CLOSE (WM_APP + 0xc)
+#define MSG_SEARCH_CLOSE (WM_APP + 0xc)
 #endif
 
 class SearchDialog : public CDialog
@@ -9,11 +9,17 @@ class SearchDialog : public CDialog
 	// Construction
 public:
 	SearchDialog(FFXiHelper *pHelper, CWnd* pParent = NULL);   // standard constructor
-	SearchParams* GetSearchParams() { return m_pParams; }
+	SearchParams* GetSearchParams()
+	{
+		return m_pParams;
+	}
 	void GetBitMask(const CListCtrl *pList, DWORD &Field);
 
 	// Dialog Data
-	enum { IDD = IDD_SEARCH_DIALOG };
+	enum
+	{
+		IDD = IDD_SEARCH_DIALOG
+	};
 
 protected:
 
@@ -43,6 +49,6 @@ protected:
 	virtual BOOL OnInitDialog();
 	virtual void OnOK();
 	virtual void OnDestroy();
-	
+
 	DECLARE_MESSAGE_MAP()
 };

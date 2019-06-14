@@ -11,9 +11,11 @@ BEGIN_MESSAGE_MAP(ExportDialog, CDialog)
 END_MESSAGE_MAP()
 
 ExportDialog::ExportDialog(FFXiHelper *pHelper, const CArray<CString, LPCTSTR> &Characters,
-						   CSimpleIni *pIni_in, CWnd* pParent)
+	CSimpleIni *pIni_in, CWnd* pParent)
 	: CDialog(ExportDialog::IDD, pParent), m_pHelper(pHelper), m_BitMask(0UL),
-	  m_Characters(Characters), m_pIni(pIni_in), m_ColumnCount(0), m_ExportedCharsCount(0) {}
+	m_Characters(Characters), m_pIni(pIni_in), m_ColumnCount(0), m_ExportedCharsCount(0)
+{
+}
 
 BOOL ExportDialog::OnInitDialog()
 {
@@ -67,7 +69,7 @@ void ExportDialog::OnOK()
 {
 	CListCtrl *pList = static_cast<CListCtrl*>(GetDlgItem(IDC_EXPORT_LIST));
 	int ListItemCount = pList->GetItemCount();
-	CButton *pButton;	
+	CButton *pButton;
 	bool Checked;
 
 	m_ExportedChars.RemoveAll();
@@ -86,42 +88,42 @@ void ExportDialog::OnOK()
 	pButton = static_cast<CButton*>(GetDlgItem(IDC_EXPORT_NAME));
 	Checked = (pButton->GetCheck() == BST_CHECKED);
 	m_pIni->SetLongValue(INI_FILE_EXPORT_SECTION, INI_FILE_COL_NAME_KEY,
-						 Checked ? 1L, ++m_ColumnCount, m_BitMask |= EXPORT_NAME : 0L);
+		Checked ? 1L, ++m_ColumnCount, m_BitMask |= EXPORT_NAME : 0L);
 
 	pButton = static_cast<CButton*>(GetDlgItem(IDC_EXPORT_ATTR));
 	Checked = (pButton->GetCheck() == BST_CHECKED);
 	m_pIni->SetLongValue(INI_FILE_EXPORT_SECTION, INI_FILE_COL_ATTR_KEY,
-						 Checked ? 1L, ++m_ColumnCount, m_BitMask |= EXPORT_ATTR : 0L);
+		Checked ? 1L, ++m_ColumnCount, m_BitMask |= EXPORT_ATTR : 0L);
 
 	pButton = static_cast<CButton*>(GetDlgItem(IDC_EXPORT_DESC));
 	Checked = (pButton->GetCheck() == BST_CHECKED);
 	m_pIni->SetLongValue(INI_FILE_EXPORT_SECTION, INI_FILE_COL_DESC_KEY,
-						 Checked ? 1L, ++m_ColumnCount, m_BitMask |= EXPORT_DESC : 0L);
+		Checked ? 1L, ++m_ColumnCount, m_BitMask |= EXPORT_DESC : 0L);
 
 	pButton = static_cast<CButton*>(GetDlgItem(IDC_EXPORT_TYPE));
 	Checked = (pButton->GetCheck() == BST_CHECKED);
 	m_pIni->SetLongValue(INI_FILE_EXPORT_SECTION, INI_FILE_COL_TYPE_KEY,
-						 Checked ? 1L, ++m_ColumnCount, m_BitMask |= EXPORT_TYPE : 0L);
+		Checked ? 1L, ++m_ColumnCount, m_BitMask |= EXPORT_TYPE : 0L);
 
 	pButton = static_cast<CButton*>(GetDlgItem(IDC_EXPORT_RACES));
 	Checked = (pButton->GetCheck() == BST_CHECKED);
 	m_pIni->SetLongValue(INI_FILE_EXPORT_SECTION, INI_FILE_COL_RACES_KEY,
-						 Checked ? 1L, ++m_ColumnCount, m_BitMask |= EXPORT_RACES : 0L);
+		Checked ? 1L, ++m_ColumnCount, m_BitMask |= EXPORT_RACES : 0L);
 
 	pButton = static_cast<CButton*>(GetDlgItem(IDC_EXPORT_LEVEL));
 	Checked = (pButton->GetCheck() == BST_CHECKED);
 	m_pIni->SetLongValue(INI_FILE_EXPORT_SECTION, INI_FILE_COL_LEVEL_KEY,
-						 Checked ? 1L, ++m_ColumnCount, m_BitMask |= EXPORT_LEVEL : 0L);
+		Checked ? 1L, ++m_ColumnCount, m_BitMask |= EXPORT_LEVEL : 0L);
 
 	pButton = static_cast<CButton*>(GetDlgItem(IDC_EXPORT_JOBS));
 	Checked = (pButton->GetCheck() == BST_CHECKED);
 	m_pIni->SetLongValue(INI_FILE_EXPORT_SECTION, INI_FILE_COL_JOBS_KEY,
-						 Checked ? 1L, ++m_ColumnCount, m_BitMask |= EXPORT_JOBS : 0L);
+		Checked ? 1L, ++m_ColumnCount, m_BitMask |= EXPORT_JOBS : 0L);
 
 	pButton = static_cast<CButton*>(GetDlgItem(IDC_EXPORT_REMARKS));
 	Checked = (pButton->GetCheck() == BST_CHECKED);
 	m_pIni->SetLongValue(INI_FILE_EXPORT_SECTION, INI_FILE_COL_REMARKS_KEY,
-						 Checked ? 1L, ++m_ColumnCount, m_BitMask |= EXPORT_RMKS : 0L);
+		Checked ? 1L, ++m_ColumnCount, m_BitMask |= EXPORT_RMKS : 0L);
 
 	if (m_ColumnCount > 0 && m_ExportedCharsCount > 0 && m_BitMask != 0UL)
 		CDialog::OnOK();

@@ -6,7 +6,7 @@
 bool FFXiItemList::m_SortAsc = true;
 int FFXiItemList::m_SortedColumn = -1;
 
-int FFXiItemList::OnCreate(LPCREATESTRUCT lpCreateStruct) 
+int FFXiItemList::OnCreate(LPCREATESTRUCT lpCreateStruct)
 {
 	if (CListCtrl::OnCreate(lpCreateStruct) == -1)
 		return -1;
@@ -17,7 +17,7 @@ int FFXiItemList::OnCreate(LPCREATESTRUCT lpCreateStruct)
 	return 0;
 }
 
-void FFXiItemList::OnColumnSort(NMHDR* pNMHDR, LRESULT* pResult) 
+void FFXiItemList::OnColumnSort(NMHDR* pNMHDR, LRESULT* pResult)
 {
 	NMLISTVIEW *pLV = (NMLISTVIEW*)pNMHDR;
 	int PrevColumn = m_SortedColumn;
@@ -52,30 +52,30 @@ int CALLBACK FFXiItemList::ColumnSortFunc(LPARAM lParam1, LPARAM lParam2, LPARAM
 		pData2 = (InventoryItem*)lParam1;
 	}
 
-	switch(lParamSort)
+	switch (lParamSort)
 	{
 		default:
 		case INVENTORY_LIST_COL_NAME:
 			nRetVal = _tcscmp(pData1->ItemName, pData2->ItemName);
-		break;
+			break;
 
 		case INVENTORY_LIST_COL_LOCATION:
 			nRetVal = _tcscmp(pData1->LocationInfo.Location, pData2->LocationInfo.Location);
-		break;
+			break;
 
 		case INVENTORY_LIST_COL_ATTR:
 			nRetVal = _tcscmp(pData1->Attr, pData2->Attr);
-		break;
+			break;
 
 		case INVENTORY_LIST_COL_DESCRIPTION:
 			nRetVal = _tcscmp(pData1->ItemDescription, pData2->ItemDescription);
-		break;
+			break;
 		case INVENTORY_LIST_COL_SLOT:
 			nRetVal = _tcscmp(pData1->Slot, pData2->Slot);
-		break;
+			break;
 		case INVENTORY_LIST_COL_RACES:
 			nRetVal = _tcscmp(pData1->Races, pData2->Races);
-		break;
+			break;
 		case INVENTORY_LIST_COL_LEVEL:
 		{
 			int Level1 = 0, Level2 = 0;
@@ -106,10 +106,10 @@ int CALLBACK FFXiItemList::ColumnSortFunc(LPARAM lParam1, LPARAM lParam2, LPARAM
 		break;
 		case INVENTORY_LIST_COL_JOBS:
 			nRetVal = _tcscmp(pData1->Jobs, pData2->Jobs);
-		break;
+			break;
 		case INVENTORY_LIST_COL_REMARKS:
 			nRetVal = _tcscmp(pData1->Remarks, pData2->Remarks);
-		break;
+			break;
 	}
 
 	return nRetVal;
@@ -133,7 +133,7 @@ BOOL FFXiItemList::OnToolTipText(UINT, NMHDR* pNMHDR, LRESULT* pResult)
 
 void FFXiItemList::CellHitTest(const CPoint& pt, int& nRow, int& nCol) const
 {
-	LVHITTESTINFO lvhti = {0};
+	LVHITTESTINFO lvhti = { 0 };
 
 	lvhti.pt = pt;
 	nRow = -1;
@@ -156,33 +156,33 @@ LPTSTR FFXiItemList::GetToolTipText(int nRow, int nCol)
 
 		if (pItem != NULL)
 		{
-			switch(nCol)
+			switch (nCol)
 			{
 				default:
 				case 0:
 					return pItem->ItemToolTip.GetBuffer();
-				break;
+					break;
 				case INVENTORY_LIST_COL_ATTR:
 					return pItem->Attr.GetBuffer();
-				break;
+					break;
 				case INVENTORY_LIST_COL_DESCRIPTION:
 					return pItem->ItemDescription.GetBuffer();
-				break;
+					break;
 				case INVENTORY_LIST_COL_SLOT:
 					return pItem->Slot.GetBuffer();
-				break;
+					break;
 				case INVENTORY_LIST_COL_RACES:
 					return pItem->Races.GetBuffer();
-				break;
+					break;
 				case INVENTORY_LIST_COL_LEVEL:
 					return pItem->Level.GetBuffer();
-				break;
+					break;
 				case INVENTORY_LIST_COL_JOBS:
 					return pItem->Jobs.GetBuffer();
-				break;
+					break;
 				case INVENTORY_LIST_COL_REMARKS:
 					return pItem->Remarks.GetBuffer();
-				break;
+					break;
 			}
 		}
 	}
@@ -204,8 +204,8 @@ void FFXiItemList::GetItemAt(int Index, int SubItem, int &Icon, CString &Text)
 {
 	LVITEM Item;
 
-	Item.mask = LVIF_TEXT|LVIF_IMAGE ;
-	Item.iItem = Index ;
+	Item.mask = LVIF_TEXT | LVIF_IMAGE;
+	Item.iItem = Index;
 	Item.iSubItem = SubItem;
 	Item.pszText = Text.GetBuffer();
 
@@ -219,8 +219,8 @@ void FFXiItemList::SetItemAt(int Index, int SubItem, int Icon, CString &Text)
 {
 	LVITEM Item;
 
-	Item.mask = LVIF_TEXT | LVIF_IMAGE ;
-	Item.iItem = Index ;
+	Item.mask = LVIF_TEXT | LVIF_IMAGE;
+	Item.iItem = Index;
 	Item.iImage = Icon;
 	Item.iSubItem = SubItem;
 	Item.pszText = Text.GetBuffer();
@@ -291,33 +291,33 @@ void FFXiItemList::UpdateItemData(InventoryItem *pItem, int ItemIndex, int SubIn
 
 		if (ItemIndex >= 0 && ItemIndex < GetItemCount() && SubIndex >= 0 && SubIndex < INVENTORY_LIST_COL_COUNT)
 		{
-			switch(SubIndex)
+			switch (SubIndex)
 			{
 				default:
 				case 0:
 					SetItemText(ItemIndex, SubIndex, pItem->ItemName);
-				break;
+					break;
 				case INVENTORY_LIST_COL_ATTR:
 					SetItemText(ItemIndex, SubIndex, pItem->Attr);
-				break;
+					break;
 				case INVENTORY_LIST_COL_DESCRIPTION:
 					SetItemText(ItemIndex, SubIndex, pItem->ItemDescription);
-				break;
+					break;
 				case INVENTORY_LIST_COL_SLOT:
 					SetItemText(ItemIndex, SubIndex, pItem->Slot);
-				break;
+					break;
 				case INVENTORY_LIST_COL_RACES:
 					SetItemText(ItemIndex, SubIndex, pItem->Races);
-				break;
+					break;
 				case INVENTORY_LIST_COL_LEVEL:
 					SetItemText(ItemIndex, SubIndex, pItem->Level);
-				break;
+					break;
 				case INVENTORY_LIST_COL_JOBS:
 					SetItemText(ItemIndex, SubIndex, pItem->Jobs);
-				break;
+					break;
 				case INVENTORY_LIST_COL_REMARKS:
 					SetItemText(ItemIndex, SubIndex, pItem->Remarks);
-				break;
+					break;
 			}
 		}
 	}

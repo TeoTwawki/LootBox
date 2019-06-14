@@ -18,7 +18,10 @@ public:
 
 // Dialog Data
 	//{{AFX_DATA(CProgress_Dlg)
-	enum { IDD = IDD_PROGRESS };
+	enum
+	{
+		IDD = IDD_PROGRESS
+	};
 	CProgressCtrl	m_Progress;
 	//}}AFX_DATA
 
@@ -26,7 +29,7 @@ public:
 // Overrides
 	// ClassWizard generated virtual function overrides
 	//{{AFX_VIRTUAL(CProgress_Dlg)
-	protected:
+protected:
 	virtual void DoDataExchange(CDataExchange* pDX);    // DDX/DDV support
 	//}}AFX_VIRTUAL
 

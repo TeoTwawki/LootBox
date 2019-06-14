@@ -26,14 +26,14 @@ using namespace ETSLayout;
 #include <shlobj.h>
 
 #ifdef GDIPLUS_IMAGE_RESIZING
-	int GetEncoderClsid(const WCHAR* format, CLSID* pClsid);
+int GetEncoderClsid(const WCHAR* format, CLSID* pClsid);
 #endif
 
 BEGIN_MESSAGE_MAP(CLootBoxDlg, ETSLayoutDialog)
 	ON_WM_DESTROY()
 	ON_WM_PAINT()
 	ON_WM_QUERYDRAGICON()
-	
+
 	ON_MESSAGE(MSG_SEARCH_CLOSE, OnSearchClose)
 	ON_COMMAND_RANGE(ID_LANGUAGE_JAPANESE, ID_VIEW_COMPACTLISTING, OnOptionsChange)
 	ON_COMMAND(ID_FILE_EXPORT, OnExport)
@@ -62,7 +62,7 @@ CLootBoxDlg::CLootBoxDlg(CWnd* pParent)
 	: ETSLayoutDialog(CLootBoxDlg::IDD, pParent)
 {
 	m_ItemsCount = m_CharactersCount = m_SelectedChar = m_SelectedTab = 0;
-	m_pFileData = (BYTE*)malloc(DATA_SIZE_INVENTORY+1);
+	m_pFileData = (BYTE*)malloc(DATA_SIZE_INVENTORY + 1);
 	m_hIcon = AfxGetApp()->LoadIcon(IDR_MAINFRAME);
 	m_pIni = new CSimpleIni(true, false, false);
 	m_Language = INI_FILE_LANGUAGE_VALUE;
@@ -244,7 +244,7 @@ BOOL CLootBoxDlg::InitDialog()
 			{
 				BOOL MoreData = TRUE;
 
-				while(MoreData)
+				while (MoreData)
 				{
 					MoreData = Finder.FindNextFile();
 					// look only for folders
@@ -551,13 +551,13 @@ BOOL CLootBoxDlg::DefaultConfig()
 		// create it if it doesn't
 		if (pValue == NULL)
 			m_pIni->SetValue(INI_FILE_INVENTORY_SECTION, INI_FILE_MOG_WARDROBE_2_KEY, INI_FILE_MOG_WARDROBE_2_VALUE);
-		
+
 		// check if the "Mog Wardrobe 3" key exists
 		pValue = m_pIni->GetValue(INI_FILE_INVENTORY_SECTION, INI_FILE_MOG_WARDROBE_3_KEY);
 		// create it if it doesn't
 		if (pValue == NULL)
 			m_pIni->SetValue(INI_FILE_INVENTORY_SECTION, INI_FILE_MOG_WARDROBE_3_KEY, INI_FILE_MOG_WARDROBE_3_VALUE);
-		
+
 		// check if the "Mog Wardrobe 4" key exists
 		pValue = m_pIni->GetValue(INI_FILE_INVENTORY_SECTION, INI_FILE_MOG_WARDROBE_4_KEY);
 		// create it if it doesn't
@@ -736,14 +736,14 @@ BOOL CLootBoxDlg::PreTranslateMessage(MSG* pMsg)
 	{
 		case WM_KEYDOWN:
 		{
-			switch(pMsg->wParam)
+			switch (pMsg->wParam)
 			{
 				case VK_ESCAPE:
 				case VK_CANCEL:
 					::DispatchMessage(pMsg);
 
 					return TRUE;
-				break;
+					break;
 			}
 		}
 		break;
@@ -818,7 +818,7 @@ void CLootBoxDlg::OnDestroy()
 	SearchData *pData = NULL;
 	POSITION MapPos;
 	RECT WindowRect;
-	
+
 	GetWindowRect(&WindowRect);
 	Width = WindowRect.right - WindowRect.left;
 	Height = WindowRect.bottom - WindowRect.top;
@@ -836,7 +836,7 @@ void CLootBoxDlg::OnDestroy()
 		SelectedTab = 0;
 	if (SelectedTab >= FileCount && FileCount > 0)
 		SelectedTab = FileCount - 1;
-	
+
 
 	m_pIni->SetLongValue(INI_FILE_CONFIG_SECTION, INI_FILE_WINDOW_WIDTH_KEY, Width);
 	m_pIni->SetLongValue(INI_FILE_CONFIG_SECTION, INI_FILE_WINDOW_HEIGHT_KEY, Height);
@@ -864,7 +864,7 @@ void CLootBoxDlg::OnDestroy()
 
 				delete pData->pParams;
 				pData->pParams = NULL;
-			}			
+			}
 
 			delete pData;
 			pData = NULL;
@@ -985,7 +985,7 @@ void CLootBoxDlg::DeleteGlobalMap()
 				{
 					ItemPos = pItemArr->GetStartPosition();
 
-					while(ItemPos != NULL)
+					while (ItemPos != NULL)
 					{
 						pItemArr->GetNextAssoc(ItemPos, ItemID, pItem);
 
@@ -1098,7 +1098,7 @@ void CLootBoxDlg::OnEndItemEdit(NMHDR *pNMHDR, LRESULT *pResult)
 	CListCtrl *pList = (CListCtrl*)GetDlgItem(IDC_CHAR_LIST);
 	NMLVDISPINFO *pDispInfo = (NMLVDISPINFO*)pNMHDR;
 	LPTSTR ItemData = (LPTSTR)pList->GetItemData(pDispInfo->item.iItem);
-	
+
 	// if the text is NULL, the user canceled: do nothing
 	if (pDispInfo->item.pszText != NULL)
 	{
@@ -1117,7 +1117,7 @@ void CLootBoxDlg::OnEndItemEdit(NMHDR *pNMHDR, LRESULT *pResult)
 			// update the item
 			pList->SetItem(pDispInfo->item.iItem, pDispInfo->item.iSubItem, LVIF_TEXT, pDispInfo->item.pszText, 0, 0, 0, 0);
 		}
-	}	
+	}
 
 	*pResult = 0;
 }
@@ -1192,7 +1192,7 @@ void CLootBoxDlg::OnItemDoubleClick(NMHDR *pNMHDR, LRESULT *pResult)
 	CListCtrl *pCharList = (CListCtrl*)GetDlgItem(IDC_CHAR_LIST);
 	NMHEADER* phdr = (NMHEADER*)pNMHDR;
 	InventoryItem *pItem;
-	
+
 	if (pList && pTabList && pCharList && IsInventoryTab() == false)
 	{
 		pItem = (InventoryItem*)pList->GetItemData(phdr->iItem);
@@ -1239,7 +1239,7 @@ void CLootBoxDlg::OnRightClickInventoryTab(NMHDR *pNMHDR, LRESULT *pResult)
 	GetCursorPos(&MousePos);
 
 	if (IsInventoryTab() == false)
-		pMenu->TrackPopupMenu(TPM_LEFTALIGN|TPM_RIGHTBUTTON, MousePos.x,	MousePos.y, this);
+		pMenu->TrackPopupMenu(TPM_LEFTALIGN | TPM_RIGHTBUTTON, MousePos.x, MousePos.y, this);
 
 	*pResult = 0;
 }
@@ -1270,8 +1270,8 @@ void CLootBoxDlg::UpdateStatus()
 		if (IsInventoryTab())
 		{
 			m_CurrentFile.Format(_T("%s\\USER\\%s\\%s"), m_FFXiInstallPath,
-								 m_CharacterIDs.GetAt(m_SelectedChar),
-								 m_InventoryFiles.GetAt(m_SelectedTab));
+				m_CharacterIDs.GetAt(m_SelectedChar),
+				m_InventoryFiles.GetAt(m_SelectedTab));
 		}
 		else
 		{
@@ -1290,7 +1290,7 @@ void CLootBoxDlg::UpdateStatus()
 
 			Location.ImageIndex = Location.ListIndex = 0;
 			Location.Location.Format(_T("%s: %s"), m_CharacterNames.GetAt(m_SelectedChar),
-												   m_InventoryNames.GetAt(m_SelectedTab));
+				m_InventoryNames.GetAt(m_SelectedTab));
 			Location.Character = m_SelectedChar;
 			Location.InvTab = m_SelectedTab;
 
@@ -1376,7 +1376,7 @@ BOOL CLootBoxDlg::RefreshList(const ItemArray *pItemList)
 		{
 			InventoryItem *pItem;
 			POSITION ItemPos;
-	
+
 			ItemPos = pItemList->GetStartPosition();
 
 			while (ItemPos != NULL)
@@ -1385,18 +1385,18 @@ BOOL CLootBoxDlg::RefreshList(const ItemArray *pItemList)
 
 				if (pItem != NULL)
 				{
-					if (pItem->hBitmap == NULL) 
+					if (pItem->hBitmap == NULL)
 						pItem->hBitmap = GetItemIcon(&pItem->IconInfo, GetDC(), LIST_ICON_SIZE, LIST_ICON_SIZE);
 
 					if (pItem->hBitmap != NULL && Bitmap.Attach(pItem->hBitmap))
 					{
 						if (ItemIndex < ImageCount)
 						{
-							m_pItemIconList->Replace(ItemIndex, &Bitmap, RGB(0,0,0));
+							m_pItemIconList->Replace(ItemIndex, &Bitmap, RGB(0, 0, 0));
 							ImageIndex = ItemIndex;
 						}
 						else
-							ImageIndex = m_pItemIconList->Add(&Bitmap, RGB(0,0,0));
+							ImageIndex = m_pItemIconList->Add(&Bitmap, RGB(0, 0, 0));
 
 						Bitmap.Detach();
 					}
@@ -1493,7 +1493,7 @@ afx_msg void CLootBoxDlg::OnSearch()
 afx_msg void CLootBoxDlg::OnExport()
 {
 	ExportDialog Dialog(m_pHelper, m_CharacterNames, m_pIni, this);
-	
+
 	if (Dialog.DoModal() == IDOK)
 	{
 		int ExportChars = Dialog.GetExportedCharsCount();
@@ -1503,15 +1503,15 @@ afx_msg void CLootBoxDlg::OnExport()
 		if (ColumnCount > 0 && ExportChars > 0 && BitMask != 0UL)
 		{
 			CFileDialog SaveDialog(FALSE, _T("*.csv"), _T("export.csv"),
-								   OFN_OVERWRITEPROMPT | OFN_HIDEREADONLY | OFN_NOCHANGEDIR 
-								   | OFN_PATHMUSTEXIST | OFN_ENABLESIZING,
-								   _T("(*.csv) Excel 2000/XP||"), this);
+				OFN_OVERWRITEPROMPT | OFN_HIDEREADONLY | OFN_NOCHANGEDIR
+				| OFN_PATHMUSTEXIST | OFN_ENABLESIZING,
+				_T("(*.csv) Excel 2000/XP||"), this);
 
 			if (SaveDialog.DoModal() == IDOK)
 			{
 				const CArray<bool, bool> &ExportedChars = Dialog.GetExportedChars();
 				int FileCount = m_InventoryFiles.GetCount();
-				int CharCount = m_CharacterNames.GetCount();		
+				int CharCount = m_CharacterNames.GetCount();
 
 				CsvWriter<CFile> Exporter;
 				InventoryMap *pInvMap;
@@ -1527,7 +1527,7 @@ afx_msg void CLootBoxDlg::OnExport()
 				Exporter.CreateFile(Filename, ColumnCount);
 
 				Exporter.AddColumn(_T("Character"))
-						.AddColumn(_T("Location"));
+					.AddColumn(_T("Location"));
 
 				if ((BitMask & EXPORT_NAME) == EXPORT_NAME)
 					Exporter.AddColumn(INI_FILE_COL_NAME_KEY);
@@ -1576,7 +1576,7 @@ afx_msg void CLootBoxDlg::OnExport()
 									pItemMap->GetNextAssoc(ItemPos, ItemID, pItem);
 
 									Exporter.AddColumn(m_CharacterNames[CharIndex])
-											.AddColumn(m_InventoryNames[FileIndex]);
+										.AddColumn(m_InventoryNames[FileIndex]);
 
 									if ((BitMask & EXPORT_NAME) == EXPORT_NAME)
 										Exporter.AddColumn(pItem->ItemName);
@@ -1675,8 +1675,8 @@ void CLootBoxDlg::GetSearchResults(SearchData *pData)
 		if (pData->Done == false)
 		{
 			int CharID, FileID, ItemID, ItemCount, ListIndex = 0;
-			POSITION GlobalPos, InvPos, ItemPos;			
-			SearchHandler Searcher(pData);			
+			POSITION GlobalPos, InvPos, ItemPos;
+			SearchHandler Searcher(pData);
 			InventoryMap *pInvMap;
 			InventoryItem *pItem;
 			ItemArray *pItemArr;
@@ -1684,25 +1684,25 @@ void CLootBoxDlg::GetSearchResults(SearchData *pData)
 			GlobalPos = m_GlobalMap.GetStartPosition();
 			pItemArr = NULL;
 			pInvMap = NULL;
-	
+
 			ItemCount = GlobalMapCount();
 			// Init progress bar
 			m_ProgressDlg.Create(IDD_PROGRESS, this);
 			m_ProgressDlg.m_Progress.SetRange(0, ItemCount);
 			m_ProgressDlg.m_Progress.SetStep(1);
-	
+
 			while (GlobalPos != NULL)
 			{
 				m_GlobalMap.GetNextAssoc(GlobalPos, CharID, pInvMap);
-	
+
 				if (pInvMap != NULL)
 				{
 					InvPos = pInvMap->GetStartPosition();
-	
+
 					while (InvPos != NULL)
 					{
 						pInvMap->GetNextAssoc(InvPos, FileID, pItemArr);
-	
+
 						if (pItemArr != NULL)
 						{
 							ItemPos = pItemArr->GetStartPosition();
@@ -1713,14 +1713,14 @@ void CLootBoxDlg::GetSearchResults(SearchData *pData)
 
 								if (pItem != NULL)
 									Searcher.ProcessAll(pItem);
-	
+
 								m_ProgressDlg.m_Progress.StepIt();
 							}
 						}
 					}
 				}
 			}
-	
+
 			m_ProgressDlg.DestroyWindow();
 			pData->Done = true;
 		}
@@ -1736,26 +1736,26 @@ afx_msg void CLootBoxDlg::OnOptionsChange(UINT CmdID)
 
 	pItemMap = GetItemMap(m_SelectedChar, m_SelectedTab);
 
-	switch(CmdID)
+	switch (CmdID)
 	{
 		default:
 		case ID_LANGUAGE_JAPANESE:
 			m_Language = FFXI_LANG_JP;
-		break;
+			break;
 		case ID_LANGUAGE_ENGLISH:
 			m_Language = FFXI_LANG_US;
-		break;
+			break;
 		case ID_LANGUAGE_FRENCH:
 			m_Language = FFXI_LANG_FR;
-		break;
+			break;
 		case ID_LANGUAGE_GERMAN:
 			m_Language = FFXI_LANG_DE;
-		break;
+			break;
 		case ID_VIEW_COMPACTLISTING:
 			CompactListChange = true;
 			m_CompactList = !pInvList->IsCompact();
 			pInvList->SetCompactList(m_CompactList);
-		break;
+			break;
 	}
 
 	if (m_Language != PrevLang)
@@ -1853,7 +1853,7 @@ HBITMAP CLootBoxDlg::GetItemIcon(FFXiIconInfo *pIconInfo, CDC *pDC, int Width, i
 
 				DstMemoryDC.SetBkMode(TRANSPARENT);
 				DstMemoryDC.SetStretchBltMode(COLORONCOLOR);
-				DstMemoryDC.StretchBlt(0, 0 , Width, Height, &SrcMemoryDC, 0, 0, BmpInfo.bmiHeader.biWidth, BmpInfo.bmiHeader.biHeight, SRCCOPY);
+				DstMemoryDC.StretchBlt(0, 0, Width, Height, &SrcMemoryDC, 0, 0, BmpInfo.bmiHeader.biWidth, BmpInfo.bmiHeader.biHeight, SRCCOPY);
 
 				DeleteObject(hBitmap);
 				SrcMemoryDC.SelectObject(PrevSrcBmp);
@@ -1873,85 +1873,85 @@ HBITMAP CLootBoxDlg::GetItemIcon(FFXiIconInfo *pIconInfo, CDC *pDC, int Width, i
 }
 
 #ifdef GDIPLUS_IMAGE_RESIZING
-	int GetEncoderClsid(const WCHAR* format, CLSID* pClsid)
-	{
-		UINT  num = 0;          // number of image encoders
-		UINT  size = 0;         // size of the image encoder array in bytes
+int GetEncoderClsid(const WCHAR* format, CLSID* pClsid)
+{
+	UINT  num = 0;          // number of image encoders
+	UINT  size = 0;         // size of the image encoder array in bytes
 
-		Gdiplus::ImageCodecInfo* pImageCodecInfo = NULL;
+	Gdiplus::ImageCodecInfo* pImageCodecInfo = NULL;
 
-		Gdiplus::GetImageEncodersSize(&num, &size);
-		if(size == 0)
-			return -1;  // Failure
-
-		pImageCodecInfo = (Gdiplus::ImageCodecInfo*)(malloc(size));
-		if(pImageCodecInfo == NULL)
-			return -1;  // Failure
-
-		Gdiplus::GetImageEncoders(num, size, pImageCodecInfo);
-
-		for(UINT j = 0; j < num; ++j)
-		{
-			if( wcscmp(pImageCodecInfo[j].MimeType, format) == 0 )
-			{
-				*pClsid = pImageCodecInfo[j].Clsid;
-				free(pImageCodecInfo);
-				return j;  // Success
-			}    
-		}
-
-		free(pImageCodecInfo);
+	Gdiplus::GetImageEncodersSize(&num, &size);
+	if (size == 0)
 		return -1;  // Failure
+
+	pImageCodecInfo = (Gdiplus::ImageCodecInfo*)(malloc(size));
+	if (pImageCodecInfo == NULL)
+		return -1;  // Failure
+
+	Gdiplus::GetImageEncoders(num, size, pImageCodecInfo);
+
+	for (UINT j = 0; j < num; ++j)
+	{
+		if (wcscmp(pImageCodecInfo[j].MimeType, format) == 0)
+		{
+			*pClsid = pImageCodecInfo[j].Clsid;
+			free(pImageCodecInfo);
+			return j;  // Success
+		}
 	}
+
+	free(pImageCodecInfo);
+	return -1;  // Failure
+}
 #endif // GDIPLUS_IMAGE_RESIZING
 
 #ifdef _DEBUG
-	void CLootBoxDlg::DumpGlobalMap()
+void CLootBoxDlg::DumpGlobalMap()
+{
+	int CharID, FileID, ItemID, ItemCount = 0;
+	POSITION GlobalPos, InvPos;
+	InventoryItem *pItem;
+	InventoryMap *pInvMap;
+	ItemArray *pItemMap;
+
+	GlobalPos = m_GlobalMap.GetStartPosition();
+	pItemMap = NULL;
+	pInvMap = NULL;
+
+	TRACE(_T("=MAP==================================\n\tUSERS\n\t|\n"));
+
+	while (GlobalPos != NULL)
 	{
-		int CharID, FileID, ItemID, ItemCount = 0;
-		POSITION GlobalPos, InvPos;
-		InventoryItem *pItem;
-		InventoryMap *pInvMap;
-		ItemArray *pItemMap;
-		
-		GlobalPos = m_GlobalMap.GetStartPosition();
-		pItemMap = NULL;
-		pInvMap = NULL;
+		m_GlobalMap.GetNextAssoc(GlobalPos, CharID, pInvMap);
+		TRACE(_T("\t|_ %s (%s)\n"), m_CharacterNames.GetAt(CharID), m_CharacterIDs.GetAt(CharID));
+		TRACE(_T("\t|\t|\n"));
 
-		TRACE(_T("=MAP==================================\n\tUSERS\n\t|\n"));
-
-		while (GlobalPos != NULL)
+		if (pInvMap != NULL)
 		{
-			m_GlobalMap.GetNextAssoc(GlobalPos, CharID, pInvMap);
-			TRACE(_T("\t|_ %s (%s)\n"), m_CharacterNames.GetAt(CharID), m_CharacterIDs.GetAt(CharID));
-			TRACE(_T("\t|\t|\n"));
+			InvPos = pInvMap->GetStartPosition();
 
-			if (pInvMap != NULL)
+			while (InvPos != NULL)
 			{
-				InvPos = pInvMap->GetStartPosition();
+				pInvMap->GetNextAssoc(InvPos, FileID, pItemMap);
 
-				while (InvPos != NULL)
+				TRACE(_T("\t|\t|_ %s (%s)\n"), m_InventoryNames.GetAt(FileID), m_InventoryFiles.GetAt(FileID));
+				TRACE(_T("\t|\t|\t|\n"));
+
+
+				if (pItemMap != NULL)
 				{
-					pInvMap->GetNextAssoc(InvPos, FileID, pItemMap);
+					POSITION ItemPos = pItemMap->GetStartPosition();
 
-					TRACE(_T("\t|\t|_ %s (%s)\n"), m_InventoryNames.GetAt(FileID), m_InventoryFiles.GetAt(FileID));
-					TRACE(_T("\t|\t|\t|\n"));
-
-
-					if (pItemMap != NULL)
+					while (ItemPos != NULL)
 					{
-						POSITION ItemPos = pItemMap->GetStartPosition();
+						pItemMap->GetNextAssoc(ItemPos, ItemID, pItem);
 
-						while (ItemPos != NULL)
-						{
-							pItemMap->GetNextAssoc(ItemPos, ItemID, pItem);
-
-							if (pItem != NULL)
-								TRACE(_T("\t|\t|\t|_ %s (%d)\n"), pItem->ItemName, pItem->RefCount);
-						}
+						if (pItem != NULL)
+							TRACE(_T("\t|\t|\t|_ %s (%d)\n"), pItem->ItemName, pItem->RefCount);
 					}
 				}
 			}
 		}
 	}
+}
 #endif // _DEBUG

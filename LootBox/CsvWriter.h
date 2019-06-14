@@ -49,12 +49,12 @@ public:
 		\return true if the file was created successfully; false otherwise
 				a CFileException will be thrown if the file creation failed
 	*/
-	bool CreateFile(const TCHAR *pFilename_in, UINT ColumnCount_in = 1, 
-					DWORD Format_in = CSV_FORMAT_EXCEL_2000_XP, 
-					int OpenFlags_in = CFile::modeCreate | CFile::modeWrite);
-	/*! \brief Closes the CSV file 
-		\return true if the file is closed; false otherwise
-	*/
+	bool CreateFile(const TCHAR *pFilename_in, UINT ColumnCount_in = 1,
+		DWORD Format_in = CSV_FORMAT_EXCEL_2000_XP,
+		int OpenFlags_in = CFile::modeCreate | CFile::modeWrite);
+/*! \brief Closes the CSV file
+	\return true if the file is closed; false otherwise
+*/
 	bool CloseFile(void);
 	/*! \brief Escapes the specified string for use as a CSV column value
 		\param[in,out] String_in_out : the string to be escaped
@@ -64,16 +64,22 @@ public:
 	/*! Sets the number of columns in the CSV file
 		\param[in] ColumnCount_in : the number of columns
 	*/
-	void SetColumnCount(UINT ColumnCount_in = 0) { m_ColumnCount = ColumnCount_in; }
-	/*! \brief Returns a pointer to the file object
-		\return a pointer to the file object
-	*/
-	T* GetFile(void) { return m_pFile; }
-	/*! \brief Adds a column to the file
-		\param[in] pValue_in : the value of the column
-		\param[in] bEscaped_in : a flag specifying if the value is already escaped
-		\return a reference to the writer to chain methods
-	*/
+	void SetColumnCount(UINT ColumnCount_in = 0)
+	{
+		m_ColumnCount = ColumnCount_in;
+	}
+/*! \brief Returns a pointer to the file object
+	\return a pointer to the file object
+*/
+	T* GetFile(void)
+	{
+		return m_pFile;
+	}
+/*! \brief Adds a column to the file
+	\param[in] pValue_in : the value of the column
+	\param[in] bEscaped_in : a flag specifying if the value is already escaped
+	\return a reference to the writer to chain methods
+*/
 	CsvWriter& AddColumn(const TCHAR *pValue_in, bool bEscaped_in = false);
 	/*! \brief Adds a formatted column to the file
 		\param[in] pFormat_in : the value of the column
@@ -81,7 +87,7 @@ public:
 		\return a reference to the writer to chain methods
 	*/
 	CsvWriter& AddColumnFormat(const TCHAR *pFormat_in, ...);
-	/*! \brief Adds a specified number of empty columns 
+	/*! \brief Adds a specified number of empty columns
 		\param[in] ColumnCount_in : the number of empty columns to add
 		\return a reference to the writer to chain methods
 	*/
@@ -92,14 +98,20 @@ public:
 		\return a reference to the writer to chain methods
 	*/
 	CsvWriter& WriteLine(bool bAutocomplete_in = true);
-	/*! \brief Returns the dialect of the CSV file 
+	/*! \brief Returns the dialect of the CSV file
 		\return a reference to the dialect of the CSV file
 	*/
-	CsvDialect& GetDialect(void) { return m_Dialect; }
-	/*! \brief Returns the number of lines written so far in the CSV file
-		\return the current number of lines in the CSV file
-	*/
-	UINT GetLineCount(void) { return m_LineCount; }
+	CsvDialect& GetDialect(void)
+	{
+		return m_Dialect;
+	}
+/*! \brief Returns the number of lines written so far in the CSV file
+	\return the current number of lines in the CSV file
+*/
+	UINT GetLineCount(void)
+	{
+		return m_LineCount;
+	}
 
 
 protected:

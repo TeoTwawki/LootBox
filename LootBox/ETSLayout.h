@@ -101,7 +101,7 @@ class ETSLayoutPropertySheet;
  * may override it in Pane constructor, but it is the
  * fixed border around the root pane
  */
-const int nDefaultBorder	= 5;
+const int nDefaultBorder = 5;
 
 /**
  * The minimum size for not ABSOLUTE_XXX items
@@ -111,32 +111,33 @@ const int nMinConstrain = 5;
 class ETSGUI_EXT_CLASS ETSLayoutMgr
 {
 public:
-	
-	enum layResizeMode {
-		GREEDY				= 0,		// Will eat up as much as it can
-		ABSOLUTE_HORZ		= 1 << 0,	// Horizontal size is absolute
-		RELATIVE_HORZ		= 1 << 1,	// Horizontal size in percent
-		ABSOLUTE_VERT		= 1 << 2,	// Vertical size is absolute
-		RELATIVE_VERT		= 1 << 3,	// Vertical size in percent
 
-		NORESIZE			= ABSOLUTE_HORZ | ABSOLUTE_VERT,
+	enum layResizeMode
+	{
+		GREEDY = 0,		// Will eat up as much as it can
+		ABSOLUTE_HORZ = 1 << 0,	// Horizontal size is absolute
+		RELATIVE_HORZ = 1 << 1,	// Horizontal size in percent
+		ABSOLUTE_VERT = 1 << 2,	// Vertical size is absolute
+		RELATIVE_VERT = 1 << 3,	// Vertical size in percent
 
-		SIZE_MASK			= NORESIZE,
+		NORESIZE = ABSOLUTE_HORZ | ABSOLUTE_VERT,
 
-		ALIGN_LEFT			= 1 << 4,   // following only for NORESIZE
-		ALIGN_RIGHT			= 1 << 5,
-		ALIGN_TOP			= 1 << 6,
-		ALIGN_BOTTOM		= 1 << 7,
+		SIZE_MASK = NORESIZE,
 
-		ALIGN_HCENTER		= ALIGN_LEFT    | ALIGN_RIGHT,	
-		ALIGN_VCENTER		= ALIGN_TOP     | ALIGN_BOTTOM,
+		ALIGN_LEFT = 1 << 4,   // following only for NORESIZE
+		ALIGN_RIGHT = 1 << 5,
+		ALIGN_TOP = 1 << 6,
+		ALIGN_BOTTOM = 1 << 7,
 
-		ALIGN_CENTER		= ALIGN_HCENTER | ALIGN_VCENTER,
+		ALIGN_HCENTER = ALIGN_LEFT | ALIGN_RIGHT,
+		ALIGN_VCENTER = ALIGN_TOP | ALIGN_BOTTOM,
 
-		ALIGN_FILL_HORZ		= 1 << 8,
-		ALIGN_FILL_VERT		= 1 << 9,
-		ALIGN_FILL			= ALIGN_FILL_HORZ | ALIGN_FILL_VERT,
-	
+		ALIGN_CENTER = ALIGN_HCENTER | ALIGN_VCENTER,
+
+		ALIGN_FILL_HORZ = 1 << 8,
+		ALIGN_FILL_VERT = 1 << 9,
+		ALIGN_FILL = ALIGN_FILL_HORZ | ALIGN_FILL_VERT,
+
 /*		TRACKER_LEFT		= 1 << 10,	// not yet. May allow tracking of borders
 		TRACKER_RIGHT		= 1 << 11,  // between items in the future
 		TRACKER_TOP			= 1 << 12,
@@ -144,15 +145,17 @@ public:
 */
 	};
 
-	enum layOrientation {
+	enum layOrientation
+	{
 		HORIZONTAL,
 		VERTICAL
 	};
 
 	/**
-	 * This is the base class for all kind of panes. 
+	 * This is the base class for all kind of panes.
 	 */
-	class ETSGUI_EXT_CLASS PaneBase {
+	class ETSGUI_EXT_CLASS PaneBase
+	{
 		friend class ETSLayoutMgr;
 		friend class CPaneBase;
 		friend class CPane;
@@ -174,7 +177,7 @@ public:
 
 		/**
 		 * Informs the caller how much of the given space this pane
-		 * minimally need. This would be an absolute Value if 
+		 * minimally need. This would be an absolute Value if
 		 * the mode contains ABSOLUTE_HORZ or an explicit minimum
 		 * value, else nMinConstrain
 		 */
@@ -188,7 +191,7 @@ public:
 
 		/**
 		 * Informs the caller how much of the given space this pane
-		 * minimally need. This would be an absolute Value if 
+		 * minimally need. This would be an absolute Value if
 		 * the mode contains ABSOLUTE_VERT or an explicit minimum
 		 * value, else nMinConstrain
 		 */
@@ -210,17 +213,25 @@ public:
 		/**
 		 * Constructor needed pointer to LayoutManager
 		 */
-		PaneBase( ETSLayoutMgr* pMgr )		{ m_pMgr = pMgr; };
+		PaneBase(ETSLayoutMgr* pMgr)
+		{
+			m_pMgr = pMgr;
+		};
 
-		/**
-		 * Virtual destructor needed in Container operations
-		 */
-		virtual ~PaneBase() {};
+/**
+ * Virtual destructor needed in Container operations
+ */
+		virtual ~PaneBase()
+		{
+		};
 
-		/**
-		 * Returs the Resize Mode of this pane
-		 */
-		DWORD	modeResize() { return m_modeResize; };
+			  /**
+			   * Returs the Resize Mode of this pane
+			   */
+		DWORD	modeResize()
+		{
+			return m_modeResize;
+		};
 
 	protected:
 		/**
@@ -241,7 +252,7 @@ public:
 	 */
 	struct ETSGUI_EXT_CLASS PaneHolder
 	{
-		PaneHolder(PaneBase* pPane );
+		PaneHolder(PaneBase* pPane);
 		~PaneHolder();
 
 		void	AddRef();
@@ -258,19 +269,28 @@ public:
 
 	public:
 		// Standardconstructor
-		CPaneBase( );
-		CPaneBase( PaneBase* pPane );
-		CPaneBase( const CPaneBase& other );
+		CPaneBase();
+		CPaneBase(PaneBase* pPane);
+		CPaneBase(const CPaneBase& other);
 
 		~CPaneBase();
 
-		void operator=( PaneBase* pPane );
-		void operator=( const CPaneBase& other );
+		void operator=(PaneBase* pPane);
+		void operator=(const CPaneBase& other);
 		PaneBase* operator->() const;
-		PaneBase* GetPaneBase()	{ return operator->(); }
+		PaneBase* GetPaneBase()
+		{
+			return operator->();
+		}
 
-		bool IsValid()			{ return (m_pPaneHolder != 0); }
-		bool operator !()		{ return (m_pPaneHolder == 0); }
+		bool IsValid()
+		{
+			return (m_pPaneHolder != 0);
+		}
+		bool operator !()
+		{
+			return (m_pPaneHolder == 0);
+		}
 
 	};
 
@@ -279,21 +299,24 @@ public:
 	{
 	public:
 		// Standardconstructor
-		CPane( );
-		CPane( Pane* pPane );
-		CPane( const CPane& other );
+		CPane();
+		CPane(Pane* pPane);
+		CPane(const CPane& other);
 
 		~CPane();
 
-		void operator=( Pane* pPane );
-		void operator=( const CPane& other );
+		void operator=(Pane* pPane);
+		void operator=(const CPane& other);
 		Pane* operator->() const;
-		Pane* GetPane()			{ return operator->(); }
+		Pane* GetPane()
+		{
+			return operator->();
+		}
 
 		CPaneBase ConvertBase() const;
 
-		CPane& operator<< ( const CPane pPane );
-		CPane& operator<< ( const CPaneBase pItem );
+		CPane& operator<< (const CPane pPane);
+		CPane& operator<< (const CPaneBase pItem);
 	};
 
 
@@ -301,7 +324,8 @@ public:
 	/**
 	 * PaneItem represents a single control
 	 */
-	class ETSGUI_EXT_CLASS PaneItem : public PaneBase {
+	class ETSGUI_EXT_CLASS PaneItem : public PaneBase
+	{
 		friend class ETSLayoutMgr;
 		friend class Pane;
 	protected:
@@ -311,14 +335,14 @@ public:
 		 * the control to m_sizeX/Y. So the appearance does not change
 		 * from the Dialog Editor
 		 */
-		PaneItem( CWnd* pWnd, ETSLayoutMgr* pMgr, layResizeMode modeResize = GREEDY, int sizeX=0, int sizeY=0, int sizeXMin=0, int sizeYMin=0);
+		PaneItem(CWnd* pWnd, ETSLayoutMgr* pMgr, layResizeMode modeResize = GREEDY, int sizeX = 0, int sizeY = 0, int sizeXMin = 0, int sizeYMin = 0);
 
 		/**
 		 * If your control is not mapped you can name it by its ChildID. Pass
-		 * the pMgr to receive the CWnd* of nID. 
+		 * the pMgr to receive the CWnd* of nID.
 		 * The rest as stated above
 		 */
-		PaneItem( UINT nID, ETSLayoutMgr* pMgr, layResizeMode modeResize = GREEDY, int sizeX=0, int sizeY=0, int sizeXMin=0, int sizeYMin=0);
+		PaneItem(UINT nID, ETSLayoutMgr* pMgr, layResizeMode modeResize = GREEDY, int sizeX = 0, int sizeY = 0, int sizeXMin = 0, int sizeYMin = 0);
 
 
 	public:
@@ -333,7 +357,10 @@ public:
 		virtual int	getMaxConstrainVert();
 		virtual bool resizeTo(CRect& rcNewArea);
 
-		bool	isDummy()				{ return (m_hwndCtrl == 0);	}
+		bool	isDummy()
+		{
+			return (m_hwndCtrl == 0);
+		}
 
 	protected:
 		friend class ETSLayoutPropertySheet;
@@ -366,27 +393,28 @@ public:
 	 * This class encapsulates a Subpane (and indeed the root Pane too)
 	 * it is a container of PaneBase* which it will recursivly resize
 	 */
-	class ETSGUI_EXT_CLASS Pane : public PaneBase {
+	class ETSGUI_EXT_CLASS Pane : public PaneBase
+	{
 		friend class ETSLayoutMgr;
 		friend class CPaneBase;
 		friend class CPane;
-        friend class ETSLayoutPropertySheet;
+		friend class ETSLayoutPropertySheet;
 		friend class CLootBoxDlg;
-        
+
 	protected:
 		/**
 		 * Tell the pane in which direction it is positioned. A HORIZONTAL pane
 		 * arranges it's subpanes from left to right, a VERTICAL from top to bottom
 		 */
-		Pane( ETSLayoutMgr* pMgr, layOrientation orientation, int sizeBorder = nDefaultBorder, int sizeExtraBorder = 0 );
+		Pane(ETSLayoutMgr* pMgr, layOrientation orientation, int sizeBorder = nDefaultBorder, int sizeExtraBorder = 0);
 
 	public:
 		/**
 		 * If your control is not mapped you can name it by its ChildID. Pass
-		 * the pMgr to receive the CWnd* of nID. 
+		 * the pMgr to receive the CWnd* of nID.
 		 * The rest as stated above
 		 */
-		bool addItem( UINT nID, layResizeMode modeResize = GREEDY, int sizeX=0, int sizeY=0, int sizeXMin=-1, int sizeYMin=-1);
+		bool addItem(UINT nID, layResizeMode modeResize = GREEDY, int sizeX = 0, int sizeY = 0, int sizeXMin = -1, int sizeYMin = -1);
 
 		/**
 		 * Creates a new PaneItem from an Control. If sizeX or sizeY are 0
@@ -394,7 +422,7 @@ public:
 		 * the control to m_sizeX/Y. So the appearance does not change
 		 * from the Dialog Editor
 		 */
-		bool addItem( CWnd* pWnd, layResizeMode modeResize = GREEDY, int sizeX=0, int sizeY=0, int sizeXMin=-1, int sizeYMin=-1);
+		bool addItem(CWnd* pWnd, layResizeMode modeResize = GREEDY, int sizeX = 0, int sizeY = 0, int sizeXMin = -1, int sizeYMin = -1);
 
 
 		/**
@@ -415,24 +443,24 @@ public:
 		 *
 		 * First argument is the left (top) item for a HORIZONTAL (VERTICAL) pane
 		 */
-		bool addItemSpaceBetween( CWnd* pWndFirst, CWnd* pWndSecond );
-		bool addItemSpaceBetween( UINT nIDFirst, UINT nIDSecond );
+		bool addItemSpaceBetween(CWnd* pWndFirst, CWnd* pWndSecond);
+		bool addItemSpaceBetween(UINT nIDFirst, UINT nIDSecond);
 
 
 		/**
 		 * Add a whitespace Item (paneNull) of fixed size based on the
 		 * size of another item
 		 */
-		bool addItemSpaceLike( CWnd* pWnd );
-		bool addItemSpaceLike( UINT nID );
+		bool addItemSpaceLike(CWnd* pWnd);
+		bool addItemSpaceLike(UINT nID);
 
 
 		/**
 		 * Add an item to the pane, appending at the end. This may be either obtained
 		 * by a call to ETSLayoutMgr::item() or one of the ETSLayoutMgr::paneXXX() calls
 		 */
-		bool addPane( CPaneBase pItem );
-		bool addPane( CPane pSubpane, layResizeMode modeResize, int sizeSecondary /* = 0 */);
+		bool addPane(CPaneBase pItem);
+		bool addPane(CPane pSubpane, layResizeMode modeResize, int sizeSecondary /* = 0 */);
 
 		virtual int		getConstrainHorz(int sizeParent);
 		virtual int		getConstrainVert(int sizeParent);
@@ -450,26 +478,29 @@ public:
 		/**
 		 * Access to the orientation of this pane
 		 */
-		layOrientation	getOrientation() { return m_Orientation; };
+		layOrientation	getOrientation()
+		{
+			return m_Orientation;
+		};
 
 
 	protected:
 
-		int		resizeToAbsolute(int& availSpace, CArray<int,int>& sizePrimary, 
-									CArray<int,int>& sizeMin, CArray<int,int>& sizeMax);
-		
-		bool	resizeToRelative(int& availSpace, CArray<int,int>& sizePrimary, 
-									CArray<int,int>& sizeMin, CArray<int,int>& sizeMax);
+		int		resizeToAbsolute(int& availSpace, CArray<int, int>& sizePrimary,
+			CArray<int, int>& sizeMin, CArray<int, int>& sizeMax);
 
-		bool	resizeToGreedy(  int& availSpace, int nGreedy, CArray<int,int>& sizePrimary, 
-									CArray<int,int>& sizeMin, CArray<int,int>& sizeMax);
+		bool	resizeToRelative(int& availSpace, CArray<int, int>& sizePrimary,
+			CArray<int, int>& sizeMin, CArray<int, int>& sizeMax);
 
-		/**
-		 * The orientation of the pane. Keep in mind that all subpanes
-		 * must have the complementary orientation, i.e. a VERTICAL
-		 * pane must have all HORIZONTAL SubPanes (or normal Items
-		 * of course)
-		 */
+		bool	resizeToGreedy(int& availSpace, int nGreedy, CArray<int, int>& sizePrimary,
+			CArray<int, int>& sizeMin, CArray<int, int>& sizeMax);
+
+/**
+ * The orientation of the pane. Keep in mind that all subpanes
+ * must have the complementary orientation, i.e. a VERTICAL
+ * pane must have all HORIZONTAL SubPanes (or normal Items
+ * of course)
+ */
 		layOrientation					m_Orientation;
 
 		/**
@@ -482,7 +513,7 @@ public:
 		 */
 		int				m_sizeSecondary;
 
-		/** 
+		/**
 		 * Size of gap between childs
 		 */
 		int				m_sizeBorder;
@@ -505,7 +536,7 @@ public:
 		 * Tell the pane in which direction it is positioned. A HORIZONTAL pane
 		 * arranges it's subpanes from left to right, a VERTICAL from top to bottom
 		 */
-		PaneTab( CTabCtrl* pTab, ETSLayoutMgr* pMgr, layOrientation orientation, int sizeBorder = nDefaultBorder, int sizeExtraBorder = 0 );
+		PaneTab(CTabCtrl* pTab, ETSLayoutMgr* pMgr, layOrientation orientation, int sizeBorder = nDefaultBorder, int sizeExtraBorder = 0);
 
 	public:
 		virtual int		getConstrainHorz(int sizeParent);
@@ -533,8 +564,8 @@ public:
 		 * Tell the pane in which direction it is positioned. A HORIZONTAL pane
 		 * arranges it's subpanes from left to right, a VERTICAL from top to bottom
 		 */
-		PaneCtrl( CWnd* pCtrl, ETSLayoutMgr* pMgr, layOrientation orientation, int sizeBorder = nDefaultBorder, int sizeExtraBorder = 0, int sizeTopExtra = 0);
-		PaneCtrl( UINT nID, ETSLayoutMgr* pMgr, layOrientation orientation, int sizeBorder = nDefaultBorder, int sizeExtraBorder = 0, int sizeTopExtra = 0 );
+		PaneCtrl(CWnd* pCtrl, ETSLayoutMgr* pMgr, layOrientation orientation, int sizeBorder = nDefaultBorder, int sizeExtraBorder = 0, int sizeTopExtra = 0);
+		PaneCtrl(UINT nID, ETSLayoutMgr* pMgr, layOrientation orientation, int sizeBorder = nDefaultBorder, int sizeExtraBorder = 0, int sizeTopExtra = 0);
 
 	public:
 
@@ -554,17 +585,29 @@ public:
 
 
 
-	ETSLayoutMgr(CWnd* pWnd)	{ m_pWnd = pWnd; m_sizeRootBorders = CSize(5,5); };
+	ETSLayoutMgr(CWnd* pWnd)
+	{
+		m_pWnd = pWnd; m_sizeRootBorders = CSize(5, 5);
+	};
 	virtual ~ETSLayoutMgr();
 
-	virtual CRect GetRect() { CRect r; m_pWnd->GetClientRect(r); return r; };
+	virtual CRect GetRect()
+	{
+		CRect r; m_pWnd->GetClientRect(r); return r;
+	};
 	CWnd*	m_pWnd;
-	CWnd*	GetWnd()		{ return m_pWnd; };
-	void	setRootBorders(int cx, int cy)	{ m_sizeRootBorders = CSize(cx,cy); };
+	CWnd*	GetWnd()
+	{
+		return m_pWnd;
+	};
+	void	setRootBorders(int cx, int cy)
+	{
+		m_sizeRootBorders = CSize(cx, cy);
+	};
 
-	/**
-	 * Pass this for a pseudo Pane with no content
-	 */
+/**
+ * Pass this for a pseudo Pane with no content
+ */
 	static CWnd*	paneNull;
 
 	/**
@@ -604,8 +647,9 @@ public:
 	 * layout
 	 */
 	virtual void UpdateLayout();
-	virtual void UpdateLayout(CPane p) {
-		if(m_RootPane.IsValid())
+	virtual void UpdateLayout(CPane p)
+	{
+		if (m_RootPane.IsValid())
 		{
 			// free old root
 			m_RootPane = 0;
@@ -624,7 +668,7 @@ public:
 
 	/**
 	 * Erasing only the these parts of the client area where
-	 * there is no child window. Extra-code for group-boxes 
+	 * there is no child window. Extra-code for group-boxes
 	 * included!
 	 */
 	void EraseBkgnd(CDC* pDC);
@@ -632,7 +676,7 @@ public:
 	/**
 	 * Helperfunctions for the stream-interface. For usage see sample Application
 	 * and/or documentation.
- 	 */
+	 */
 
 	/**
 	 * Create a new Pane. You may specify the resize
@@ -642,15 +686,15 @@ public:
 	 * it will be computed as the maximum Height of all SubPanes (the same is
 	 * true for VERTICAL panes and subpanes with *_HORZ)
 	 */
-	CPane pane( layOrientation orientation, layResizeMode modeResize = GREEDY, int sizeBorder = nDefaultBorder, int sizeExtraBorder = 0, int sizeSecondary = 0);
+	CPane pane(layOrientation orientation, layResizeMode modeResize = GREEDY, int sizeBorder = nDefaultBorder, int sizeExtraBorder = 0, int sizeSecondary = 0);
 
 	/**
 	 * Create one of the special control panes. Parameter are like pane(). For
 	 * additional information see documentation
 	 */
-	CPane paneTab( CTabCtrl* pTab, layOrientation orientation, layResizeMode modeResize = GREEDY, int sizeBorder = nDefaultBorder, int sizeExtraBorder = 0, int sizeSecondary = 0);
-	CPane paneCtrl( UINT nID, layOrientation orientation, layResizeMode modeResize = GREEDY, int sizeBorder = nDefaultBorder, int sizeExtraBorder = 0, int sizeTopExtra = 0, int sizeSecondary = 0);
-	CPane paneCtrl( CWnd* pCtrl, layOrientation orientation, layResizeMode modeResize = GREEDY, int sizeBorder = nDefaultBorder, int sizeExtraBorder = 0, int sizeTopExtra = 0, int sizeSecondary = 0);
+	CPane paneTab(CTabCtrl* pTab, layOrientation orientation, layResizeMode modeResize = GREEDY, int sizeBorder = nDefaultBorder, int sizeExtraBorder = 0, int sizeSecondary = 0);
+	CPane paneCtrl(UINT nID, layOrientation orientation, layResizeMode modeResize = GREEDY, int sizeBorder = nDefaultBorder, int sizeExtraBorder = 0, int sizeTopExtra = 0, int sizeSecondary = 0);
+	CPane paneCtrl(CWnd* pCtrl, layOrientation orientation, layResizeMode modeResize = GREEDY, int sizeBorder = nDefaultBorder, int sizeExtraBorder = 0, int sizeTopExtra = 0, int sizeSecondary = 0);
 
 	/**
 	 * Creates a new PaneItem for an Control. If sizeX or sizeY are 0
@@ -659,8 +703,8 @@ public:
 	 * from the Dialog Editor. size*Min = -1 means: do not make smaller
 	 * than in Dialog Template.
 	 */
-	CPaneBase item(UINT nID, layResizeMode modeResize = GREEDY, int sizeX =0, int sizeY =0, int sizeXMin =-1, int sizeYMin =-1);
-	CPaneBase item(CWnd* pWnd, layResizeMode modeResize = GREEDY, int sizeX =0, int sizeY =0, int sizeXMin =-1, int sizeYMin =-1);
+	CPaneBase item(UINT nID, layResizeMode modeResize = GREEDY, int sizeX = 0, int sizeY = 0, int sizeXMin = -1, int sizeYMin = -1);
+	CPaneBase item(CWnd* pWnd, layResizeMode modeResize = GREEDY, int sizeX = 0, int sizeY = 0, int sizeXMin = -1, int sizeYMin = -1);
 
 
 	/**
@@ -681,15 +725,15 @@ public:
 	 *
 	 * First argument is the left (top) item for a HORIZONTAL (VERTICAL) pane
 	 */
-	CPaneBase itemSpaceBetween( layOrientation orientation, CWnd* pWndFirst, CWnd* pWndSecond );
-	CPaneBase itemSpaceBetween( layOrientation orientation, UINT nIDFirst, UINT nIDSecond );
+	CPaneBase itemSpaceBetween(layOrientation orientation, CWnd* pWndFirst, CWnd* pWndSecond);
+	CPaneBase itemSpaceBetween(layOrientation orientation, UINT nIDFirst, UINT nIDSecond);
 
 	/**
 	 * Add a whitespace Item (paneNull) of fixed size based on the
 	 * size of another item
 	 */
-	CPaneBase itemSpaceLike( layOrientation orientation, CWnd* pWnd );
-	CPaneBase itemSpaceLike( layOrientation orientation, UINT nID );
+	CPaneBase itemSpaceLike(layOrientation orientation, CWnd* pWnd);
+	CPaneBase itemSpaceLike(layOrientation orientation, UINT nID);
 
 protected:
 	/**
@@ -698,16 +742,16 @@ protected:
 	CPane m_RootPane;
 
 	/**
- 	 * Create a root pane
+	 * Create a root pane
 	 */
-	CPane CreateRoot(layOrientation orientation, int sizeBorder = nDefaultBorder, int sizeExtraBorder = 0 )
+	CPane CreateRoot(layOrientation orientation, int sizeBorder = nDefaultBorder, int sizeExtraBorder = 0)
 	{
-		if(m_RootPane.IsValid())
+		if (m_RootPane.IsValid())
 		{
 			// free old root
 			m_RootPane = 0;
 		}
-		m_RootPane = new Pane( this, orientation, sizeBorder, sizeExtraBorder);
+		m_RootPane = new Pane(this, orientation, sizeBorder, sizeExtraBorder);
 		return m_RootPane;
 	}
 
@@ -722,9 +766,11 @@ protected:
 	CSize	m_sizeRootBorders;
 };
 
-inline ETSLayoutMgr::layResizeMode operator|(const ETSLayoutMgr::layResizeMode m1, 
-											 const ETSLayoutMgr::layResizeMode m2)
-	{ return (ETSLayoutMgr::layResizeMode)( (DWORD)m1|(DWORD)m2); }
+inline ETSLayoutMgr::layResizeMode operator|(const ETSLayoutMgr::layResizeMode m1,
+	const ETSLayoutMgr::layResizeMode m2)
+{
+	return (ETSLayoutMgr::layResizeMode)((DWORD)m1 | (DWORD)m2);
+}
 
 
 /**
@@ -803,8 +849,8 @@ protected:
 
 /**
  * Base class for the Layout function. Derive your own class
- * from this or derive it from CBCGDialogBar/CDialogBar and 
- * modify _all_  references to CBCGDialogBar/CDialogBar to 
+ * from this or derive it from CBCGDialogBar/CDialogBar and
+ * modify _all_  references to CBCGDialogBar/CDialogBar to
  * ETSLayoutDialogBar
  */
 class ETSGUI_EXT_CLASS ETSLayoutDialogBar : public ETSLayout::CBaseDialogBar, protected ETSLayoutMgr
@@ -827,7 +873,10 @@ public:
 	/**
 	 * Override this to define Layout
 	 */
-	virtual BOOL Initialize() { return false; };
+	virtual BOOL Initialize()
+	{
+		return false;
+	};
 	virtual void UpdateLayout();
 
 // Implementation
@@ -862,21 +911,30 @@ class ETSGUI_EXT_CLASS ETSLayoutPropertySheet : public CPropertySheet, protected
 
 // Construction
 public:
-	ETSLayoutPropertySheet(UINT nIDCaption, CWnd *pParentWnd = NULL, UINT iSelectPage = 0, LPCTSTR strName=NULL, bool bGripper=true);
-	ETSLayoutPropertySheet(LPCTSTR pszCaption, CWnd *pParentWnd = NULL, UINT iSelectPage = 0, LPCTSTR strName=NULL, bool bGripper=true);
+	ETSLayoutPropertySheet(UINT nIDCaption, CWnd *pParentWnd = NULL, UINT iSelectPage = 0, LPCTSTR strName = NULL, bool bGripper = true);
+	ETSLayoutPropertySheet(LPCTSTR pszCaption, CWnd *pParentWnd = NULL, UINT iSelectPage = 0, LPCTSTR strName = NULL, bool bGripper = true);
 
 // Operationen
 public:
-	void	SetAutoDestroy()		{ m_bAutoDestroy = true; }
-	void	SetAutoDestroyPages()	{ m_bAutoDestroyPages = true; }
-	void	ModelessWithButtons()	{ m_bModelessButtons = true; }
+	void	SetAutoDestroy()
+	{
+		m_bAutoDestroy = true;
+	}
+	void	SetAutoDestroyPages()
+	{
+		m_bAutoDestroyPages = true;
+	}
+	void	ModelessWithButtons()
+	{
+		m_bModelessButtons = true;
+	}
 // Overrides
-    virtual void AddMainArea(CPane paneRoot, CPaneBase itemTab);
-    virtual void AddButtons(CPane paneBottom);
-    
+	virtual void AddMainArea(CPane paneRoot, CPaneBase itemTab);
+	virtual void AddButtons(CPane paneBottom);
+
 	// ClassWizard generated virtual function overrides
 	//{{AFX_VIRTUAL(ETSLayoutPropertySheet)
-	public:
+public:
 	virtual BOOL OnInitDialog();
 	virtual void PostNcDestroy();
 	//}}AFX_VIRTUAL
@@ -898,7 +956,7 @@ protected:
 
 	void Resize(int cx, int cy);
 
-friend class ETSLayoutPropertyPage;
+	friend class ETSLayoutPropertyPage;
 
 	void		Init(LPCTSTR strName, bool bGripper);
 	CRect		m_rcStart;
@@ -913,21 +971,21 @@ friend class ETSLayoutPropertyPage;
 
 /**
  * Base class for the Layout function. Derive your own class
- * from this or derive it from CPropertyPage and 
- * modify _all_  references to CPropertyPage to 
+ * from this or derive it from CPropertyPage and
+ * modify _all_  references to CPropertyPage to
  * ETSLayoutPropertyPage
  */
 class ETSGUI_EXT_CLASS ETSLayoutPropertyPage : public ETSLayout::CBasePropertyPage, protected ETSLayoutMgr
 {
-friend class ETSLayoutPropertySheet;
+	friend class ETSLayoutPropertySheet;
 
 	DECLARE_DYNCREATE(ETSLayoutPropertyPage)
 
 // Konstruktion
 public:
-	ETSLayoutPropertyPage( );
-	ETSLayoutPropertyPage( UINT nIDTemplate, UINT nIDCaption = 0 );
-	ETSLayoutPropertyPage( LPCTSTR lpszTemplateName, UINT nIDCaption = 0 );
+	ETSLayoutPropertyPage();
+	ETSLayoutPropertyPage(UINT nIDTemplate, UINT nIDCaption = 0);
+	ETSLayoutPropertyPage(LPCTSTR lpszTemplateName, UINT nIDCaption = 0);
 
 	~ETSLayoutPropertyPage();
 
@@ -935,7 +993,7 @@ public:
 // Overrides
 	// ClassWizard generated virtual function overrides
 	//{{AFX_VIRTUAL(ETSLayoutPropertyPage)
-	public:
+public:
 	virtual BOOL OnSetActive();
 	//}}AFX_VIRTUAL
 
@@ -947,7 +1005,7 @@ protected:
 	afx_msg void OnGetMinMaxInfo(MINMAXINFO FAR* lpMMI);
 	virtual BOOL OnInitDialog();
 	afx_msg BOOL OnEraseBkgnd(CDC* pDC);
-	afx_msg void OnWindowPosChanging( WINDOWPOS* lpwndpos );
+	afx_msg void OnWindowPosChanging(WINDOWPOS* lpwndpos);
 	afx_msg void OnDestroy();
 	afx_msg void OnWindowPosChanged(WINDOWPOS FAR* lpwndpos);
 	//}}AFX_MSG

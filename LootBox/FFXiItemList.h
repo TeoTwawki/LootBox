@@ -19,19 +19,32 @@ class FFXiItemList : public CListCtrl
 {
 	// Construction
 public:
-	FFXiItemList(){}
-	virtual ~FFXiItemList(){}
+	FFXiItemList()
+	{
+	}
+	virtual ~FFXiItemList()
+	{
+	}
 
 	bool ShowToolTip(const CPoint& pt) const;
-	bool IsCompact() { return m_CompactList; }
+	bool IsCompact()
+	{
+		return m_CompactList;
+	}
 	LPTSTR GetToolTipText(int nRow, int nCol);
 	bool AddItem(InventoryItem *pItem, int &ItemIndex);
 	BOOL OnToolTipText(UINT, NMHDR* pNMHDR, LRESULT* pResult);
 	void CellHitTest(const CPoint& pt, int& nRow, int& nCol) const;
 	void UpdateItemText(const TCHAR* pText, int ItemIndex, int SubIndex = 0);
 	void UpdateItemData(InventoryItem *pItem, int ItemIndex, int SubIndex = 0);
-	void BlockRedraw(bool BlockRedraw = true) { m_BlockRedraw = BlockRedraw; }
-	void SetCompactList(LONG CompactList = 0) { m_CompactList = (CompactList != 0); }
+	void BlockRedraw(bool BlockRedraw = true)
+	{
+		m_BlockRedraw = BlockRedraw;
+	}
+	void SetCompactList(LONG CompactList = 0)
+	{
+		m_CompactList = (CompactList != 0);
+	}
 
 	static int CALLBACK ColumnSortFunc(LPARAM lParam1, LPARAM lParam2, LPARAM lParamSort);
 

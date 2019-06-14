@@ -3,10 +3,11 @@
 
 /*! \brief CsvWriter constructor */
 template <typename T>CsvWriter<T>::CsvWriter()
-	     : m_bFileOpened(false), m_LineCount(0),
-		   m_ColumnCount(0), m_ColumnIndex(0),
-		   m_pFile(new T)
-{}
+	: m_bFileOpened(false), m_LineCount(0),
+	m_ColumnCount(0), m_ColumnIndex(0),
+	m_pFile(new T)
+{
+}
 
 /*! \brief CsvWriter destructor */
 template <typename T>CsvWriter<T>::~CsvWriter()
@@ -63,7 +64,7 @@ template <typename T> bool CsvWriter<T>::CreateFile(const TCHAR *pFilename_in, U
 	return m_bFileOpened;
 }
 
-/*! \brief Closes the CSV file 
+/*! \brief Closes the CSV file
 	\return true if the file is closed; false otherwise
 */
 template <typename T> bool CsvWriter<T>::CloseFile(void)
@@ -134,15 +135,15 @@ template <typename T> CsvWriter<T>& CsvWriter<T>::AddColumn(const TCHAR *pValue_
 		{
 			// add the column and the line break
 			m_CurrentLine.AppendFormat(_T("%c%s%c%s"), m_Dialect.m_Delimiter, strEscapedValue,
-									   m_Dialect.m_Delimiter, m_Dialect.m_LineBreak);
-			// write the current line
+				m_Dialect.m_Delimiter, m_Dialect.m_LineBreak);
+// write the current line
 			WriteLine();
 		}
 		else
 		{
 			// add the column
 			m_CurrentLine.AppendFormat(_T("%c%s%c%c"), m_Dialect.m_Delimiter, strEscapedValue,
-									   m_Dialect.m_Delimiter, m_Dialect.m_Separator);
+				m_Dialect.m_Delimiter, m_Dialect.m_Separator);
 		}
 	}
 
@@ -209,7 +210,7 @@ template <typename T> CsvWriter<T>& CsvWriter<T>::WriteLine(bool bAutocomplete_i
 	return *this;
 }
 
-/*! \brief Adds a specified number of empty columns 
+/*! \brief Adds a specified number of empty columns
 	\param[in] ColumnCount_in : the number of empty columns to add
 	\return a reference to the writer to chain methods
 */
@@ -265,18 +266,18 @@ template <typename T> void CsvWriter<T>::SetDialectFromFormat(DWORD Format_in)
 	m_Dialect.m_LineBreak[2] = '\0';
 
 	// modify the default dialect depending on the format
-	switch(Format_in)
+	switch (Format_in)
 	{
 		case CSV_FORMAT_EXCEL_5_97:
 			// Add the UNICODE low bit version header only for "recent" Excel
 			// because the old version does not support the standard UNICODE header !
 			m_Dialect.m_Header[0] = NULL;
 			m_Dialect.m_Header[1] = NULL;
-		break;
+			break;
 		case CSV_FORMAT_EXCEL_2000_XP:
 			m_Dialect.m_Header[0] = 0xFF;
-			m_Dialect.m_Header[1] = 0xFE;			
-		break;
+			m_Dialect.m_Header[1] = 0xFE;
+			break;
 	}
 }
 
