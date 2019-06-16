@@ -2083,7 +2083,7 @@ BOOL ETSLayoutDialog::OnInitDialog()
 			friend class ETSLayoutDialog;
 		};
 
-		ETSPseudoDocTemplate* pDocT = (ETSPseudoDocTemplate*)AfxGetApp()->GetNextDocTemplate(pos);
+		ETSPseudoDocTemplate* pDocT = static_cast<ETSPseudoDocTemplate*>(AfxGetApp()->GetNextDocTemplate(pos));
 		SetIcon(AfxGetApp()->LoadIcon(pDocT->m_nIDResource), FALSE);
 	}
 #endif
@@ -2099,11 +2099,14 @@ BOOL ETSLayoutDialog::OnInitDialog()
 			m_pWnd->RepositionBars(AFX_IDW_CONTROLBAR_FIRST, AFX_IDW_CONTROLBAR_LAST, 0);
 		}
 		else
+		{
 			AfxMessageBox(_T("Error - Statusbar"));
-
+		}
 	}
-	return TRUE;  // return TRUE unless you set the focus to a control
-				  // EXCEPTION: OCX Property Pages should return FALSE
+
+	// return TRUE unless you set the focus to a control
+	// EXCEPTION: OCX Property Pages should return FALSE
+	return TRUE;
 }
 
 void ETSLayoutDialog::OnDestroy()
@@ -2579,7 +2582,7 @@ BOOL ETSLayoutPropertyPage::OnInitDialog()
 	CBasePropertyPage::OnInitDialog();
 	UpdateLayout();
 
-	ETSLayoutPropertySheet* pSheet = (ETSLayoutPropertySheet*)GetParent();
+	ETSLayoutPropertySheet* pSheet = static_cast<ETSLayoutPropertySheet*>(GetParent());
 
 	ASSERT_KINDOF(ETSLayoutPropertySheet, pSheet);
 	if (pSheet)
@@ -2595,7 +2598,7 @@ BOOL ETSLayoutPropertyPage::OnInitDialog()
 
 BOOL ETSLayoutPropertyPage::OnSetActive()
 {
-	ETSLayoutPropertySheet* pSheet = (ETSLayoutPropertySheet*)GetParent();
+	ETSLayoutPropertySheet* pSheet = static_cast<ETSLayoutPropertySheet*>(GetParent());
 
 	ASSERT_KINDOF(ETSLayoutPropertySheet, pSheet);
 	if (pSheet)
