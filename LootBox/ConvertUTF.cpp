@@ -140,7 +140,7 @@ ConversionResult ConvertUTF16toUTF32(
 		/* If we have a surrogate pair, convert to UTF32 first. */
 		if (ch >= UNI_SUR_HIGH_START && ch <= UNI_SUR_HIGH_END)
 		{
-/* If the 16 bits following the high surrogate are in the source buffer... */
+			/* If the 16 bits following the high surrogate are in the source buffer... */
 			if (source < sourceEnd)
 			{
 				ch2 = *source;
@@ -167,7 +167,7 @@ ConversionResult ConvertUTF16toUTF32(
 		}
 		else if (flags == strictConversion)
 		{
-/* UTF-16 surrogate values are illegal in UTF-32 */
+			/* UTF-16 surrogate values are illegal in UTF-32 */
 			if (ch >= UNI_SUR_LOW_START && ch <= UNI_SUR_LOW_END)
 			{
 				--source; /* return to the illegal value itself */
