@@ -177,10 +177,10 @@ TCHAR* FFXiHelper::GetInstallPath(int Region)
 
 bool FFXiHelper::ReadItem(BYTE *pItemData, InventoryItem *pItem, int Language, bool NoConversion)
 {
-	BYTE *pItemPos, *pIconPos;
-
 	if (pItemData != NULL && pItem != NULL)
 	{
+		BYTE *pItemPos, *pIconPos;
+
 		pIconPos = pItemData + DATA_SIZE_ITEM_INFO + 0x84;
 		pItemPos = pItemData;
 
@@ -440,14 +440,13 @@ int FFXiHelper::GetDWORD(const BYTE *pData, DWORD &Result)
 void FFXiHelper::UpperCaseWord(CString &String)
 {
 	TCHAR *pChar = String.GetBuffer();
-	int StrLength, StrPos = 0;
 
-	StrLength = String.GetLength();
+	int StrLength = String.GetLength();
 
 	if (StrLength > 0)
 	{
 		*pChar = _totupper(*pChar);
-		StrPos = String.Find(' ', StrPos);
+		int StrPos = String.Find(' ', StrPos);
 
 		while (StrPos != -1)
 		{
@@ -795,12 +794,12 @@ int FFXiHelper::DetectGameRegion(int &Regions)
 
 void FFXiHelper::GetScrollInfoFromDesc(const CString &Description, CString &Jobs)
 {
-	int SearchPos = -1, Pos = 0;
-	CString Token, TmpStr;
-	bool Empty = true;
-
 	if (Description.IsEmpty() == false)
 	{
+		int SearchPos = -1, Pos = 0;
+		CString Token, TmpStr;
+		bool Empty = true;
+
 		Token = Description.Tokenize(_T("/\r\n"), Pos);
 
 		while (Token != _T(""))
@@ -944,16 +943,18 @@ void FFXiHelper::GetItemInfo(const BYTE *pTablePos, int Language, CString &ItemN
 
 const BYTE *FFXiHelper::GetStringOffset(const BYTE *pStringTable, int Offset)
 {
-	int PtrOffset, EntryCount = *(pStringTable);
+	int EntryCount = *(pStringTable);
 
 	if (Offset < EntryCount)
 	{
-		PtrOffset = *(pStringTable + sizeof(DWORD) + Offset * 2 * sizeof(DWORD));
+		int PtrOffset = *(pStringTable + sizeof(DWORD) + Offset * 2 * sizeof(DWORD));
 
 		return pStringTable + PtrOffset + FFXI_ITEM_STRING_TABLE_PADDING;
 	}
 	else
+	{
 		return NULL;
+	}
 }
 
 int FFXiHelper::GetItemHdr(const BYTE *pItemData, FFXiItemHeader &ItemHdr)
@@ -1153,14 +1154,13 @@ void FFXiHelper::GetRaces(DWORD RacesBitMask, CString &Races)
 
 void FFXiHelper::GetJobs(DWORD JobsBitMask, CString &Jobs)
 {
-	bool Empty = true;
-
 	if ((JobsBitMask & FFXI_JOB_FLAG_ALL) == FFXI_JOB_FLAG_ALL)
 	{
 		Jobs = _T("All Jobs");
 	}
 	else
 	{
+		bool Empty = true;
 		const FFXiStringAssoc *pStringTable = JobsStringTable;
 
 		while (pStringTable->Key != -1)
@@ -1291,10 +1291,10 @@ void FFXiHelper::GetIconInfo(BYTE *pIconData, FFXiIconInfo &IconInfo, DWORD Back
 {
 	size_t BufferSize = sizeof(FFXiIconInfo);
 	RGBQUAD Background;
-	int Index = 0;
 
 	if (pIconData != NULL)
 	{
+		int Index = 0;
 		Background = *((RGBQUAD*)&BackgroundColor);
 		memcpy_s(&IconInfo, BufferSize, pIconData, BufferSize);
 
