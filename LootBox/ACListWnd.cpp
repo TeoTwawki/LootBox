@@ -690,7 +690,6 @@ int CACListWnd::FindString(int nStartAfter, LPCTSTR lpszString, bool m_bDisplayO
 	if (m_lCount)
 	{
 		CRect rcWnd;
-		int iHeight, iWight;
 
 		m_pEditParent->GetWindowRect(rcWnd);
 
@@ -700,14 +699,14 @@ int CACListWnd::FindString(int nStartAfter, LPCTSTR lpszString, bool m_bDisplayO
 		ShowWindow(true);
 		Invalidate();
 
-		iHeight = m_lCount * m_ItemHeight + (GetSystemMetrics(SM_CYBORDER) * 2);
+		int iHeight = m_lCount * m_ItemHeight + (GetSystemMetrics(SM_CYBORDER) * 2);
 
 		if (m_lCount > _MAX_ENTRYS_)
 			iHeight = _MAX_ENTRYS_ * m_ItemHeight + (GetSystemMetrics(SM_CYBORDER) * 2);
 
 		if (!m_LastSize.IsRectEmpty())
 		{
-			iWight = m_LastSize.Width();
+			int iWight = m_LastSize.Width();
 			iHeight = m_LastSize.Height();
 			rcWnd.top += rcWnd.Height();
 			rcWnd.right = rcWnd.left + iWight;
@@ -977,7 +976,6 @@ void CACListWnd::SortList(CStringArray& m_List)
 		m_Liste1.Copy(m_List);
 
 		LPCTSTR* ppSortArray = new LPCTSTR[m_Count + 1];
-
 
 		for (int i = 0; i < m_Count; i++)
 		{

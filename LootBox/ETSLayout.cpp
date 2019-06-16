@@ -21,24 +21,24 @@
 //
 // DISCLAIMER:
 //
-// This Sourcecode and all accompaning material is ©1998-1999 Erwin Tratar. 
+// This Sourcecode and all accompaning material is ©1998-1999 Erwin Tratar.
 // All rights reserved.
 //
-// The source code may be used in compiled form in any way you desire 
-// (including usage in commercial applications), providing that your 
-// application adds essential code (i.e. it is not only a wrapper) to the 
+// The source code may be used in compiled form in any way you desire
+// (including usage in commercial applications), providing that your
+// application adds essential code (i.e. it is not only a wrapper) to the
 // functionality found here
 //
-// Redistribution of the sourcecode itself, publication in any media or 
+// Redistribution of the sourcecode itself, publication in any media or
 // inclusion in a library requires the authors expressed written consent.
 // You may not sale this code for profit.
 //
-// THIS SOFTWARE IS PROVIDED "AS IS" WITHOUT EXPRESS OR IMPLIED WARRANTY. USE IT 
-// AT YOUR OWN RISK! THE AUTHOR ACCEPTS NO LIABILITY FOR ANY DAMAGE/LOSS OF 
+// THIS SOFTWARE IS PROVIDED "AS IS" WITHOUT EXPRESS OR IMPLIED WARRANTY. USE IT
+// AT YOUR OWN RISK! THE AUTHOR ACCEPTS NO LIABILITY FOR ANY DAMAGE/LOSS OF
 // BUSINESS THAT THIS PRODUCT MAY CAUSE.
 //
 //
-// HISTORY: 
+// HISTORY:
 // 1998/05/1	Initial Release
 // 1998/05/13	Added ability to have a Pane with a control
 // 1998/05/13	Added better support for TabControls
@@ -57,22 +57,22 @@
 // 1998/10/31	Advanced positioning options
 // 1998/10/31	Added paneNull for empty Pane (former: NULL)
 // 1998/11/20	Swapped ETSLayoutDialog constructor parameters
-// 1998/11/20	Added Pane::addItemSpaceBetween 
+// 1998/11/20	Added Pane::addItemSpaceBetween
 //				[Leo Zelevinsky]
 // 1998/11/24	Added fixup for greedy panes
 // 1998/11/24	addItemSpaceBetween now subtracts 2*nDefaultBorder
 // 1998/11/24	addGrowing() added as a shortcut for a paneNull
-// 1998/11/24	simplified interface: no more PaneBase:: / Pane:: 
+// 1998/11/24	simplified interface: no more PaneBase:: / Pane::
 //				needed
 // 1998/11/24	added FILL_* Modes
 // 1998/11/24	improved maximum size handling for greedy panes
-// 1998/11/25	Fixup of greedy panes caused infinite loop in some 
+// 1998/11/25	Fixup of greedy panes caused infinite loop in some
 //				cases
 // 1999/01/07	addItemSpaceLike() added
 // 1999/04/03   Fixed ETSLayoutFormView memory leak
 // 1999/04/07   Fixed ALIGN_xCENTER
 // 1999/04/08   New simple stream-interface added
-// 1999/04/09   Added support for an empty Status-Bar for resizing 
+// 1999/04/09   Added support for an empty Status-Bar for resizing
 //              instead of a gripper in the lower right corner
 //              [Andreas Kapust]
 // 1999/04/11   New code for much less flickering, OnEraseBkgnd()
@@ -93,17 +93,17 @@
 // 1999/11/25   Use CreateRoot() and Root() instead of m_pRootPane in
 //              derived class.
 // 1999/11/26   Added autopointer support. No need to use normal pointers
-//              when defining layout anymore. Changed m_pRootPane to 
+//              when defining layout anymore. Changed m_pRootPane to
 //              m_RootPane
 // 1999/11/26   Bug in Fixup Greedy II with multiple GREEDY panes and one
 //              of them min/max limited
 // 1999/11/28   Fixed PaneTab::getConstrainVert() for ABSOLUTE_VERT
 // 1999/11/28   Fixed itemFixed()
-// 1999/11/28   Changed DWORD modeResize Arguments to layModeResize for 
+// 1999/11/28   Changed DWORD modeResize Arguments to layModeResize for
 //              better type safety. Added typesafe operator|
 // 1999/12/04   Don't reposition window in UpdateLayout if it's a child
 //              (as a child Dialog or PropertyPage)
-// 1999/12/04   Erase Backgroung with GCL_HBRBACKGROUND (if available) 
+// 1999/12/04   Erase Backgroung with GCL_HBRBACKGROUND (if available)
 // 1999/12/04   itemSpaceXXX() adds a NORESIZE item instead of ABSOLUTE_XXX
 //              this will fix unwanted growing in secondary direction
 //
@@ -114,7 +114,7 @@
 // 2000/02/02   When the Dialog is child of a View the class works correctly
 //              now [Didier BULTIAUW]
 // 2000/02/15   Combo-Boxes were not working correctly (in all modes!)
-// 2000/02/17   aligned SpinButton Controls (with buddy) now handled 
+// 2000/02/17   aligned SpinButton Controls (with buddy) now handled
 //              automatically
 //              !! do not add such a control to the layout !! it is always
 //              reattached to its buddy.
@@ -122,7 +122,7 @@
 //
 // Version: 1.1 [2000/02/17]
 //
-// 2000/02/25   Fixed auto alignment of SpinButton Controls to only affect 
+// 2000/02/25   Fixed auto alignment of SpinButton Controls to only affect
 //              visible ones
 // 2000/02/27   Put all the classes into the namespace 'ETSLayout'
 // 2000/03/07   Fixed growing Dialog after minimizing and restoring
@@ -135,9 +135,9 @@
 // 2000/07/28   Problems with resizing ActiveX Controls fixed [Micheal Chapman]
 // 2000/07/28   Some strings were not properly wrapped with _T()
 // 2000/08/03   Check for BS_GROUPBOX was not correct as BS_GROUPBOX is more than one Bit
-// 2000/08/03   New override AddMainArea added to ETSLayoutPropertySheet in order to 
+// 2000/08/03   New override AddMainArea added to ETSLayoutPropertySheet in order to
 //              have a hook for additional controls in a PropertySheet (besides the Tab)
-// 2000/08/03   New override AddButtons added to ETSLayoutPropertySheet in order to 
+// 2000/08/03   New override AddButtons added to ETSLayoutPropertySheet in order to
 //              have a hook for additional controls in the bottem pane of a PropertySheet
 // 2000/08/03   Removed the need for DECLARE_LAYOUT
 //
@@ -454,7 +454,7 @@ bool ETSLayoutMgr::Save(LPCTSTR lpstrRegKey)
 		WINDOWPLACEMENT wp;
 		if (GetWnd()->GetWindowPlacement(&wp))
 		{
-			// Make sure we don't pop up 
+			// Make sure we don't pop up
 			// minimized the next time
 			if (wp.showCmd != SW_SHOWMAXIMIZED)
 				wp.showCmd = SW_SHOWNORMAL;
@@ -812,18 +812,18 @@ bool ETSLayoutMgr::PaneItem::resizeTo(CRect& rcNewArea)
 		// special treatment for combo-boxes
 		if (m_bComboSpecial && (dwStyle & CBS_DROPDOWN))
 		{
-// keep height (though only fully visible when dropped down)
+			// keep height (though only fully visible when dropped down)
 			rcNewArea.bottom = rcNewArea.top + rcWnd.Height();
 		}
 
-	// FIX: ::MoveWindow would case problems with some ActiveX Controls [Micheal Chapman]
+		// FIX: ::MoveWindow would case problems with some ActiveX Controls [Micheal Chapman]
 		CWnd* pTempWnd = CWnd::FromHandle(m_hwndCtrl);
 		pTempWnd->MoveWindow(rcNewArea.left, rcNewArea.top, rcNewArea.Width(), rcNewArea.Height());
 
 		if (m_bComboSpecial && !(dwStyle & CBS_DROPDOWN) && !(dwStyle & CBS_NOINTEGRALHEIGHT))
 		{
 
-// Keep CB Size = Edit + LB ( if not CBS_NOINTEGRALHEIGHT)
+			// Keep CB Size = Edit + LB ( if not CBS_NOINTEGRALHEIGHT)
 
 			::GetWindowRect(m_hwndCtrl, rcWnd);
 
@@ -836,8 +836,8 @@ bool ETSLayoutMgr::PaneItem::resizeTo(CRect& rcNewArea)
 
 				rcNewArea.bottom = rcNewArea.top + rcWnd.Height();
 
-		// FIX: ::MoveWindow would case problems with some ActiveX Controls [Micheal Chapman]
-				CWnd* pTempWnd = CWnd::FromHandle(m_hwndCtrl);
+				// FIX: ::MoveWindow would case problems with some ActiveX Controls [Micheal Chapman]
+				pTempWnd = CWnd::FromHandle(m_hwndCtrl);
 				pTempWnd->MoveWindow(rcNewArea.left, rcNewArea.top, rcNewArea.Width(), rcNewArea.Height(), true);
 			}
 		}
@@ -1358,7 +1358,7 @@ bool ETSLayoutMgr::Pane::resizeToRelative(int& availSpace, CArray<int, int>& siz
 	int relLeft = 0;			// The cumulated amout of space that can be saved by
 								// shrinking the items/panes up to the minimum
 
-	int relCount = 0;			// Actually allocated item/subpane's cumulated primary sizes 
+	int relCount = 0;			// Actually allocated item/subpane's cumulated primary sizes
 								// of non-limited items/subpanes (these can be modified in fixup)
 								// needed for equally distribution of differences amoung non-limited
 								// relative items/subpanes
@@ -1436,8 +1436,8 @@ bool ETSLayoutMgr::Pane::resizeToRelative(int& availSpace, CArray<int, int>& siz
 
 	// We now have the situation that some items/subpanes had to be adjusted for cumulated
 	// relDiff pixels (positive value means more space taken than indicated by percentage of
-	// left space). On the other hand we have some items/subpanes which were not limited (in 
-	// their current dimensions) but could be if necessary up to relLeft pixels. 
+	// left space). On the other hand we have some items/subpanes which were not limited (in
+	// their current dimensions) but could be if necessary up to relLeft pixels.
 	if (relLeft < relDiff && availSpace >= (relDiff - relLeft))
 	{
 
@@ -1453,12 +1453,12 @@ bool ETSLayoutMgr::Pane::resizeToRelative(int& availSpace, CArray<int, int>& siz
 //	ASSERT( availSpace >= 0 && relLeft >= relDiff);
 
 	// Fixup Relative:
-	// Distribute (if anecessary) relDiff on other (not limited) relative items/subpanes 
+	// Distribute (if anecessary) relDiff on other (not limited) relative items/subpanes
 	// (if available - if not later just grow the limited panes)
 	while (relDiff != 0 && relCount >= 0)
 	{
 
-// in every iteration there must be some space distributed (of the difference) or it could 
+// in every iteration there must be some space distributed (of the difference) or it could
 // come to endless looping. Save the amount of space actually distributed in this iteration
 		int relDist = 0;
 
@@ -1521,7 +1521,7 @@ bool ETSLayoutMgr::Pane::resizeToRelative(int& availSpace, CArray<int, int>& siz
 			}
 		}
 		// Distributed some relDiff-space in every iteration
-//		ASSERT(relDist != 0);	
+//		ASSERT(relDist != 0);
 		relDiff -= relDist;
 
 		if (relDist == 0)
@@ -1555,7 +1555,7 @@ bool ETSLayoutMgr::Pane::resizeToGreedy(int& availSpace, int nGreedy, CArray<int
 	int greedyLeft = 0;			// The cumulated amount of space that can be saved by
 								// shrinking the items/panes up to the minimum
 
-	int greedyCount = 0;		// Actually allocated item/subpane's cumulated primary sizes 
+	int greedyCount = 0;		// Actually allocated item/subpane's cumulated primary sizes
 								// of non-limited items/subpanes (these can be modified in fixup)
 								// needed for equally distribution of differences amoung non-limited
 								// items/subpanes
@@ -1646,7 +1646,7 @@ bool ETSLayoutMgr::Pane::resizeToGreedy(int& availSpace, int nGreedy, CArray<int
 
 
 	// Fixup Greedy I
-	// Distribute (if anecessary) greedyDiff on other (not limited) greedy items/subpanes 
+	// Distribute (if anecessary) greedyDiff on other (not limited) greedy items/subpanes
 	// (if available - if not later just grow the limited panes)
 
 	// at least on not limited item present
@@ -1655,7 +1655,7 @@ bool ETSLayoutMgr::Pane::resizeToGreedy(int& availSpace, int nGreedy, CArray<int
 	while (bAtLeastOne && greedyDiff != 0 && greedyCount > 0)
 	{
 
-// in every iteration there must be some space distributed (of the difference) or it could 
+// in every iteration there must be some space distributed (of the difference) or it could
 // come to endless looping. Save the amount of space actually distributed in this iteration
 		int greedyDist = 0;
 
@@ -2345,10 +2345,10 @@ void ETSLayoutFormView::OnGetMinMaxInfo(MINMAXINFO FAR* lpMMI)
 	//
 	// 1) Add a handler for WM_GETMINMAXINFO()
 	// 2) Let this handler be:
-	// void CMainFrame::OnGetMinMaxInfo(MINMAXINFO FAR* lpMMI) 
+	// void CMainFrame::OnGetMinMaxInfo(MINMAXINFO FAR* lpMMI)
 	// {
 	// 	CFrameWnd::OnGetMinMaxInfo(lpMMI);
-	// 
+	//
 	// 	if( GetActiveView() && GetActiveView()->IsKindOf( RUNTIME_CLASS(ETSLayoutFormView) ) ) {
 	// 		GetActiveView()->SendMessage( WM_GETMINMAXINFO, 0, (LPARAM) lpMMI );
 	// 	}
@@ -2441,7 +2441,7 @@ END_MESSAGE_MAP()
 
 
 /////////////////////////////////////////////////////////////////////////////
-// Behandlungsroutinen für Nachrichten ETSLayoutPropertyPage 
+// Behandlungsroutinen für Nachrichten ETSLayoutPropertyPage
 
 
 
@@ -2495,7 +2495,7 @@ void ETSLayoutPropertyPage::OnWindowPosChanged(WINDOWPOS FAR* lpwndpos)
 
 void ETSLayoutPropertyPage::OnWindowPosChanging(WINDOWPOS* lpwndpos)
 {
-	// In WizardMode the System calls SetWindowPos with the 
+	// In WizardMode the System calls SetWindowPos with the
 	// original size at every activation. This could cause
 	// some flicker in certain circumstances. Therefore we lock
 	// moving the page and unlock it only if _we_ move the page
@@ -2602,7 +2602,7 @@ BOOL ETSLayoutPropertyPage::OnSetActive()
 	{
 		if (pSheet->IsWizard())
 		{
-			// In WizardMode the System calls SetWindowPos with the 
+			// In WizardMode the System calls SetWindowPos with the
 			// original size on Page Activation. This will position the
 			// page at the correct position
 			m_bLockMove = false;
@@ -2664,7 +2664,7 @@ BEGIN_MESSAGE_MAP(ETSLayoutPropertySheet, CPropertySheet)
 END_MESSAGE_MAP()
 
 /////////////////////////////////////////////////////////////////////////////
-// Behandlungsroutinen für Nachrichten ETSLayoutPropertySheet 
+// Behandlungsroutinen für Nachrichten ETSLayoutPropertySheet
 
 BOOL ETSLayoutPropertySheet::OnEraseBkgnd(CDC* pDC)
 {
@@ -2730,7 +2730,7 @@ void ETSLayoutPropertySheet::Resize(int cx, int cy)
 				rcWnd.bottom += 5;
 			}
 
-			// we need this size in WizardMode in order to 
+			// we need this size in WizardMode in order to
 			// reposition newly activated page correctly
 			m_rcPage = rcWnd;
 

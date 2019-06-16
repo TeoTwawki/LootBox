@@ -219,9 +219,6 @@ bool CACEdit::HandleKey(UINT nChar, bool m_bFromChild)
 
 		if (m_Liste.IsWindowVisible())
 		{
-			int pos;
-
-
 			if (m_iMode & _MODE_STANDARD_
 				|| m_iMode & _MODE_FILESYSTEM_
 				|| m_iMode & _MODE_FS_START_DIR_)
@@ -241,7 +238,7 @@ bool CACEdit::HandleKey(UINT nChar, bool m_bFromChild)
 
 				m_Liste.SelectItem(-1);
 				SetWindowText(m_EditText);
-				pos = m_EditText.GetLength();
+				int pos = m_EditText.GetLength();
 
 				if (m_iType == _COMBOBOX_)
 				{
@@ -359,11 +356,13 @@ void CACEdit::OnChange()
 					m_Liste.FindString(-1, m_EditText);
 				}
 				else
+				{
 					m_Liste.ShowWindow(false);
+				}
 			}
 		} // m_CursorMode
 	}
-//----------------------------------------------	
+//----------------------------------------------
 	if (m_iMode & _MODE_SEPARATION_)
 	{
 		if (!m_CursorMode)
@@ -406,6 +405,7 @@ int CACEdit::FindSepLeftPos(int pos, bool m_bIncludePrefix)
 		ch = m_EditText.GetAt(i);
 		if (m_PrefixChar == ch)
 			return i + (m_bIncludePrefix ? 1 : 0);
+
 		if (m_SeparationStr.Find(ch) != -1)
 			break;
 	}
