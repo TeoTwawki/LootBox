@@ -564,6 +564,30 @@ BOOL CLootBoxDlg::DefaultConfig()
 		if (pValue == NULL)
 			m_pIni->SetValue(INI_FILE_INVENTORY_SECTION, INI_FILE_MOG_WARDROBE_4_KEY, INI_FILE_MOG_WARDROBE_4_VALUE);
 
+		// check if the "Mog Wardrobe 5" key exists
+		pValue = m_pIni->GetValue(INI_FILE_INVENTORY_SECTION, INI_FILE_MOG_WARDROBE_5_KEY);
+		// create it if it doesn't
+		if (pValue == NULL)
+			m_pIni->SetValue(INI_FILE_INVENTORY_SECTION, INI_FILE_MOG_WARDROBE_5_KEY, INI_FILE_MOG_WARDROBE_5_VALUE);
+
+		// check if the "Mog Wardrobe 6" key exists
+		pValue = m_pIni->GetValue(INI_FILE_INVENTORY_SECTION, INI_FILE_MOG_WARDROBE_6_KEY);
+		// create it if it doesn't
+		if (pValue == NULL)
+			m_pIni->SetValue(INI_FILE_INVENTORY_SECTION, INI_FILE_MOG_WARDROBE_6_KEY, INI_FILE_MOG_WARDROBE_6_VALUE);
+
+		// check if the "Mog Wardrobe 7" key exists
+		pValue = m_pIni->GetValue(INI_FILE_INVENTORY_SECTION, INI_FILE_MOG_WARDROBE_7_KEY);
+		// create it if it doesn't
+		if (pValue == NULL)
+			m_pIni->SetValue(INI_FILE_INVENTORY_SECTION, INI_FILE_MOG_WARDROBE_7_KEY, INI_FILE_MOG_WARDROBE_7_VALUE);
+
+		// check if the "Mog Wardrobe 8" key exists
+		pValue = m_pIni->GetValue(INI_FILE_INVENTORY_SECTION, INI_FILE_MOG_WARDROBE_8_KEY);
+		// create it if it doesn't
+		if (pValue == NULL)
+			m_pIni->SetValue(INI_FILE_INVENTORY_SECTION, INI_FILE_MOG_WARDROBE_8_KEY, INI_FILE_MOG_WARDROBE_8_VALUE);
+
 		////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 		// check if the Columns section exists
 		pSectionData = m_pIni->GetSection(INI_FILE_COLUMNS_SECTION);

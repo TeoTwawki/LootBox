@@ -41,6 +41,10 @@
 #define INI_FILE_MOG_WARDROBE_2_VALUE   _T("Mog Wardrobe 2")
 #define INI_FILE_MOG_WARDROBE_3_VALUE   _T("Mog Wardrobe 3")
 #define INI_FILE_MOG_WARDROBE_4_VALUE   _T("Mog Wardrobe 4")
+#define INI_FILE_MOG_WARDROBE_5_VALUE   _T("Mog Wardrobe 5")
+#define INI_FILE_MOG_WARDROBE_6_VALUE   _T("Mog Wardrobe 6")
+#define INI_FILE_MOG_WARDROBE_7_VALUE   _T("Mog Wardrobe 7")
+#define INI_FILE_MOG_WARDROBE_8_VALUE   _T("Mog Wardrobe 8")
 
 #define INI_FILE_INVENTORY_KEY          _T("is.dat")
 #define INI_FILE_MOG_SAFE_KEY           _T("bs.dat")
@@ -54,6 +58,10 @@
 #define INI_FILE_MOG_WARDROBE_2_KEY     _T("wr_2.dat")
 #define INI_FILE_MOG_WARDROBE_3_KEY     _T("wr_3.dat")
 #define INI_FILE_MOG_WARDROBE_4_KEY     _T("wr_4.dat")
+#define INI_FILE_MOG_WARDROBE_5_KEY     _T("wr_5.dat")
+#define INI_FILE_MOG_WARDROBE_6_KEY     _T("wr_6.dat")
+#define INI_FILE_MOG_WARDROBE_7_KEY     _T("wr_7.dat")
+#define INI_FILE_MOG_WARDROBE_8_KEY     _T("wr_8.dat")
 
 #define INI_FILE_WINDOW_WIDTH_KEY       _T("Width")
 #define INI_FILE_WINDOW_HEIGHT_KEY      _T("Height")
