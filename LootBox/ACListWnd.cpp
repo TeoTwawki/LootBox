@@ -796,12 +796,18 @@ CString CACListWnd::GetString()
 	int i = (int)m_DisplayList.GetSize();
 
 	if (!i)
+	{
 		return _T("");
+	}
 
 	if (i <= m_lSelItem || m_lSelItem == -1)
+	{
 		i = 0;
+	}
 	else
+	{
 		i = m_lSelItem;
+	}
 
 	return m_DisplayList.GetAt(i);
 }

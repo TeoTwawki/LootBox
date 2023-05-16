@@ -72,10 +72,13 @@ ConversionResult ConvertUTF32toUTF16(
 		{
 			result = targetExhausted; break;
 		}
+
 		ch = *source++;
+
+		/* Target is a character <= 0xFFFF */
 		if (ch <= UNI_MAX_BMP)
-		{ /* Target is a character <= 0xFFFF */
-/* UTF-16 surrogate values are illegal in UTF-32; 0xffff or 0xfffe are both reserved values */
+		{
+			/* UTF-16 surrogate values are illegal in UTF-32; 0xffff or 0xfffe are both reserved values */
 			if (ch >= UNI_SUR_HIGH_START && ch <= UNI_SUR_LOW_END)
 			{
 				if (flags == strictConversion)
@@ -107,7 +110,7 @@ ConversionResult ConvertUTF32toUTF16(
 		}
 		else
 		{
-		 /* target is a character in range 0xFFFF - 0x10FFFF. */
+			/* target is a character in range 0xFFFF - 0x10FFFF. */
 			if (target + 1 >= targetEnd)
 			{
 				--source; /* Back up source pointer! */
@@ -151,15 +154,17 @@ ConversionResult ConvertUTF16toUTF32(
 						+ (ch2 - UNI_SUR_LOW_START) + halfBase;
 					++source;
 				}
+				/* it's an unpaired high surrogate */
 				else if (flags == strictConversion)
-				{ /* it's an unpaired high surrogate */
+				{
 					--source; /* return to the illegal value itself */
 					result = sourceIllegal;
 					break;
 				}
 			}
+			/* We don't have the 16 bits following the high surrogate. */
 			else
-			{ /* We don't have the 16 bits following the high surrogate. */
+			{
 				--source; /* return to the high surrogate */
 				result = sourceExhausted;
 				break;
@@ -261,7 +266,7 @@ ConversionResult ConvertUTF16toUTF8(
 		/* If we have a surrogate pair, convert to UTF32 first. */
 		if (ch >= UNI_SUR_HIGH_START && ch <= UNI_SUR_HIGH_END)
 		{
-/* If the 16 bits following the high surrogate are in the source buffer... */
+		/* If the 16 bits following the high surrogate are in the source buffer... */
 			if (source < sourceEnd)
 			{
 				UTF32 ch2 = *source;
@@ -288,7 +293,7 @@ ConversionResult ConvertUTF16toUTF8(
 		}
 		else if (flags == strictConversion)
 		{
-/* UTF-16 surrogate values are illegal in UTF-32 */
+			/* UTF-16 surrogate values are illegal in UTF-32 */
 			if (ch >= UNI_SUR_LOW_START && ch <= UNI_SUR_LOW_END)
 			{
 				--source; /* return to the illegal value itself */
@@ -296,6 +301,7 @@ ConversionResult ConvertUTF16toUTF8(
 				break;
 			}
 		}
+
 		/* Figure out how many bytes the result will require */
 		if (ch < (UTF32)0x80)
 		{
@@ -325,6 +331,7 @@ ConversionResult ConvertUTF16toUTF8(
 			source = oldSource; /* Back up source pointer! */
 			target -= bytesToWrite; result = targetExhausted; break;
 		}
+
 		switch (bytesToWrite)
 		{ /* note: everything falls through. */
 			case 4: *--target = (UTF8)((ch | byteMark) & byteMask); ch >>= 6;
@@ -366,7 +373,7 @@ static Boolean isLegalUTF8(const UTF8 *source, int length)
 
 			switch (*source)
 			{
-/* no fall-through in this inner switch */
+				/* no fall-through in this inner switch */
 				case 0xE0: if (a < 0xA0) return false; break;
 				case 0xED: if (a > 0x9F) return false; break;
 				case 0xF0: if (a < 0x90) return false; break;
@@ -438,9 +445,11 @@ ConversionResult ConvertUTF8toUTF16(
 			source -= (extraBytesToRead + 1); /* Back up source pointer! */
 			result = targetExhausted; break;
 		}
+
+		/* Target is a character <= 0xFFFF */
 		if (ch <= UNI_MAX_BMP)
-		{ /* Target is a character <= 0xFFFF */
-/* UTF-16 surrogate values are illegal in UTF-32 */
+		{
+			/* UTF-16 surrogate values are illegal in UTF-32 */
 			if (ch >= UNI_SUR_HIGH_START && ch <= UNI_SUR_LOW_END)
 			{
 				if (flags == strictConversion)
@@ -474,7 +483,7 @@ ConversionResult ConvertUTF8toUTF16(
 		}
 		else
 		{
-		 /* target is a character in range 0xFFFF - 0x10FFFF. */
+			/* target is a character in range 0xFFFF - 0x10FFFF. */
 			if (target + 1 >= targetEnd)
 			{
 				source -= (extraBytesToRead + 1); /* Back up source pointer! */
@@ -508,7 +517,7 @@ ConversionResult ConvertUTF32toUTF8(
 		ch = *source++;
 		if (flags == strictConversion)
 		{
-/* UTF-16 surrogate values are illegal in UTF-32 */
+			/* UTF-16 surrogate values are illegal in UTF-32 */
 			if (ch >= UNI_SUR_HIGH_START && ch <= UNI_SUR_LOW_END)
 			{
 				--source; /* return to the illegal value itself */
@@ -549,8 +558,10 @@ ConversionResult ConvertUTF32toUTF8(
 			--source; /* Back up source pointer! */
 			target -= bytesToWrite; result = targetExhausted; break;
 		}
+
+		/* note: everything falls through. */
 		switch (bytesToWrite)
-		{ /* note: everything falls through. */
+		{
 			case 4: *--target = (UTF8)((ch | byteMark) & byteMask); ch >>= 6;
 			case 3: *--target = (UTF8)((ch | byteMark) & byteMask); ch >>= 6;
 			case 2: *--target = (UTF8)((ch | byteMark) & byteMask); ch >>= 6;
@@ -607,10 +618,10 @@ ConversionResult ConvertUTF8toUTF32(
 		}
 		if (ch <= UNI_MAX_LEGAL_UTF32)
 		{
-/*
- * UTF-16 surrogate values are illegal in UTF-32, and anything
- * over Plane 17 (> 0x10FFFF) is illegal.
- */
+			/*
+			* UTF-16 surrogate values are illegal in UTF-32, and anything
+			* over Plane 17 (> 0x10FFFF) is illegal.
+			*/
 			if (ch >= UNI_SUR_HIGH_START && ch <= UNI_SUR_LOW_END)
 			{
 				if (flags == strictConversion)
@@ -629,8 +640,9 @@ ConversionResult ConvertUTF8toUTF32(
 				*target++ = ch;
 			}
 		}
+		/* i.e., ch > UNI_MAX_LEGAL_UTF32 */
 		else
-		{ /* i.e., ch > UNI_MAX_LEGAL_UTF32 */
+		{
 			result = sourceIllegal;
 			*target++ = UNI_REPLACEMENT_CHAR;
 		}

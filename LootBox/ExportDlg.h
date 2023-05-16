@@ -20,6 +20,7 @@ class ExportDialog : public CDialog
 	{
 		IDD = IDD_EXPORT
 	};
+
 public:
 	ExportDialog(FFXiHelper *pHelper, const CArray<CString, LPCTSTR> &Characters,
 		CSimpleIni *pIni_in, CWnd* pParent = NULL);
@@ -28,14 +29,17 @@ public:
 	{
 		return m_ExportedChars;
 	}
+
 	int GetExportedCharsCount() const
 	{
 		return m_ExportedCharsCount;
 	}
+
 	int GetColumnCount() const
 	{
 		return m_ColumnCount;
 	}
+
 	DWORD_PTR GetBitMask() const
 	{
 		return m_BitMask;

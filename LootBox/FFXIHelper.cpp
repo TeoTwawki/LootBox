@@ -130,9 +130,12 @@ void FFXiHelper::RotateBits(const BYTE *pData_in, BYTE * pData_out, int DataSize
 	if (pData_in != NULL && pData_out != NULL)
 	{
 		for (int i = 0; i < DataSize_in; i++, pPos++, pData_out++)
+		{
 			if (*pPos != NULL && *pPos != 0xFF)
+			{
 				*pData_out = RotateRight(*pPos, BitShift_in);
-
+			}
+		}
 		//*pData_out = NULL;
 	}
 }
@@ -238,7 +241,9 @@ bool FFXiHelper::ReadItem(BYTE *pItemData, InventoryItem *pItem, int Language, b
 		};
 
 		if (*pItemPos == NULL || *pItemPos > 8)
+		{
 			return false;
+		}
 
 		GetAttr(pItem->ItemHdr.Flags, pItem->Attr);
 		GetItemInfo(pItemPos, Language, pItem->ItemName, pItem->LogName,
@@ -253,9 +258,14 @@ bool FFXiHelper::ReadItem(BYTE *pItemData, InventoryItem *pItem, int Language, b
 #endif // _DEBUG
 
 		if (pItem->Slot == _T("Scroll"))
+		{
 			GetScrollInfoFromDesc(pItem->ItemDescription, pItem->Jobs);
+		}
+
 		if (pItem->ItemHdr.Type == ITEM_OBJECT_TYPE_ARMOR)
+		{
 			GetDefenseFromDesc(Language, pItem->ItemDescription, pItem->ArmorInfo.Defense);
+		}
 
 		pItem->RefCount = 1;
 
@@ -274,8 +284,8 @@ bool FFXiHelper::ParseInventoryFile(const TCHAR* pFile, const ItemLocationInfo &
 
 		if (InvFile.Open(pFile, CFile::modeRead | CFile::shareDenyNone))
 		{
-			int ItemIndex = 0, ImageIndex = -1;
-			BYTE *pItemData, *pFileData = NULL;
+			// int ImageIndex = -1;
+			BYTE *pFileData = NULL;
 			const WORD *pLimit, *pPos;
 			CString ItemCount;
 			UINT DataRead;
@@ -283,7 +293,7 @@ bool FFXiHelper::ParseInventoryFile(const TCHAR* pFile, const ItemLocationInfo &
 			pFileData = (BYTE*)malloc(DATA_SIZE_INVENTORY + 1);
 			SecureZeroMemory(pFileData, DATA_SIZE_INVENTORY);
 
-			DataRead = (UINT)InvFile.Seek(OFFSET_FILEHEADER, CFile::begin);
+			// DataSeek = (UINT)InvFile.Seek(OFFSET_FILEHEADER, CFile::begin);
 			DataRead = InvFile.Read(pFileData, DATA_SIZE_INVENTORY);
 			pLimit = (WORD*)pFileData + DATA_SIZE_INVENTORY / sizeof(WORD);
 
@@ -294,17 +304,19 @@ bool FFXiHelper::ParseInventoryFile(const TCHAR* pFile, const ItemLocationInfo &
 				DWORD ItemID, MapID;
 				LONG DataOffset;
 				CString DATFile;
-				bool Exists;
+				bool Exists = false;
 
+				BYTE *pItemData = NULL;
 				pItemData = (BYTE*)malloc(DATA_SIZE_ITEM + 1);
 				SecureZeroMemory(pItemData, DATA_SIZE_ITEM + 1);
+
+				int ItemIndex = 0;
 
 				for (pPos = (WORD*)pFileData + 4; pPos < pLimit; pPos += 4)
 				{
 					InventoryItem *pItem = NULL;
 
 					MapID = ItemID = *pPos;
-					Exists = false;
 
 					if (ItemID != -1 && ItemID > 0 && ItemID <= 0x6FFF)
 					{
@@ -318,16 +330,20 @@ bool FFXiHelper::ParseInventoryFile(const TCHAR* pFile, const ItemLocationInfo &
 							if (DATFile.IsEmpty() == false && InvFile.Open(DATFile, CFile::modeRead | CFile::shareDenyNone))
 							{
 								if (pItem == NULL)
+								{
 									pItem = new InventoryItem();
+								}
 								else
+								{
 									Exists = true;
+								}
 
 								ClearItemData(pItem);
 
 								pItem->LocationInfo = LocationInfo;
 								pItem->LocationInfo.ListIndex = ItemIndex++;
 
-								DataRead = (UINT)InvFile.Seek(DataOffset, CFile::begin);
+								// DataSeek = (UINT)InvFile.Seek(DataOffset, CFile::begin);
 								DataRead = InvFile.Read(pItemData, DATA_SIZE_ITEM);
 								InvFile.Close();
 
@@ -336,9 +352,13 @@ bool FFXiHelper::ParseInventoryFile(const TCHAR* pFile, const ItemLocationInfo &
 								if (ReadItem(pItemData, pItem, Language))
 								{
 									if (Exists == false || Update == false)
+									{
 										pMap->SetAt(MapID, pItem);
+									}
 									else
+									{
 										ASSERT(Exists);
+									}
 								}
 								else
 								{
@@ -451,7 +471,9 @@ void FFXiHelper::UpperCaseWord(CString &String)
 		while (StrPos != -1)
 		{
 			if (StrPos + 1 < StrLength)
+			{
 				*(pChar + StrPos + 1) = _totupper(*(pChar + StrPos + 1));
+			}
 
 			StrPos = String.Find(' ', StrPos + 1);
 		}
@@ -475,7 +497,9 @@ void FFXiHelper::ConvertChars(const BYTE *pData, CString &Text, bool ucWord)
 			Current = *(pData + i);
 
 			if (Current == 0x85)
+			{
 				Current = *(pData + (++i)) + 33;
+			}
 			else if (Current == 0x81)
 			{
 				Current = '~';
@@ -483,7 +507,9 @@ void FFXiHelper::ConvertChars(const BYTE *pData, CString &Text, bool ucWord)
 			}
 
 			if (ucWord && (i == 0 || Prev == ' ' || Prev == 0x0A))
+			{
 				Current = toupper(Current);
+			}
 
 
 			if (Current == 0xEF)
@@ -522,10 +548,14 @@ void FFXiHelper::ConvertChars(const BYTE *pData, CString &Text, bool ucWord)
 			else if (Current == 0x0A)
 			{
 				if (i < Length - 1)
+				{
 					Text += _T(" \r\n");
+				}
 			}
 			else
+			{
 				Text += Current;
+			}
 		}
 	}
 }
@@ -571,7 +601,7 @@ void FFXiHelper::GetFileFromItemID(DWORD &ItemID, CString &DATFile, int Language
 	if (ItemID != -1 && ItemID > 0)
 	{
 		// 0000 - 0FFF  Objects
-		if (ItemID <= 0x0FFF)
+		if (ItemID < 0x0FFF)
 		{
 			switch (Language)
 			{
@@ -607,7 +637,7 @@ void FFXiHelper::GetFileFromItemID(DWORD &ItemID, CString &DATFile, int Language
 			}
 		}
 		// 1000 - 1FFF  Usable Item
-		else if (ItemID <= 0x1FFF)
+		else if (ItemID < 0x1FFF)
 		{
 			ItemID -= 0x1000;
 
@@ -645,7 +675,7 @@ void FFXiHelper::GetFileFromItemID(DWORD &ItemID, CString &DATFile, int Language
 			}
 		}
 		// 2000 - 27FF  Puppet Item
-		else if (ItemID <= 0x27FF)
+		else if (ItemID < 0x27FF)
 		{
 			ItemID -= 0x2000;
 
@@ -683,7 +713,7 @@ void FFXiHelper::GetFileFromItemID(DWORD &ItemID, CString &DATFile, int Language
 			}
 		}
 		// 2800 - 3FFF  Armor
-		else if (ItemID <= 0x3FFF)
+		else if (ItemID < 0x3FFF)
 		{
 			ItemID -= 0x2800;
 
@@ -721,7 +751,7 @@ void FFXiHelper::GetFileFromItemID(DWORD &ItemID, CString &DATFile, int Language
 			}
 		}
 		// 4000 - 6FFF  Weapons
-		else if (ItemID <= 0x6FFF)
+		else if (ItemID < 0x6FFF)
 		{
 			ItemID -= 0x4000;
 
@@ -758,6 +788,7 @@ void FFXiHelper::GetFileFromItemID(DWORD &ItemID, CString &DATFile, int Language
 					break;
 			}
 		}
+		// Todo: Maze Monger
 	}
 }
 

@@ -33,14 +33,17 @@ public:
 	int FindStringExact(int nIndexStart, LPCTSTR lpszFind);
 	int SelectString(LPCTSTR lpszString);
 	bool GetText(int item, CString& m_Text);
+
 	void AddSearchString(LPCTSTR lpszString)
 	{
 		m_SearchList.Add(lpszString);
 	}
+
 	void RemoveAll()
 	{
 		m_SearchList.RemoveAll(); m_DisplayList.RemoveAll();
 	}
+
 	CString GetString();
 	CString GetNextString(int m_iChar);
 
@@ -49,6 +52,7 @@ public:
 	{
 		SortList(m_SearchList);
 	}
+
 // Attribute
 public:
 	CListCtrl m_List;

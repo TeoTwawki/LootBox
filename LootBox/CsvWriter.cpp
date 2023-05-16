@@ -5,9 +5,7 @@
 template <typename T>CsvWriter<T>::CsvWriter()
 	: m_bFileOpened(false), m_LineCount(0),
 	m_ColumnCount(0), m_ColumnIndex(0),
-	m_pFile(new T)
-{
-}
+	m_pFile(new T) {}
 
 /*! \brief CsvWriter destructor */
 template <typename T>CsvWriter<T>::~CsvWriter()

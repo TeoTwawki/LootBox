@@ -13,9 +13,7 @@ END_MESSAGE_MAP()
 ExportDialog::ExportDialog(FFXiHelper *pHelper, const CArray<CString, LPCTSTR> &Characters,
 	CSimpleIni *pIni_in, CWnd* pParent)
 	: CDialog(ExportDialog::IDD, pParent), m_pHelper(pHelper), m_BitMask(0UL),
-	m_Characters(Characters), m_pIni(pIni_in), m_ColumnCount(0), m_ExportedCharsCount(0)
-{
-}
+	m_Characters(Characters), m_pIni(pIni_in), m_ColumnCount(0), m_ExportedCharsCount(0) {}
 
 BOOL ExportDialog::OnInitDialog()
 {

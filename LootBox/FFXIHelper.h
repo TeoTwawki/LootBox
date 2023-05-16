@@ -20,9 +20,7 @@
 
 typedef struct _FFXiStringAssoc
 {
-	_FFXiStringAssoc(int _Key, TCHAR *_pString) : Key(_Key), pString(_pString)
-	{
-	}
+	_FFXiStringAssoc(int _Key, TCHAR *_pString) : Key(_Key), pString(_pString) {}
 	int Key;
 	TCHAR *pString;
 } FFXiStringAssoc;
@@ -561,16 +559,18 @@ public:
 	{
 		m_Region = Region;
 	}
-	~FFXiHelper()
-	{
-	}
+
+	~FFXiHelper() {}
 
 	int DetectGameRegion(int &Regions);
+
 	void SetRegion(int Region)
 	{
 		m_Region = Region;
 	}
+
 	TCHAR* GetInstallPath(int Region = FFXI_REGION_US);
+
 	void SetInstallPath(const TCHAR *pInstallPath)
 	{
 		m_InstallFolder = pInstallPath;

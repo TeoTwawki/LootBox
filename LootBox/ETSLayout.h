@@ -21,20 +21,20 @@
 //
 // DISCLAIMER:
 //
-// This Sourcecode and all accompaning material is ©1998-1999 Erwin Tratar. 
+// This Sourcecode and all accompaning material is ©1998-1999 Erwin Tratar.
 // All rights reserved.
 //
-// The source code may be used in compiled form in any way you desire 
-// (including usage in commercial applications), providing that your 
-// application adds essential code (i.e. it is not only a wrapper) to the 
+// The source code may be used in compiled form in any way you desire
+// (including usage in commercial applications), providing that your
+// application adds essential code (i.e. it is not only a wrapper) to the
 // functionality found here
 //
-// Redistribution of the sourcecode itself, publication in any media or 
+// Redistribution of the sourcecode itself, publication in any media or
 // inclusion in a library requires the authors expressed written consent.
 // You may not sale this code for profit.
 //
-// THIS SOFTWARE IS PROVIDED "AS IS" WITHOUT EXPRESS OR IMPLIED WARRANTY. USE IT 
-// AT YOUR OWN RISK! THE AUTHOR ACCEPTS NO LIABILITY FOR ANY DAMAGE/LOSS OF 
+// THIS SOFTWARE IS PROVIDED "AS IS" WITHOUT EXPRESS OR IMPLIED WARRANTY. USE IT
+// AT YOUR OWN RISK! THE AUTHOR ACCEPTS NO LIABILITY FOR ANY DAMAGE/LOSS OF
 // BUSINESS THAT THIS PRODUCT MAY CAUSE.
 
 
@@ -138,11 +138,12 @@ public:
 		ALIGN_FILL_VERT = 1 << 9,
 		ALIGN_FILL = ALIGN_FILL_HORZ | ALIGN_FILL_VERT,
 
-/*		TRACKER_LEFT		= 1 << 10,	// not yet. May allow tracking of borders
+		/*
+		TRACKER_LEFT		= 1 << 10,	// not yet. May allow tracking of borders
 		TRACKER_RIGHT		= 1 << 11,  // between items in the future
 		TRACKER_TOP			= 1 << 12,
 		TRACKER_BOTTOM		= 1 << 13,
-*/
+		*/
 	};
 
 	enum layOrientation
@@ -218,16 +219,15 @@ public:
 			m_pMgr = pMgr;
 		};
 
-/**
- * Virtual destructor needed in Container operations
- */
-		virtual ~PaneBase()
-		{
-		};
+		/**
+		* Virtual destructor needed in Container operations
+		*/
+		virtual ~PaneBase() {};
 
-			  /**
-			   * Returs the Resize Mode of this pane
-			   */
+		/**
+		* Returs the Resize Mode of this pane
+		*/
+
 		DWORD	modeResize()
 		{
 			return m_modeResize;
@@ -495,12 +495,12 @@ public:
 		bool	resizeToGreedy(int& availSpace, int nGreedy, CArray<int, int>& sizePrimary,
 			CArray<int, int>& sizeMin, CArray<int, int>& sizeMax);
 
-/**
- * The orientation of the pane. Keep in mind that all subpanes
- * must have the complementary orientation, i.e. a VERTICAL
- * pane must have all HORIZONTAL SubPanes (or normal Items
- * of course)
- */
+		/**
+		 * The orientation of the pane. Keep in mind that all subpanes
+		 * must have the complementary orientation, i.e. a VERTICAL
+		 * pane must have all HORIZONTAL SubPanes (or normal Items
+		 * of course)
+		 */
 		layOrientation					m_Orientation;
 
 		/**

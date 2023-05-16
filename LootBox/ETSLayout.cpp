@@ -255,7 +255,7 @@ ETSLayoutMgr::CPaneBase ETSLayoutMgr::itemSpaceBetween(layOrientation orientatio
 {
 	if (orientation == HORIZONTAL)
 	{
-// I'm interested in horizontal spacing
+		// I'm interested in horizontal spacing
 
 		CRect rLeft, rRight;
 		pWndFirst->GetWindowRect(&rLeft);
@@ -265,7 +265,7 @@ ETSLayoutMgr::CPaneBase ETSLayoutMgr::itemSpaceBetween(layOrientation orientatio
 
 		if (sizeX < 0)
 		{
-// compare top to top
+			// compare top to top
 			sizeX = rRight.left - rLeft.left;
 		}
 		else
@@ -277,7 +277,7 @@ ETSLayoutMgr::CPaneBase ETSLayoutMgr::itemSpaceBetween(layOrientation orientatio
 	}
 	else
 	{
-  // I'm interested in vertical spacing
+		// I'm interested in vertical spacing
 		CRect rTop, rBot;
 		pWndFirst->GetWindowRect(&rTop);
 		pWndSecond->GetWindowRect(&rBot);
@@ -286,7 +286,7 @@ ETSLayoutMgr::CPaneBase ETSLayoutMgr::itemSpaceBetween(layOrientation orientatio
 
 		if (sizeY < 0)
 		{
-// compare top to top
+			// compare top to top
 			sizeY = sizeY = rBot.top - rTop.top;
 		}
 		else
@@ -317,12 +317,12 @@ ETSLayoutMgr::CPaneBase ETSLayoutMgr::itemSpaceLike(layOrientation orientation, 
 
 	if (orientation == HORIZONTAL)
 	{
-// I'm interested in horizontal spacing
+		// I'm interested in horizontal spacing
 		return new PaneItem(paneNull, this, NORESIZE, rRect.Width(), 0);
 	}
 	else
 	{
-  // I'm interested in vertical spacing
+		// I'm interested in vertical spacing
 		return new PaneItem(paneNull, this, NORESIZE, 0, rRect.Height());
 	}
 
@@ -408,13 +408,15 @@ void ETSLayoutMgr::UpdateLayout()
 
 	if (GetWnd()->IsWindowVisible())
 	{
-// Avoid ugly artifacts
-//GetWnd()->SetRedraw(FALSE);
+		// Avoid ugly artifacts
+		// GetWnd()->SetRedraw(FALSE);
 		Layout(rcClient);
-		//GetWnd()->SetRedraw(TRUE);
+		// GetWnd()->SetRedraw(TRUE);
 	}
 	else
+	{
 		Layout(rcClient);
+	}
 
 	// Take special care of SpinButtons (Up-Down Controls) with Buddy set, enumerate
 	// all childs:
@@ -440,7 +442,6 @@ void ETSLayoutMgr::UpdateLayout()
 		pWndChild = pWndChild->GetWindow(GW_HWNDNEXT);
 	}
 
-
 	GetWnd()->Invalidate();
 }
 
@@ -457,7 +458,9 @@ bool ETSLayoutMgr::Save(LPCTSTR lpstrRegKey)
 			// Make sure we don't pop up
 			// minimized the next time
 			if (wp.showCmd != SW_SHOWMAXIMIZED)
+			{
 				wp.showCmd = SW_SHOWNORMAL;
+			}
 
 			AfxGetApp()->WriteProfileBinary(lpstrRegKey,
 				_T("WindowPlacement"),
@@ -479,7 +482,9 @@ bool ETSLayoutMgr::Load(LPCTSTR lpstrRegKey)
 
 		ASSERT(nSize == sizeof(WINDOWPLACEMENT));
 		if (nSize == sizeof(WINDOWPLACEMENT))
+		{
 			GetWnd()->SetWindowPlacement(reinterpret_cast<WINDOWPLACEMENT*>(pbtData));
+		}
 
 		delete[] pbtData;
 	}
@@ -520,15 +525,14 @@ void ETSLayoutMgr::EraseBkgnd(CDC* pDC)
 		// doesn't make sense for hidden children
 		if (dwStyle & WS_VISIBLE)
 		{
-
-// Fix: BS_GROUPBOX is more than one Bit, extend check to (dwStyle & BS_GROUPBOX)==BS_GROUPBOX [ET]
+			// Fix: BS_GROUPBOX is more than one Bit, extend check to (dwStyle & BS_GROUPBOX)==BS_GROUPBOX [ET]
 			if (_tcscmp(szClassName, _T("Button")) == 0 && (dwStyle & BS_GROUPBOX) == BS_GROUPBOX)
 			{
-// it is a group-box, ignore completely
+				// it is a group-box, ignore completely
 			}
 			else if (_tcscmp(szClassName, WC_TABCONTROL) == 0)
 			{
-// ignore Tab-Control's inside rect
+				// ignore Tab-Control's inside rect
 				static_cast<CTabCtrl*>(pWndChild)->AdjustRect(FALSE, rcChild);
 
 				CRgn rgnContent;
@@ -610,7 +614,7 @@ ETSLayoutMgr::PaneItem::PaneItem(CWnd* pWnd, ETSLayoutMgr* pMgr, ETSLayoutMgr::l
 		}
 		if (m_sizeXMin == -1)
 		{
-// do not make smaller than current size
+			// do not make smaller than current size
 			m_sizeXMin = rcControl.Width();
 		}
 
@@ -624,7 +628,7 @@ ETSLayoutMgr::PaneItem::PaneItem(CWnd* pWnd, ETSLayoutMgr* pMgr, ETSLayoutMgr::l
 		}
 		if (m_sizeYMin == -1)
 		{
-// do not make smaller than current size
+			// do not make smaller than current size
 			m_sizeYMin = rcControl.Height();
 		}
 
@@ -676,7 +680,7 @@ ETSLayoutMgr::PaneItem::PaneItem(UINT nID, ETSLayoutMgr* pMgr, ETSLayoutMgr::lay
 		}
 		if (m_sizeXMin == -1)
 		{
-// do not make smaller than current size
+			// do not make smaller than current size
 			m_sizeXMin = rcControl.Width();
 		}
 
@@ -690,7 +694,7 @@ ETSLayoutMgr::PaneItem::PaneItem(UINT nID, ETSLayoutMgr* pMgr, ETSLayoutMgr::lay
 		}
 		if (m_sizeYMin == -1)
 		{
-// do not make smaller than current size
+			// do not make smaller than current size
 			m_sizeYMin = rcControl.Height();
 		}
 
@@ -1123,7 +1127,9 @@ int ETSLayoutMgr::Pane::getConstrainHorz(int sizeParent)
 		return m_sizeSecondary;
 	}
 	else
+	{
 		return 0;
+	}
 }
 
 
@@ -1176,9 +1182,13 @@ int ETSLayoutMgr::Pane::getMaxConstrainHorz()
 			int nConstrain = pItem->getMaxConstrainHorz();
 
 			if (nConstrain == -1)
+			{
 				return -1;
+			}
 			else
+			{
 				nMaxConstr = max(nMaxConstr, nConstrain);
+			}
 
 		}
 		return (nMaxConstr == -1) ? -1 : nMaxConstr + 2 * m_sizeExtraBorder;
@@ -1316,7 +1326,7 @@ int ETSLayoutMgr::Pane::resizeToAbsolute(int& availSpace, CArray<int, int>& size
 		else
 		{
 
-	  // for absolute items subtract their size from available space
+			// for absolute items subtract their size from available space
 			if (pItem->modeResize() & ABSOLUTE_VERT)
 			{
 				availSpace -= (sizePrimary[i] = pItem->getConstrainVert(0));
@@ -1388,10 +1398,10 @@ bool ETSLayoutMgr::Pane::resizeToRelative(int& availSpace, CArray<int, int>& siz
 
 			if (nSizeRel < nSizeRelMin)
 			{
-// The item/pane is shrinked too small!
-// We will grow it to it's minimum-size. In order not to modify
-// this item later when fixing up set the size to the negative
-// minimum size
+				// The item/pane is shrinked too small!
+				// We will grow it to it's minimum-size. In order not to modify
+				// this item later when fixing up set the size to the negative
+				// minimum size
 				sizePrimary[i] = -nSizeRelMin;
 
 				// As we grew one item/subpane we have to shrink another one.
@@ -1401,10 +1411,10 @@ bool ETSLayoutMgr::Pane::resizeToRelative(int& availSpace, CArray<int, int>& siz
 			}
 			else if (nSizeRelMax != -1 && nSizeRel > nSizeRelMax)
 			{
-// if there's a maximum size (nSizeRelMax != -1) and our item/subpane
-// is to be resized over that amount correct it.  In order not to modify
-// this item later when fixing up set the size to the negative
-// maximum size
+				// if there's a maximum size (nSizeRelMax != -1) and our item/subpane
+				// is to be resized over that amount correct it.  In order not to modify
+				// this item later when fixing up set the size to the negative
+				// maximum size
 				sizePrimary[i] = -nSizeRelMax;
 
 				// As we shrinked one item/subpane we have to grow another one.
@@ -1414,11 +1424,11 @@ bool ETSLayoutMgr::Pane::resizeToRelative(int& availSpace, CArray<int, int>& siz
 			}
 			else
 			{
-		  // this is the normal case: neither are we minimum limited nor maximum
-		  // limited
+				// this is the normal case: neither are we minimum limited nor maximum
+				// limited
 
-		  // As this item/subpane is larger that it's minimum we could later (if
-		  // necessary for fixup) shrink it for the difference amount of pixels
+				// As this item/subpane is larger that it's minimum we could later (if
+				// necessary for fixup) shrink it for the difference amount of pixels
 				relLeft += (nSizeRel - nSizeRelMin);
 
 				// Set the primary size of this item/pane. Can later be modified by fixup
@@ -1441,16 +1451,16 @@ bool ETSLayoutMgr::Pane::resizeToRelative(int& availSpace, CArray<int, int>& siz
 	if (relLeft < relDiff && availSpace >= (relDiff - relLeft))
 	{
 
-// If it's not possible to shrink other (relative) panes in order to distribute the
-// difference because the left for shrinking (relLeft) is too small we need to aquire
-// more space from the globally left space (if available at all)
+		// If it's not possible to shrink other (relative) panes in order to distribute the
+		// difference because the left for shrinking (relLeft) is too small we need to aquire
+		// more space from the globally left space (if available at all)
 		availSpace -= (relDiff - relLeft);
 		relDiff = relLeft;
 	}
 
 	// At this point we should have some space left (at least not be negative with the leftover
 	// space) and on the other hand there's enough space for the limit-difference to be distributed
-//	ASSERT( availSpace >= 0 && relLeft >= relDiff);
+	// ASSERT( availSpace >= 0 && relLeft >= relDiff);
 
 	// Fixup Relative:
 	// Distribute (if anecessary) relDiff on other (not limited) relative items/subpanes
@@ -1458,8 +1468,8 @@ bool ETSLayoutMgr::Pane::resizeToRelative(int& availSpace, CArray<int, int>& siz
 	while (relDiff != 0 && relCount >= 0)
 	{
 
-// in every iteration there must be some space distributed (of the difference) or it could
-// come to endless looping. Save the amount of space actually distributed in this iteration
+		// in every iteration there must be some space distributed (of the difference) or it could
+		// come to endless looping. Save the amount of space actually distributed in this iteration
 		int relDist = 0;
 
 		for (i = 0; i < m_paneItems.GetSize(); ++i)
@@ -1483,7 +1493,7 @@ bool ETSLayoutMgr::Pane::resizeToRelative(int& availSpace, CArray<int, int>& siz
 				// if it's a too small value just add it to the current pane and break iteration
 				if (abs(relDiff) <= FIXUP_CUTOFF)
 				{
-// take it all in this step
+					// take it all in this step
 					nDiff = relDiff;
 
 					// set break flag
@@ -1495,10 +1505,10 @@ bool ETSLayoutMgr::Pane::resizeToRelative(int& availSpace, CArray<int, int>& siz
 
 				if (nNewSize < sizeMin[i])
 				{
-// oh, we are limited here. Revise our plan:
+					// oh, we are limited here. Revise our plan:
 
-// Not all of the space could be saved, add the actually possible space
-// to the sum
+					// Not all of the space could be saved, add the actually possible space
+					// to the sum
 					relDist += (sizePrimary[i] - sizeMin[i]);
 
 					// set it to the minimum possible size
@@ -1510,7 +1520,7 @@ bool ETSLayoutMgr::Pane::resizeToRelative(int& availSpace, CArray<int, int>& siz
 				}
 				else
 				{
-			  // account the difference of the sizes in relDist and set new size
+					// account the difference of the sizes in relDist and set new size
 					relDist += (sizePrimary[i] - nNewSize);
 					sizePrimary[i] = nNewSize;
 
@@ -1521,7 +1531,7 @@ bool ETSLayoutMgr::Pane::resizeToRelative(int& availSpace, CArray<int, int>& siz
 			}
 		}
 		// Distributed some relDiff-space in every iteration
-//		ASSERT(relDist != 0);
+		// ASSERT(relDist != 0);
 		relDiff -= relDist;
 
 		if (relDist == 0)
@@ -1594,10 +1604,10 @@ bool ETSLayoutMgr::Pane::resizeToGreedy(int& availSpace, int nGreedy, CArray<int
 
 			if (nSize < nSizeMin)
 			{
-// The item/pane is shrinked too small!
-// We will grow it to it's minimum-size. In order not to modify
-// this item later when fixing up set the size to the negative
-// minimum size
+				// The item/pane is shrinked too small!
+				// We will grow it to it's minimum-size. In order not to modify
+				// this item later when fixing up set the size to the negative
+				// minimum size
 				sizePrimary[i] = -nSizeMin;
 
 				// As we grew one item/subpane we have to shrink another one.
@@ -1607,10 +1617,10 @@ bool ETSLayoutMgr::Pane::resizeToGreedy(int& availSpace, int nGreedy, CArray<int
 			}
 			else if (nSizeMax != -1 && nSize > nSizeMax)
 			{
-// if there's a maximum size (nSizeRelMax != -1) and our item/subpane
-// is to be resized over that amount correct it.  In order not to modify
-// this item later when fixing up set the size to the negative
-// maximum size
+				// if there's a maximum size (nSizeRelMax != -1) and our item/subpane
+				// is to be resized over that amount correct it.  In order not to modify
+				// this item later when fixing up set the size to the negative
+				// maximum size
 				sizePrimary[i] = -nSizeMax;
 
 				// As we shrinked one item/subpane we have to grow another one.
@@ -1621,11 +1631,11 @@ bool ETSLayoutMgr::Pane::resizeToGreedy(int& availSpace, int nGreedy, CArray<int
 			else
 			{
 
-		  // this is the normal case: neither are we minimum limited nor maximum
-		  // limited
+				// this is the normal case: neither are we minimum limited nor maximum
+				// limited
 
-		  // As this item/subpane is larger that it's minimum we could later (if
-		  // necessary for fixup) shrink it for the difference amount of pixels
+				// As this item/subpane is larger that it's minimum we could later (if
+				// necessary for fixup) shrink it for the difference amount of pixels
 				greedyLeft += (nSize - nSizeMin);
 
 				// Set the primary size of this item/pane. Can later be modified by fixup
@@ -1655,8 +1665,8 @@ bool ETSLayoutMgr::Pane::resizeToGreedy(int& availSpace, int nGreedy, CArray<int
 	while (bAtLeastOne && greedyDiff != 0 && greedyCount > 0)
 	{
 
-// in every iteration there must be some space distributed (of the difference) or it could
-// come to endless looping. Save the amount of space actually distributed in this iteration
+		// in every iteration there must be some space distributed (of the difference) or it could
+		// come to endless looping. Save the amount of space actually distributed in this iteration
 		int greedyDist = 0;
 
 		// at least on not limited item present
@@ -1690,7 +1700,7 @@ bool ETSLayoutMgr::Pane::resizeToGreedy(int& availSpace, int nGreedy, CArray<int
 				// if it's a too small value just add it to the current pane and break iteration
 				if (abs(greedyDiff) <= FIXUP_CUTOFF || nDiff == 0)
 				{
-// take it all in this step
+					// take it all in this step
 					nDiff = greedyDiff;
 
 					// set break flag
@@ -1702,7 +1712,7 @@ bool ETSLayoutMgr::Pane::resizeToGreedy(int& availSpace, int nGreedy, CArray<int
 
 				if (nNewSize < sizeMin[i])
 				{
-// oh, we are limited here. Revise our plan:
+					// oh, we are limited here. Revise our plan:
 
 					if (sizePrimary[i] != sizeMin[i])
 						bAtLeastOne = true;
@@ -1720,7 +1730,7 @@ bool ETSLayoutMgr::Pane::resizeToGreedy(int& availSpace, int nGreedy, CArray<int
 				}
 				else
 				{
-			  // yes, there is one
+					// yes, there is one
 					bAtLeastOne = true;
 
 					// account the difference of the sizes in relDist and set new size
@@ -1742,9 +1752,9 @@ bool ETSLayoutMgr::Pane::resizeToGreedy(int& availSpace, int nGreedy, CArray<int
 	// Fixup Greedy II
 	if (greedyDiff < 0)
 	{
-// still difference, some space left
+		// still difference, some space left
 
-// are there any items which are minimum-limited where we can give more space?
+		// are there any items which are minimum-limited where we can give more space?
 		for (i = 0; i < m_paneItems.GetSize() && greedyDiff != 0; ++i)
 		{
 			CPaneBase pItem = m_paneItems[i];
@@ -1762,10 +1772,10 @@ bool ETSLayoutMgr::Pane::resizeToGreedy(int& availSpace, int nGreedy, CArray<int
 			{
 				if (sizePrimary[i] == -sizeMin[i])
 				{
-// fill this one up as much as possible
+					// fill this one up as much as possible
 					if (sizeMax[i] == -1)
 					{
- // all fits in
+ 						// all fits in
 						sizePrimary[i] += greedyDiff;
 						greedyDiff = 0;
 					}
@@ -1862,21 +1872,17 @@ bool ETSLayoutMgr::Pane::resizeTo(CRect& rcNewArea)
 	// equally among them
 	if (availSpace > 0)
 	{
-// Count possible Items
+		// Count possible Items
 		int nFillItems = 0;
 
 		for (int i = 0; i < m_paneItems.GetSize(); ++i)
 		{
 			CPaneBase pItem = m_paneItems[i];
-			if (m_Orientation == HORIZONTAL
-				&& (pItem->modeResize() & ABSOLUTE_HORZ)
-				&& (pItem->modeResize() & ALIGN_FILL_HORZ)
-
-				||
-
-				(pItem->modeResize() & ABSOLUTE_VERT)
-				&& (pItem->modeResize() & ALIGN_FILL_VERT)
-				)
+			if (m_Orientation == HORIZONTAL &&
+				(pItem->modeResize() & ABSOLUTE_HORZ) &&
+				(pItem->modeResize() & ALIGN_FILL_HORZ) ||
+				(pItem->modeResize() & ABSOLUTE_VERT) &&
+				(pItem->modeResize() & ALIGN_FILL_VERT))
 			{
 				++nFillItems;
 			}
@@ -1884,7 +1890,7 @@ bool ETSLayoutMgr::Pane::resizeTo(CRect& rcNewArea)
 
 		if (nFillItems > 0)
 		{
-// okay, there are nFillItems, make them all availSpace/nFillItems bigger
+			// okay, there are nFillItems, make them all availSpace/nFillItems bigger
 			for (int i = 0; i < m_paneItems.GetSize(); ++i)
 			{
 				CPaneBase pItem = m_paneItems[i];
@@ -1902,7 +1908,7 @@ bool ETSLayoutMgr::Pane::resizeTo(CRect& rcNewArea)
 
 					if (nFillItems == 1)
 					{
- // the last one gets all the rest
+						// the last one gets all the rest
 						sizePrimary[i] += availSpace;
 						availSpace = 0;
 						--nFillItems;
@@ -2179,8 +2185,8 @@ void ETSLayoutDialogBar::UpdateLayout()
 		CSize sizeDiff(rcWnd.Width() - rcClient.Width(), rcWnd.Height() - rcClient.Height());
 
 		// Take into account that there is a border around the rootPane
-//		m_szMin = CSize(m_RootPane->getMinConstrainHorz() + sizeDiff.cx + 2*m_sizeRootBorders.cx,
-//			m_RootPane->getMinConstrainVert() + sizeDiff.cy + 2*m_sizeRootBorders.cy);
+		// m_szMin = CSize(m_RootPane->getMinConstrainHorz() + sizeDiff.cx + 2*m_sizeRootBorders.cx,
+		// m_RootPane->getMinConstrainVert() + sizeDiff.cy + 2*m_sizeRootBorders.cy);
 	}
 }
 
@@ -2202,8 +2208,8 @@ CSize ETSLayoutDialogBar::CalcDynamicLayout(int nLength, DWORD dwMode)
 		CSize sizeDiff(rcWnd.Width() - rcClient.Width(), rcWnd.Height() - rcClient.Height());
 
 		// Take into account that there is a border around the rootPane
-//		sizeMin = CSize(m_RootPane->getMinConstrainHorz() + sizeDiff.cx + 2*m_sizeRootBorders.cx,
-//			m_RootPane->getMinConstrainVert() + sizeDiff.cy + 2*m_sizeRootBorders.cy);
+		// sizeMin = CSize(m_RootPane->getMinConstrainHorz() + sizeDiff.cx + 2*m_sizeRootBorders.cx,
+		// m_RootPane->getMinConstrainVert() + sizeDiff.cy + 2*m_sizeRootBorders.cy);
 
 
 		int maxWidth = m_RootPane->getMaxConstrainHorz();
@@ -2315,10 +2321,10 @@ void ETSLayoutFormView::OnSize(UINT nType, int cx, int cy)
 	SetScrollSizes(MM_TEXT, CSize(cx, cy));
 	if (abs(cx) + abs(cy) > 0)
 	{
-// Re-Layout all controls
+		// Re-Layout all controls
 		UpdateLayout();
 	}
-//	MoveWindow(0,0,cx,cy);
+	// MoveWindow(0,0,cx,cy);
 }
 
 /*
@@ -2725,7 +2731,7 @@ void ETSLayoutPropertySheet::Resize(int cx, int cy)
 
 			if (!IsWizard())
 			{
-// get inside of tab
+				// get inside of tab
 				GetTabControl()->AdjustRect(FALSE, &rcWnd);
 			}
 			else
