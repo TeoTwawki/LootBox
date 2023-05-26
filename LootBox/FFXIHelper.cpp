@@ -294,7 +294,7 @@ bool FFXiHelper::ParseInventoryFile(const TCHAR* pFile, const ItemLocationInfo &
 			SecureZeroMemory(pFileData, DATA_SIZE_INVENTORY);
 
 			DataRead = (UINT)InvFile.Seek(OFFSET_FILEHEADER, CFile::begin);
-			// Yes we're techncially redefining a variable. We have to here.
+			// Yes we're technically redefining a variable. We have to here.
 			DataRead = InvFile.Read(pFileData, DATA_SIZE_INVENTORY);
 			pLimit = (WORD*)pFileData + DATA_SIZE_INVENTORY / sizeof(WORD);
 
@@ -345,7 +345,7 @@ bool FFXiHelper::ParseInventoryFile(const TCHAR* pFile, const ItemLocationInfo &
 								pItem->LocationInfo.ListIndex = ItemIndex++;
 
 								DataRead = (UINT)InvFile.Seek(DataOffset, CFile::begin);
-								// Yes we're techncially redefining a variable. We have to here.
+								// Yes we're technically redefining a variable. We have to here.
 								DataRead = InvFile.Read(pItemData, DATA_SIZE_ITEM);
 								InvFile.Close();
 
@@ -677,7 +677,7 @@ void FFXiHelper::GetFileFromItemID(DWORD &ItemID, CString &DATFile, int Language
 			}
 		}
 
-		// 8192 (0x2000) to 8703 (0x21FF)  Puppet Item
+		// 8192 (0x2000) to 8703 (0x21FF) Puppet Items
 		else if (ItemID <= 0x21FF)
 		{
 			ItemID -= 0x2000;
@@ -699,20 +699,20 @@ void FFXiHelper::GetFileFromItemID(DWORD &ItemID, CString &DATFile, int Language
 					else
 						DATFile.Format(_T("%s\\ROM\\118\\110.DAT"), m_InstallFolder);
 					break;
-				// case FFXI_LANG_FR:
-				// 	// file #56239 (ROM/178/44.DAT) => FR Puppet Items
-				// 	if (bRelative)
-				// 		DATFile = _T("ROM\\178\\44.DAT");
-				// 	else
-				// 		DATFile.Format(_T("%s\\ROM\\178\\44.DAT"), m_InstallFolder);
-				// 	break;
-				// case FFXI_LANG_DE:
-				// 	// file #55819 (ROM/176/115.DAT) => DE Puppet Items
-				// 	if (bRelative)
-				// 		DATFile = _T("ROM\\176\\115.DAT");
-				// 	else
-				// 		DATFile.Format(_T("%s\\ROM\\176\\115.DAT"), m_InstallFolder);
-				// 	break;
+				case FFXI_LANG_FR:
+					// file #56239 (ROM/178/44.DAT) => FR Puppet Items
+					if (bRelative)
+						DATFile = _T("ROM\\178\\44.DAT");
+					else
+						DATFile.Format(_T("%s\\ROM\\178\\44.DAT"), m_InstallFolder);
+					break;
+				case FFXI_LANG_DE:
+					// file #55819 (ROM/176/115.DAT) => DE Puppet Items
+					if (bRelative)
+						DATFile = _T("ROM\\176\\115.DAT");
+					else
+						DATFile.Format(_T("%s\\ROM\\176\\115.DAT"), m_InstallFolder);
+					break;
 			}
 		}
 
@@ -739,7 +739,7 @@ void FFXiHelper::GetFileFromItemID(DWORD &ItemID, CString &DATFile, int Language
 						DATFile.Format(_T("%s\\ROM\\301\\115.DAT"), m_InstallFolder);
 					break;
 				case FFXI_LANG_FR:
-					// file #56211 (ROM/301/117.DAT ) => FR General Items 2
+					// file #56211 (ROM/301/117.DAT) => FR General Items 2
 					if (bRelative)
 						DATFile = _T("ROM\\301\\117.DAT");
 					else
