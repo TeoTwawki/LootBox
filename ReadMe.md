@@ -7,7 +7,10 @@ TeoTwawki is the current maintainer.
 ___
 #### Requirements
 
-[Microsoft Visual C++ 2010 SP1 Redistributable Package (x86)](http://www.microsoft.com/download/en/details.aspx?id=8328)
+[Microsoft Visual C++ 2015 Redistributable Package (x86)](https://aka.ms/vs/17/release/vc_redist.x86.exe)
+
+ - As of may 26th 2023, lootbox can no longer run or be built on Windows XP.
+ - Windows 7 _might_ still work but I cannot guarantee it. 
 
 ___
 #### Adding new inventory tabs
