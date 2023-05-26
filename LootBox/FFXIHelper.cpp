@@ -293,7 +293,8 @@ bool FFXiHelper::ParseInventoryFile(const TCHAR* pFile, const ItemLocationInfo &
 			pFileData = (BYTE*)malloc(DATA_SIZE_INVENTORY + 1);
 			SecureZeroMemory(pFileData, DATA_SIZE_INVENTORY);
 
-			// DataSeek = (UINT)InvFile.Seek(OFFSET_FILEHEADER, CFile::begin);
+			DataRead = (UINT)InvFile.Seek(OFFSET_FILEHEADER, CFile::begin);
+			// Yes we're techncially redefining a variable. We have to here.
 			DataRead = InvFile.Read(pFileData, DATA_SIZE_INVENTORY);
 			pLimit = (WORD*)pFileData + DATA_SIZE_INVENTORY / sizeof(WORD);
 
@@ -343,7 +344,8 @@ bool FFXiHelper::ParseInventoryFile(const TCHAR* pFile, const ItemLocationInfo &
 								pItem->LocationInfo = LocationInfo;
 								pItem->LocationInfo.ListIndex = ItemIndex++;
 
-								// DataSeek = (UINT)InvFile.Seek(DataOffset, CFile::begin);
+								DataRead = (UINT)InvFile.Seek(DataOffset, CFile::begin);
+								// Yes we're techncially redefining a variable. We have to here.
 								DataRead = InvFile.Read(pItemData, DATA_SIZE_ITEM);
 								InvFile.Close();
 
@@ -560,13 +562,6 @@ void FFXiHelper::ConvertChars(const BYTE *pData, CString &Text, bool ucWord)
 	}
 }
 
-/*
-	ITEM_TYPE_OBJECTS = 0,
-	ITEM_TYPE_USABLE_ITEM,
-	ITEM_TYPE_PUPPET_ITEM,
-	ITEM_TYPE_ARMOR,
-	ITEM_TYPE_WEAPON,
-*/
 void FFXiHelper::GetFileFromType(int Type, CString &DATFile, int Language, bool bRelative)
 {
 	DWORD ItemID;
@@ -574,7 +569,7 @@ void FFXiHelper::GetFileFromType(int Type, CString &DATFile, int Language, bool 
 	switch (Type)
 	{
 		default:
-		case ITEM_TYPE_OBJECTS:
+		case ITEM_TYPE_GENERAL_ITEMS_1:
 			ItemID = 1;
 			break;
 		case ITEM_TYPE_USABLE_ITEM:
@@ -583,11 +578,17 @@ void FFXiHelper::GetFileFromType(int Type, CString &DATFile, int Language, bool 
 		case ITEM_TYPE_PUPPET_ITEM:
 			ItemID = 0x1FFF;
 			break;
-		case ITEM_TYPE_ARMOR:
+		case ITEM_TYPE_GENERAL_ITEMS_2:
+			ItemID = 0x21FF;
+			break;
+		case ITEM_TYPE_ARMOR_1:
 			ItemID = 0x2BFF;
 			break;
 		case ITEM_TYPE_WEAPON:
 			ItemID = 0x3FFF;
+			break;
+		case ITEM_TYPE_ARMOR_2:
+			ItemID = 0x59FF;
 			break;
 	}
 
@@ -600,34 +601,34 @@ void FFXiHelper::GetFileFromItemID(DWORD &ItemID, CString &DATFile, int Language
 
 	if (ItemID != -1 && ItemID > 0)
 	{
-		// 0000 - 0FFF  Objects
-		if (ItemID < 0x0FFF)
+		// 0 (0x0000) to 4095 (0x0FFF) General Items 1
+		if (ItemID <= 0x0FFF)
 		{
 			switch (Language)
 			{
 				default:
 				case FFXI_LANG_JP:
-					// file #00004 (ROM/0/4.DAT    ) => JP Objects
+					// file #00004 (ROM/0/4.DAT) => JP General Items 1
 					if (bRelative)
 						DATFile = _T("ROM\\0\\4.DAT");
 					else
 						DATFile.Format(_T("%s\\ROM\\0\\4.DAT"), m_InstallFolder);
 					break;
 				case FFXI_LANG_US:
-					// file #00073 (ROM/118/106.DAT) => EN Objects
+					// file #00073 (ROM/118/106.DAT) => EN General Items 1
 					if (bRelative)
 						DATFile = _T("ROM\\118\\106.DAT");
 					else
 						DATFile.Format(_T("%s\\ROM\\118\\106.DAT"), m_InstallFolder);
 					break;
 				case FFXI_LANG_FR:
-					// file #56235 (ROM/178/40.DAT ) => FR Objects
+					// file #56235 (ROM/178/40.DAT) => FR General Items 1
 					if (bRelative)
 						DATFile = _T("ROM\\178\\40.DAT");
 					else
 						DATFile.Format(_T("%s\\ROM\\178\\40.DAT"), m_InstallFolder);
 					break;
-					// file #55815 (ROM/176/101.DAT) => DE Objects
+					// file #55815 (ROM/176/101.DAT) => DE General Items 1
 				case FFXI_LANG_DE:
 					if (bRelative)
 						DATFile = _T("ROM\\176\\101.DAT");
@@ -636,8 +637,9 @@ void FFXiHelper::GetFileFromItemID(DWORD &ItemID, CString &DATFile, int Language
 					break;
 			}
 		}
-		// 1000 - 1FFF  Usable Item
-		else if (ItemID < 0x1FFF)
+
+		// 4096 (0x1000) to 8191 (0x1FFF) Usable Items
+		else if (ItemID <= 0x1FFF)
 		{
 			ItemID -= 0x1000;
 
@@ -645,7 +647,7 @@ void FFXiHelper::GetFileFromItemID(DWORD &ItemID, CString &DATFile, int Language
 			{
 				default:
 				case FFXI_LANG_JP:
-					// file #00005 (ROM/0/5.DAT    ) => JP Usable Items
+					// file #00005 (ROM/0/5.DAT) => JP Usable Items
 					if (bRelative)
 						DATFile = _T("ROM\\0\\5.DAT");
 					else
@@ -659,7 +661,7 @@ void FFXiHelper::GetFileFromItemID(DWORD &ItemID, CString &DATFile, int Language
 						DATFile.Format(_T("%s\\ROM\\118\\107.DAT"), m_InstallFolder);
 					break;
 				case FFXI_LANG_FR:
-					// file #56236 (ROM/178/41.DAT ) => FR Usable Items
+					// file #56236 (ROM/178/41.DAT) => FR Usable Items
 					if (bRelative)
 						DATFile = _T("ROM\\178\\41.DAT");
 					else
@@ -674,8 +676,9 @@ void FFXiHelper::GetFileFromItemID(DWORD &ItemID, CString &DATFile, int Language
 					break;
 			}
 		}
-		// 2000 - 27FF  Puppet Item
-		else if (ItemID < 0x27FF)
+
+		// 8192 (0x2000) to 8703 (0x21FF)  Puppet Item
+		else if (ItemID <= 0x21FF)
 		{
 			ItemID -= 0x2000;
 
@@ -683,7 +686,7 @@ void FFXiHelper::GetFileFromItemID(DWORD &ItemID, CString &DATFile, int Language
 			{
 				default:
 				case FFXI_LANG_JP:
-					// file #00008 (ROM/0/8.DAT    ) => JP Puppet Items
+					// file #00008 (ROM/0/8.DAT) => JP Puppet Items
 					if (bRelative)
 						DATFile = _T("ROM\\0\\8.DAT");
 					else
@@ -696,24 +699,64 @@ void FFXiHelper::GetFileFromItemID(DWORD &ItemID, CString &DATFile, int Language
 					else
 						DATFile.Format(_T("%s\\ROM\\118\\110.DAT"), m_InstallFolder);
 					break;
-				case FFXI_LANG_FR:
-					// file #56239 (ROM/178/44.DAT ) => FR Puppet Items
+				// case FFXI_LANG_FR:
+				// 	// file #56239 (ROM/178/44.DAT) => FR Puppet Items
+				// 	if (bRelative)
+				// 		DATFile = _T("ROM\\178\\44.DAT");
+				// 	else
+				// 		DATFile.Format(_T("%s\\ROM\\178\\44.DAT"), m_InstallFolder);
+				// 	break;
+				// case FFXI_LANG_DE:
+				// 	// file #55819 (ROM/176/115.DAT) => DE Puppet Items
+				// 	if (bRelative)
+				// 		DATFile = _T("ROM\\176\\115.DAT");
+				// 	else
+				// 		DATFile.Format(_T("%s\\ROM\\176\\115.DAT"), m_InstallFolder);
+				// 	break;
+			}
+		}
+
+		// 8704 (0x2200) to 10239 (0x27FF) General Items 2
+		if (ItemID <= 0x27FF)
+		{
+			ItemID -= 0x2200;
+
+			switch (Language)
+			{
+				default:
+				case FFXI_LANG_JP:
+					// file #55551 (ROM/301/114.DAT) => JP General Items 2
 					if (bRelative)
-						DATFile = _T("ROM\\178\\44.DAT");
+						DATFile = _T("ROM\\301\\114.DAT");
 					else
-						DATFile.Format(_T("%s\\ROM\\178\\44.DAT"), m_InstallFolder);
+						DATFile.Format(_T("%s\\ROM\\301\\114.DAT"), m_InstallFolder);
 					break;
-				case FFXI_LANG_DE:
-					// file #55819 (ROM/176/115.DAT) => DE Puppet Items
+				case FFXI_LANG_US:
+					// file #55671 (ROM/301/115.DAT) => EN General Items 2
 					if (bRelative)
-						DATFile = _T("ROM\\176\\115.DAT");
+						DATFile = _T("ROM\\301\\115.DAT");
 					else
-						DATFile.Format(_T("%s\\ROM\\176\\115.DAT"), m_InstallFolder);
+						DATFile.Format(_T("%s\\ROM\\301\\115.DAT"), m_InstallFolder);
+					break;
+				case FFXI_LANG_FR:
+					// file #56211 (ROM/301/117.DAT ) => FR General Items 2
+					if (bRelative)
+						DATFile = _T("ROM\\301\\117.DAT");
+					else
+						DATFile.Format(_T("%s\\ROM\\301\\117.DAT"), m_InstallFolder);
+					break;
+					// file #55791 (ROM/301/116.DAT) => DE General Items 2
+				case FFXI_LANG_DE:
+					if (bRelative)
+						DATFile = _T("ROM\\301\\116.DAT");
+					else
+						DATFile.Format(_T("%s\\ROM\\301\\116.DAT"), m_InstallFolder);
 					break;
 			}
 		}
-		// 2800 - 3FFF  Armor
-		else if (ItemID < 0x3FFF)
+
+		// 10240 (0x2800) to 16383 (0x3FFF)  Armor 1
+		else if (ItemID <= 0x3FFF)
 		{
 			ItemID -= 0x2800;
 
@@ -721,7 +764,7 @@ void FFXiHelper::GetFileFromItemID(DWORD &ItemID, CString &DATFile, int Language
 			{
 				default:
 				case FFXI_LANG_JP:
-					// file #00007 (ROM/0/7.DAT    ) => JP Armor
+					// file #00007 (ROM/0/7.DAT) => JP Armor
 					if (bRelative)
 						DATFile = _T("ROM\\0\\7.DAT");
 					else
@@ -735,7 +778,7 @@ void FFXiHelper::GetFileFromItemID(DWORD &ItemID, CString &DATFile, int Language
 						DATFile.Format(_T("%s\\ROM\\118\\109.DAT"), m_InstallFolder);
 					break;
 				case FFXI_LANG_FR:
-					// file #56238 (ROM/178/43.DAT ) => FR Armor
+					// file #56238 (ROM/178/43.DAT) => FR Armor
 					if (bRelative)
 						DATFile = _T("ROM\\178\\43.DAT");
 					else
@@ -750,8 +793,9 @@ void FFXiHelper::GetFileFromItemID(DWORD &ItemID, CString &DATFile, int Language
 					break;
 			}
 		}
-		// 4000 - 6FFF  Weapons
-		else if (ItemID < 0x6FFF)
+
+		// 16384 (0x4000) to 23039 (0x59FF)  Weapons
+		else if (ItemID <= 0x59FF)
 		{
 			ItemID -= 0x4000;
 
@@ -759,7 +803,7 @@ void FFXiHelper::GetFileFromItemID(DWORD &ItemID, CString &DATFile, int Language
 			{
 				default:
 				case FFXI_LANG_JP:
-					// file #00006 (ROM/0/6.DAT    ) => JP Weapons
+					// file #00006 (ROM/0/6.DAT) => JP Weapons
 					if (bRelative)
 						DATFile = _T("ROM\\0\\6.DAT");
 					else
@@ -773,7 +817,7 @@ void FFXiHelper::GetFileFromItemID(DWORD &ItemID, CString &DATFile, int Language
 						DATFile.Format(_T("%s\\ROM\\118\\108.DAT"), m_InstallFolder);
 					break;
 				case FFXI_LANG_FR:
-					// file #56237 (ROM/178/42.DAT ) => FR Weapons
+					// file #56237 (ROM/178/42.DAT) => FR Weapons
 					if (bRelative)
 						DATFile = _T("ROM\\178\\42.DAT");
 					else
@@ -788,7 +832,51 @@ void FFXiHelper::GetFileFromItemID(DWORD &ItemID, CString &DATFile, int Language
 					break;
 			}
 		}
-		// Todo: Maze Monger
+
+		// 23040 (0x5A00) to 28671 (0x6FFF) Armor 2
+		else if (ItemID <= 0x6FFF)
+		{
+			ItemID -= 0x5A00;
+
+			switch (Language)
+			{
+				default:
+				case FFXI_LANG_JP:
+					// file #55548 (ROM/286/72.DAT) => JP Armor 2
+					if (bRelative)
+						DATFile = _T("ROM\\286\\72.DAT");
+					else
+						DATFile.Format(_T("%s\\ROM\\286\\72.DAT"), m_InstallFolder);
+					break;
+				case FFXI_LANG_US:
+					// file #55668 (ROM/286/73.DAT) => EN Armor 2
+					if (bRelative)
+						DATFile = _T("ROM\\286\\73.DAT");
+					else
+						DATFile.Format(_T("%s\\ROM\\286\\73.DAT"), m_InstallFolder);
+					break;
+				case FFXI_LANG_FR:
+					// file #56208 (ROM/286/75.DAT ) => FR Armor 2
+					if (bRelative)
+						DATFile = _T("ROM\\286\\75.DAT");
+					else
+						DATFile.Format(_T("%s\\ROM\\286\\75.DAT"), m_InstallFolder);
+					break;
+				case FFXI_LANG_DE:
+					// file #55791 (ROM/286/74.DAT) => DE Armor 2
+					if (bRelative)
+						DATFile = _T("ROM\\286\\74.DAT");
+					else
+						DATFile.Format(_T("%s\\ROM\\286\\74.DAT"), m_InstallFolder);
+					break;
+			}
+		}
+
+		// Todo:
+		// Maze Monger/Vouchers/Slips/Misc 28672 (0x7000) to 29695 (0x73FF)
+		// Instincts 29696 (0x7400) to 30719 (0x77FF)
+		// ?unused? 30720 (0x7800) to 61439 (0xEFFF)
+		// Monopulator 61440 (0xF000) to 61951 (0xF1FF)
 	}
 }
 
@@ -1086,7 +1174,7 @@ int FFXiHelper::GetArmorInfo(const BYTE *pItemData, FFXiArmorInfo &ArmorInfo)
 		Offset += GetBYTE(pItemData + Offset, ArmorInfo.CastingTime);
 		// 01D    UINT16 Use Delay
 		Offset += GetWORD(pItemData + Offset, ArmorInfo.UseDelay);
-		// 01F    UINT16 Unknown
+		// 01F    UINT16 Defense
 		Offset += GetWORD(pItemData + Offset, ArmorInfo.Defense);
 		// 021    UINT32 Re-Use Delay
 		Offset += GetDWORD(pItemData + Offset, ArmorInfo.ReuseDelay);
