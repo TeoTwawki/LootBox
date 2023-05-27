@@ -717,7 +717,7 @@ void FFXiHelper::GetFileFromItemID(DWORD &ItemID, CString &DATFile, int Language
 		}
 
 		// 8704 (0x2200) to 10239 (0x27FF) General Items 2
-		if (ItemID <= 0x27FF)
+		else if (ItemID <= 0x27FF)
 		{
 			ItemID -= 0x2200;
 
